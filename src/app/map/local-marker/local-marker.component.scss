@@ -1,0 +1,57 @@
+.city-marker {
+    position: absolute;
+
+    background-color: red;
+    height: 5px;
+    width: 5px;
+
+    // width: 28px;
+    // height: 18px;
+    // background-color: rgb(255, 255, 255);
+    // border: solid 1px blue;
+
+
+
+    border-radius: 35%;
+    color: white;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+
+    >.temp{
+        color: black;
+        font-size: 14px;
+        font-weight: 100;
+        margin: 0;
+    }
+    
+    >.label {
+        position: absolute;
+        top: 50%;
+        left: 34px; /* Adjust this value to change the distance from the marker */
+        transform: translateY(-50%);
+        white-space: nowrap;
+
+        >p{
+            font-size: 14px;
+            font-weight: 100;
+            margin: 0;
+        }
+    }
+}
+  
+  .tooltip {
+    position: absolute;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    border-radius: 3px;
+    display: none;
+    pointer-events: none;
+    z-index: 10;
+  }
+  

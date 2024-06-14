@@ -1,0 +1,19 @@
+<div #mapContainer class="map-container">
+    <div *ngFor="let marker of cityMarkers" 
+         class="city-marker" 
+         [style.top]="marker.top" 
+         [style.left]="marker.left" 
+         [attr.data-city]="marker.city" 
+         (mouseenter)="onMarkerMouseEnter($event, marker.city)"
+         (mouseleave)="onMarkerMouseLeave()"
+         (mousemove)="onMarkerMouseMove($event)">
+
+         <!-- <p class="temp">26° </p>
+
+         <div class="label">
+            <p>{{ marker.city }} </p>
+          </div> -->
+    </div>
+    <div id="tooltip" class="tooltip" #tooltip>{{ tooltipContent }}</div>
+  </div>
+  
