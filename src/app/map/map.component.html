@@ -1,0 +1,27 @@
+
+
+
+<div class="map-container">
+    <img src="./assets/img/maps/swissmap_cold.png" alt="Cold Map" class="map map-layer" id="cold-map" #coldMap>
+    <img src="./assets/img/maps/swissmap_cool.png" alt="Cool Map" class="map map-layer" id="cool-map" #coolMap>
+    <img src="./assets/img/maps/swissmap_warm.png" alt="Warm Map" class="map map-layer" id="warm-map" #warmMap>
+    <img src="./assets/img/maps/swissmap_hot.png" alt="Hot Map" class="map map-layer" id="hot-map" #hotMap>
+    <img src="./assets/img/maps/swissmap_veryhot.png" alt="Very Hot Map" class="map map-layer" id="veryhot-map" #veryHotMap>
+    <img src="./assets/img/maps/swissmap_topLayer.png" alt="Base Map" class="top-layer" id="base-map">
+  
+    
+    <div class="city-marker"
+    *ngFor="let marker of cityMarkers" 
+    [style.top]="marker.top" [style.left]="marker.left" 
+    [attr.data-city]="marker.city"
+    (mouseenter)="onMouseEnter($event, marker.city)"
+    (mouseleave)="onMouseLeave()"
+    (mousemove)="onMouseMove($event)">
+</div>
+</div>
+
+    <div id="tooltip" class="tooltip" #tooltip>{{ tooltipContent }}</div>
+
+
+
+
