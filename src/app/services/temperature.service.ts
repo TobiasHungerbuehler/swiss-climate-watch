@@ -1,49 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, interval, BehaviorSubject } from 'rxjs';
-import { switchMap, tap, map } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TemperatureService {
   private csvUrl = 'https://data.geo.admin.ch/ch.meteoschweiz.messwerte-lufttemperatur-10min/ch.meteoschweiz.messwerte-lufttemperatur-10min_de.csv';
-  private temperatures: { [city: string]: string } = {};
-  private temperatureSubject = new BehaviorSubject<{ [city: string]: string }>({});
+  private temperaturesSubject = new BehaviorSubject<{ [city: string]: string }>({});
 
   constructor(private http: HttpClient) {
-    this.fetchTemperatureData().subscribe(data => {
-      console.log('Initial data:', data); // Log initial data
-      this.temperatures = this.mapTemperatures(data);
-      this.temperatureSubject.next(this.temperatures);
-      this.startFetchingTemperatureData();
-    });
+    this.fetchAndStoreTemperatureData();
   }
 
-  private startFetchingTemperatureData(): void {
-    interval(300000) // 300000ms = 5 Minuten
+  // Funktion zum Abrufen und Speichern der Temperaturdaten
+  private fetchAndStoreTemperatureData(): void {
+    this.http.get(this.csvUrl, { responseType: 'arraybuffer' })
       .pipe(
-        switchMap(() => this.fetchTemperatureData()),
-        tap(data => {
-          this.temperatures = this.mapTemperatures(data);
-          this.temperatureSubject.next(this.temperatures);
+        map(response => this.parseCSV(response)),
+        catchError(error => {
+          console.error('Fehler beim Laden der Daten:', error);
+          return [];
         })
       )
-      .subscribe();
+      .subscribe(parsedData => {
+        const temperatureMap = this.mapTemperatures(parsedData);
+        this.temperaturesSubject.next(temperatureMap);
+      });
   }
 
-  private fetchTemperatureData(): Observable<{ Stadt: string, Temperatur: string }[]> {
-    return this.http.get(this.csvUrl, { responseType: 'arraybuffer' }).pipe(
-      map(response => {
-        const textDecoder = new TextDecoder('iso-8859-1');
-        const csvData = textDecoder.decode(response);
-        return this.parseCSV(csvData);
-      })
-    );
-  }
-
-  private parseCSV(data: string): { Stadt: string, Temperatur: string }[] {
-    const rows = data.split('\n').slice(1);
+  // Funktion zum Parsen der CSV-Daten
+  private parseCSV(data: ArrayBuffer): { Stadt: string, Temperatur: string }[] {
+    const textDecoder = new TextDecoder('iso-8859-1');
+    const csvData = textDecoder.decode(data);
+    const rows = csvData.split('\n').slice(1);
     return rows.map(row => {
       const columns = row.split(';');
       return {
@@ -53,15 +44,18 @@ export class TemperatureService {
     }).filter(row => row.Stadt && row.Temperatur);
   }
 
+  // Funktion zum Mappen der Temperaturdaten in ein JSON-Format
   private mapTemperatures(data: { Stadt: string, Temperatur: string }[]): { [city: string]: string } {
     const temperatureMap: { [city: string]: string } = {};
     data.forEach(item => {
       temperatureMap[item.Stadt] = item.Temperatur;
     });
+    console.log(temperatureMap); // Ausgabe der gemappten Daten zur Überprüfung
     return temperatureMap;
   }
 
+  // Funktion zum Bereitstellen der Temperaturdaten als Observable
   public getTemperatureObservable(): Observable<{ [city: string]: string }> {
-    return this.temperatureSubject.asObservable();
+    return this.temperaturesSubject.asObservable();
   }
 }
