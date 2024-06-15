@@ -1,0 +1,41 @@
+
+.map-container {
+    position: relative;
+    width: 100%;
+    width: 50vw;
+    height: 33.5vw;
+    //max-width: 800px;
+    border: solid 1px yellow;
+}
+
+.map {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+
+    border: solid 1px yellow;
+}
+
+.top-layer {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.map-base {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+
+
