@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemperatureService } from '../../services/temperature.service';
+import { CityMarkerService, CityMarker } from '../../services/local-marker.service';
+import { HistoryDataService,ReferenceData, ReferenceTemp } from '../../services/history-data.service';
 
 @Component({
   selector: 'app-local-marker',
@@ -14,34 +16,21 @@ export class LocalMarkerComponent implements OnInit {
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
 
   tooltipContent = '';
+  cityMarkers: CityMarker[] = [];
+  referenceData: ReferenceData[] = []
+  monthData: ReferenceTemp[] = [];
 
-  cityMarkers = [
-    { top: '20%', left: '57%', city: 'Zürich / Kloten', temperature: '' },
-    { top: '13%', left: '71%', city: 'St. Gallen', temperature: '' },
-    { top: '25%', left: '74%', city: 'Säntis', temperature: '' },
-    { top: '72%', left: '32%', city: 'Sion', temperature: '' },
-    { top: '60%', left: '85%', city: 'Samedan', temperature: '' },
-    { top: '13%', left: '37%', city: 'Basel / Binningen', temperature: '' },
-    { top: '40%', left: '34%', city: 'Bern / Zollikofen', temperature: '' },
-    { top: '72%', left: '6%', city: 'Genève / Cointrin', temperature: '' },
-    { top: '74%', left: '63%', city: 'Locarno / Monti', temperature: '' },
-    { top: '34%', left: '52%', city: 'Luzern', temperature: '' },
-    { top: '45%', left: '86%', city: 'Davos', temperature: '' },
-    { top: '43%', left: '54%', city: 'Engelberg', temperature: '' },
-    { top: '49%', left: '48%', city: 'Meiringen', temperature: '' },
-    { top: '56%', left: '57%', city: 'Andermatt', temperature: '' },
-    { top: '34%', left: '77%', city: 'Bad Ragaz', temperature: '' },
-    { top: '40%', left: '70%', city: 'Elm', temperature: '' },
-    { top: '33%', left: '20%', city: 'La Chaux-de-Fonds', temperature: '' },
-    { top: '44%', left: '23%', city: 'Payerne', temperature: '' },
-    { top: '63%', left: '25%', city: "Château-d'Oex", temperature: '' },
-    { top: '82%', left: '66%', city: 'Lugano', temperature: '' },
-    { top: '86%', left: '27%', city: 'Col du Grand St-Bernard', temperature: '' },
-  ];
-
-  constructor(private temperatureService: TemperatureService) {}
+  constructor(private temperatureService: TemperatureService, private cityMarkerService: CityMarkerService, private historyDataService: HistoryDataService) { }
 
   ngOnInit(): void {
+
+    this.referenceData = this.historyDataService.getReferenceData();
+    this.monthData = this.referenceData.map(data => data.referenceTemp["6"]);
+
+
+    // Lade die Marker aus dem CityMarkerService
+    this.cityMarkers = this.cityMarkerService.getCityMarkers();
+
     this.temperatureService.getTemperatureObservable().subscribe(temperatures => {
       this.cityMarkers.forEach(marker => {
         marker.temperature = temperatures[marker.city] || 'N/A';
