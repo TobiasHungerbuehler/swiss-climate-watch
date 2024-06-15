@@ -1,46 +1,52 @@
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {  Component, Input, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
+import { TemperatureService } from '../../services/temperature.service';
 
 @Component({
   selector: 'app-local-marker',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './local-marker.component.html',
-  styleUrl: './local-marker.component.scss'
+  styleUrls: ['./local-marker.component.scss']
 })
-export class LocalMarkerComponent {
-
+export class LocalMarkerComponent implements OnInit {
   @ViewChild('tooltip') tooltip!: ElementRef;
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
 
   tooltipContent = '';
 
   cityMarkers = [
-    { top: '20%', left: '57%', city: 'Zürich' },
-    { top: '13%', left: '71%', city: 'St.Gallen' },
-    { top: '25%', left: '74%', city: 'Säntis' },
-    { top: '72%', left: '32%', city: 'Sion' },
-    { top: '60%', left: '85%', city: 'Samedan' },
-    { top: '13%', left: '37%', city: 'Basel' },
-    { top: '40%', left: '34%', city: 'Bern' },
-    { top: '72%', left: '6%', city: 'Genf' },
-    { top: '74%', left: '63%', city: 'Locarno' },
-    { top: '34%', left: '52%', city: 'Luzern' },
-    { top: '45%', left: '86%', city: 'Davos' },
-    { top: '43%', left: '54%', city: 'Engelberg' },
-    { top: '49%', left: '48%', city: 'Meiringen' },
-    { top: '56%', left: '57%', city: 'Andermatt' },
-    { top: '34%', left: '77%', city: 'Bad Ragaz' },
-    { top: '40%', left: '70%', city: 'Elm' },
-    { top: '33%', left: '20%', city: 'La Chaux-de-Fonds' },
-    { top: '44%', left: '23%', city: 'Payerne' },
-    { top: '63%', left: '25%', city: 'Château-dOex' },
-    { top: '82%', left: '66%', city: 'Lugano' },
-    { top: '86%', left: '27%', city: 'Col du Grand St-Bernard' },
+    { top: '20%', left: '57%', city: 'Zürich / Kloten', temperature: '' },
+    { top: '13%', left: '71%', city: 'St. Gallen', temperature: '' },
+    { top: '25%', left: '74%', city: 'Säntis', temperature: '' },
+    { top: '72%', left: '32%', city: 'Sion', temperature: '' },
+    { top: '60%', left: '85%', city: 'Samedan', temperature: '' },
+    { top: '13%', left: '37%', city: 'Basel / Binningen', temperature: '' },
+    { top: '40%', left: '34%', city: 'Bern / Zollikofen', temperature: '' },
+    { top: '72%', left: '6%', city: 'Genève / Cointrin', temperature: '' },
+    { top: '74%', left: '63%', city: 'Locarno / Monti', temperature: '' },
+    { top: '34%', left: '52%', city: 'Luzern', temperature: '' },
+    { top: '45%', left: '86%', city: 'Davos', temperature: '' },
+    { top: '43%', left: '54%', city: 'Engelberg', temperature: '' },
+    { top: '49%', left: '48%', city: 'Meiringen', temperature: '' },
+    { top: '56%', left: '57%', city: 'Andermatt', temperature: '' },
+    { top: '34%', left: '77%', city: 'Bad Ragaz', temperature: '' },
+    { top: '40%', left: '70%', city: 'Elm', temperature: '' },
+    { top: '33%', left: '20%', city: 'La Chaux-de-Fonds', temperature: '' },
+    { top: '44%', left: '23%', city: 'Payerne', temperature: '' },
+    { top: '63%', left: '25%', city: "Château-d'Oex", temperature: '' },
+    { top: '82%', left: '66%', city: 'Lugano', temperature: '' },
+    { top: '86%', left: '27%', city: 'Col du Grand St-Bernard', temperature: '' },
   ];
 
-  ngAfterViewInit() {
-    // Initialize if needed
+  constructor(private temperatureService: TemperatureService) {}
+
+  ngOnInit(): void {
+    this.temperatureService.getTemperatureObservable().subscribe(temperatures => {
+      this.cityMarkers.forEach(marker => {
+        marker.temperature = temperatures[marker.city] || 'N/A';
+      });
+    });
   }
 
   onMarkerMouseEnter(event: MouseEvent, city: string): void {

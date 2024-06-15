@@ -8,11 +8,11 @@
          (mouseleave)="onMarkerMouseLeave()"
          (mousemove)="onMarkerMouseMove($event)">
 
-         <!-- <p class="temp">26° </p>
+
 
          <div class="label">
-            <p>{{ marker.city }} </p>
-          </div> -->
+            <p>{{ marker.city }} - {{ marker.temperature }}°</p>
+          </div>
     </div>
     <div id="tooltip" class="tooltip" #tooltip>{{ tooltipContent }}</div>
   </div>
