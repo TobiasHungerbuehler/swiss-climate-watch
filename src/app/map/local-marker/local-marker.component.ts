@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TemperatureService } from '../../services/temperature.service';
 import { CityMarkerService, CityMarker } from '../../services/local-marker.service';
 import { HistoryDataService,ReferenceData, ReferenceTemp } from '../../services/history-data.service';
+import { DataDisplayService } from '../../services/data-display.service';
 
 @Component({
   selector: 'app-local-marker',
@@ -19,11 +20,18 @@ export class LocalMarkerComponent implements OnInit {
   cityMarkers: CityMarker[] = [];
   referenceData: ReferenceData[] = []
   monthData: ReferenceTemp[] = [];
+  displayMode: 'current' | 'historical' = 'current';
 
-  constructor(private temperatureService: TemperatureService, private cityMarkerService: CityMarkerService, private historyDataService: HistoryDataService) { }
+  constructor(private temperatureService: TemperatureService, private cityMarkerService: CityMarkerService, private historyDataService: HistoryDataService, private dataDisplayService: DataDisplayService) { }
 
   ngOnInit(): void {
 
+      // Beobachten des Anzeigemodus data-dispaly service
+      this.dataDisplayService.displayMode$.subscribe(mode => {
+        this.displayMode = mode;
+      });
+
+    //lädt die daten aus dem referenz arry
     this.referenceData = this.historyDataService.getReferenceData();
     this.monthData = this.referenceData.map(data => data.referenceTemp["6"]);
 
