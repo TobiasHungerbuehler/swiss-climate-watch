@@ -4,6 +4,7 @@ import { TemperatureService } from '../../services/temperature.service';
 import { CityMarkerService, CityMarker } from '../../services/local-marker.service';
 import { HistoryDataService,ReferenceData, ReferenceTemp } from '../../services/history-data.service';
 import { DataDisplayService } from '../../services/data-display.service';
+import { MainStationDataService, MainStationData } from '../../services/main-station-data.service';
 
 @Component({
   selector: 'app-local-marker',
@@ -17,32 +18,15 @@ export class LocalMarkerComponent implements OnInit {
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
 
   tooltipContent = '';
-  cityMarkers: CityMarker[] = [];
-  referenceData: ReferenceData[] = []
-  monthData: ReferenceTemp[] = [];
+  cityMarkers: MainStationData[] = [];
   displayMode: 'current' | 'historical' = 'current';
 
-  constructor(private temperatureService: TemperatureService, private cityMarkerService: CityMarkerService, private historyDataService: HistoryDataService, private dataDisplayService: DataDisplayService) { }
+  constructor(private mainStationDataService: MainStationDataService) { }
 
   ngOnInit(): void {
-
-      // Beobachten des Anzeigemodus data-dispaly service
-      this.dataDisplayService.displayMode$.subscribe(mode => {
-        this.displayMode = mode;
-      });
-
-    //lädt die daten aus dem referenz arry
-    this.referenceData = this.historyDataService.getReferenceData();
-    this.monthData = this.referenceData.map(data => data.referenceTemp["6"]);
-
-
-    // Lade die Marker aus dem CityMarkerService
-    this.cityMarkers = this.cityMarkerService.getCityMarkers();
-
-    this.temperatureService.getTemperatureObservable().subscribe(temperatures => {
-      this.cityMarkers.forEach(marker => {
-        marker.temperature = temperatures[marker.city] || 'N/A';
-      });
+    // Abonniere die mainStationData von MainStationDataService
+    this.mainStationDataService.getMainStationData().subscribe(markers => {
+      this.cityMarkers = markers;
     });
   }
 

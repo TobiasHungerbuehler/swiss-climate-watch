@@ -9,16 +9,9 @@
        (mousemove)="onMarkerMouseMove($event)">
 
 
-    <!-- <div class="label">
-      <p>{{ marker.cityName }} - {{ marker.temperature }}° / 
-
-      {{ monthData[i]?.highest || 'N/A' }}°</p>
-    </div> -->
-
-
       <div class="label">
-        <p>{{ marker.cityName }} - 
-          {{ (displayMode === 'current' ? marker.temperature : monthData[i].average) || 'N/A' }}°</p>
+        <p>{{ marker.cityName }} - {{ marker.currentTemp }} </p>
+
       </div>
 
 
