@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TemperatureService, CurrentTemp } from './temperature.service';
+import { HistoryDataService, ReferenceData } from './history-data.service';
+import { DataDisplayService } from './data-display.service';
 
-// Schnittstelle für die Hauptstationsdaten
 export interface MainStationData {
   cityName: string;
   top: string;
@@ -18,7 +19,6 @@ export interface MainStationData {
   providedIn: 'root'
 })
 export class MainStationDataService {
-  // Initialisiere die Hauptstationsdaten
   private mainStationData: MainStationData[] = [
     { cityName: "Zürich", top: '20%', left: '57%', city: 'Zürich / Fluntern', als: 0, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "St.Gallen", top: '13%', left: '71%', city: 'St. Gallen', als: 0, currentTemp: 0, refTemp: 0, anomaly: 0 },
@@ -43,17 +43,31 @@ export class MainStationDataService {
     { cityName: "Grand St-Bernard", top: '86%', left: '27%', city: 'Col du Grand St-Bernard', als: 0, currentTemp: 0, refTemp: 0, anomaly: 0 },
   ];
 
-  // Initialisiere das BehaviorSubject, das die Hauptstationsdaten hält
   private mainStationDataSubject = new BehaviorSubject<MainStationData[]>(this.mainStationData);
 
-  // Konstruktor injiziert den TemperatureService und startet das Abonnieren der Temperaturupdates
-  constructor(private temperatureService: TemperatureService) {
-    this.subscribeToTemperatureUpdates();
+  constructor(
+    private temperatureService: TemperatureService,
+    private historyDataService: HistoryDataService,
+    private dataDisplayService: DataDisplayService
+  ) {
+    this.subscribeToDisplayMode();
   }
 
-  // Funktion zum Abrufen der Hauptstationsdaten als Observable
+  // Observable für Hauptstationsdaten abrufen
   getMainStationData(): Observable<MainStationData[]> {
     return this.mainStationDataSubject.asObservable();
+  }
+
+  // Abonniere den Anzeigemodus vom DataDisplayService
+  private subscribeToDisplayMode(): void {
+    this.dataDisplayService.getDisplayMode().subscribe(mode => {
+      if (mode === 'current') {
+        this.subscribeToTemperatureUpdates();
+        this.loadReferenceTemperatures();
+      } else {
+        this.loadHistoricalData();
+      }
+    });
   }
 
   // Abonniere die Temperaturupdates vom TemperatureService
@@ -72,8 +86,27 @@ export class MainStationDataService {
         station.anomaly = station.currentTemp - station.refTemp;
       }
     });
-    // Aktualisiere das BehaviorSubject mit den neuen Daten
     this.mainStationDataSubject.next(this.mainStationData);
     console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Daten
+  }
+
+  // Lade die Referenztemperaturen aus dem HistoryDataService
+  private loadReferenceTemperatures(): void {
+    const referenceData = this.historyDataService.getReferenceData();
+    referenceData.forEach(ref => {
+      const station = this.mainStationData.find(station => station.city === ref.city);
+      if (station) {
+        station.refTemp = ref.referenceTemp["6"].average; // Standardmäßig den 6. Monat wählen
+        station.anomaly = station.currentTemp - station.refTemp;
+      }
+    });
+    this.mainStationDataSubject.next(this.mainStationData);
+    console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Referenzdaten
+  }
+
+  // Lade historische Daten
+  private loadHistoricalData(): void {
+    // Logik zum Laden der historischen Daten implementieren
+    console.log('Lade historische Daten');
   }
 }
