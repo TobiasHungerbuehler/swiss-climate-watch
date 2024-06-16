@@ -18,7 +18,7 @@
 
       <div class="label">
         <p>{{ marker.cityName }} - 
-          {{ (displayMode === 'current' ? marker.temperature : monthData[i]?.highest) || 'N/A' }}°</p>
+          {{ (displayMode === 'current' ? marker.temperature : monthData[i].average) || 'N/A' }}°</p>
       </div>
 
 
