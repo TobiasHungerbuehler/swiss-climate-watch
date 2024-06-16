@@ -17,7 +17,7 @@ export class MapComponent {
   @ViewChild('veryHotMap') veryHotMap!: ElementRef;
 
   ngAfterViewInit() {
-    this.updateMapOpacity(10); // Initial example temperature
+    this.updateMapOpacity(22); // Initial example temperature
   }
 
   updateMapOpacity(temp: number): void {
