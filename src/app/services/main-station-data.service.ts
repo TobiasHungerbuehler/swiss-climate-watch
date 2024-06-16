@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TemperatureService, CurrentTemp } from './temperature.service';
-import { HistoryDataService, ReferenceData } from './history-data.service';
+import { ReferenceDataService, ReferenceData } from './reference-data.service';
 import { DataDisplayService } from './data-display.service';
 
 export interface MainStationData {
@@ -47,7 +47,7 @@ export class MainStationDataService {
 
   constructor(
     private temperatureService: TemperatureService,
-    private historyDataService: HistoryDataService,
+    private referenceDataService: ReferenceDataService,
     private dataDisplayService: DataDisplayService
   ) {
     this.subscribeToDisplayMode();
@@ -92,7 +92,7 @@ export class MainStationDataService {
 
   // Lade die Referenztemperaturen aus dem HistoryDataService
   private loadReferenceTemperatures(): void {
-    const referenceData = this.historyDataService.getReferenceData();
+    const referenceData = this.referenceDataService.getReferenceData();
     referenceData.forEach(ref => {
       const station = this.mainStationData.find(station => station.city === ref.city);
       if (station) {
