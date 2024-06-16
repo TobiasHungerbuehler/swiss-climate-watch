@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { TemperatureService, CurrentTemp } from './temperature.service';
 
+// Schnittstelle für die Hauptstationsdaten
 export interface MainStationData {
   cityName: string;
   top: string;
@@ -16,6 +18,7 @@ export interface MainStationData {
   providedIn: 'root'
 })
 export class MainStationDataService {
+  // Initialisiere die Hauptstationsdaten
   private mainStationData: MainStationData[] = [
     { cityName: "Zürich", top: '20%', left: '57%', city: 'Zürich / Fluntern', als: 0, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "St.Gallen", top: '13%', left: '71%', city: 'St. Gallen', als: 0, currentTemp: 0, refTemp: 0, anomaly: 0 },
@@ -40,16 +43,37 @@ export class MainStationDataService {
     { cityName: "Grand St-Bernard", top: '86%', left: '27%', city: 'Col du Grand St-Bernard', als: 0, currentTemp: 0, refTemp: 0, anomaly: 0 },
   ];
 
+  // Initialisiere das BehaviorSubject, das die Hauptstationsdaten hält
   private mainStationDataSubject = new BehaviorSubject<MainStationData[]>(this.mainStationData);
 
-  constructor() {
-
+  // Konstruktor injiziert den TemperatureService und startet das Abonnieren der Temperaturupdates
+  constructor(private temperatureService: TemperatureService) {
+    this.subscribeToTemperatureUpdates();
   }
 
+  // Funktion zum Abrufen der Hauptstationsdaten als Observable
   getMainStationData(): Observable<MainStationData[]> {
     return this.mainStationDataSubject.asObservable();
   }
 
+  // Abonniere die Temperaturupdates vom TemperatureService
+  private subscribeToTemperatureUpdates(): void {
+    this.temperatureService.getCurrentTempObservable().subscribe(currentTemps => {
+      this.updateCurrentTemps(currentTemps);
+    });
+  }
 
-
+  // Aktualisiere die aktuellen Temperaturen in den Hauptstationsdaten
+  private updateCurrentTemps(currentTemps: CurrentTemp[]): void {
+    currentTemps.forEach(temp => {
+      const station = this.mainStationData.find(station => station.city === temp.city);
+      if (station) {
+        station.currentTemp = temp.currentTemp;
+        station.anomaly = station.currentTemp - station.refTemp;
+      }
+    });
+    // Aktualisiere das BehaviorSubject mit den neuen Daten
+    this.mainStationDataSubject.next(this.mainStationData);
+    console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Daten
+  }
 }

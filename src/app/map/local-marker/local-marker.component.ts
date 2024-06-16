@@ -1,9 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TemperatureService } from '../../services/temperature.service';
-import { CityMarkerService, CityMarker } from '../../services/local-marker.service';
-import { HistoryDataService,ReferenceData, ReferenceTemp } from '../../services/history-data.service';
-import { DataDisplayService } from '../../services/data-display.service';
 import { MainStationDataService, MainStationData } from '../../services/main-station-data.service';
 
 @Component({
