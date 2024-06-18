@@ -44,6 +44,7 @@ export class MainStationDataService {
   ];
 
   private mainStationDataSubject = new BehaviorSubject<MainStationData[]>(this.mainStationData);
+  private highestTempSubject = new BehaviorSubject<number>(0); // BehaviorSubject für höchste Temperatur
 
   constructor(
     private temperatureService: TemperatureService,
@@ -53,9 +54,14 @@ export class MainStationDataService {
     this.subscribeToDisplayMode();
   }
 
-  // Observable für Hauptstationsdaten abrufen
+  // Observable für die Hauptstationdaten
   getMainStationData(): Observable<MainStationData[]> {
     return this.mainStationDataSubject.asObservable();
+  }
+
+  // Observable für die höchste Temperatur
+  getHighestTempObservable(): Observable<number> {
+    return this.highestTempSubject.asObservable();
   }
 
   // Abonniere den Anzeigemodus vom DataDisplayService
@@ -70,14 +76,36 @@ export class MainStationDataService {
     });
   }
 
+  // Lade die Referenztemperaturen aus dem HistoryDataService
+  private loadReferenceTemperatures(): void {
+    const referenceData = this.referenceDataService.getReferenceData();
+    const currentMonth = this.getMonth().toString(); // Konvertiere die Monatszahl in einen String
+    referenceData.forEach(ref => {
+      const station = this.mainStationData.find(station => station.city === ref.city);
+      if (station && ref.referenceTemp[currentMonth as keyof typeof ref.referenceTemp]) {
+        station.refTemp = ref.referenceTemp[currentMonth as keyof typeof ref.referenceTemp].average;
+        station.anomaly = station.currentTemp - station.refTemp;
+      }
+    });
+    this.mainStationDataSubject.next(this.mainStationData);
+    console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Referenzdaten
+  }
+
+  // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
+  private getMonth(): number {
+    const date = new Date();
+    return date.getMonth() + 1; // JavaScript gibt Monate von 0-11 zurück, daher +1
+  }
+
   // Abonniere die Temperaturupdates vom TemperatureService
   private subscribeToTemperatureUpdates(): void {
     this.temperatureService.getCurrentTempObservable().subscribe(currentTemps => {
       this.updateCurrentTemps(currentTemps);
+      this.calculateAndSetHighestTemp();
     });
   }
 
-  // Aktualisiere die aktuellen Temperaturen in den Hauptstationsdaten
+  // Aktualisiere die aktuellen Temperaturen und Anomalien
   private updateCurrentTemps(currentTemps: CurrentTemp[]): void {
     currentTemps.forEach(temp => {
       const station = this.mainStationData.find(station => station.city === temp.city);
@@ -87,26 +115,19 @@ export class MainStationDataService {
       }
     });
     this.mainStationDataSubject.next(this.mainStationData);
-    console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Daten
+    this.calculateAndSetHighestTemp(); // Verschiebe die Berechnung hierher
+    console.log(this.mainStationData); // Kontrollausgabe
   }
 
-  // Lade die Referenztemperaturen aus dem HistoryDataService
-  private loadReferenceTemperatures(): void {
-    const referenceData = this.referenceDataService.getReferenceData();
-    referenceData.forEach(ref => {
-      const station = this.mainStationData.find(station => station.city === ref.city);
-      if (station) {
-        station.refTemp = ref.referenceTemp["6"].average; // Standardmäßig den 6. Monat wählen
-        station.anomaly = station.currentTemp - station.refTemp;
-      }
-    });
-    this.mainStationDataSubject.next(this.mainStationData);
-    console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Referenzdaten
+  // Berechne und setze die höchste Temperatur
+  private calculateAndSetHighestTemp(): void {
+    const highestTemp = this.mainStationData.length === 0 ? 0 : Math.max(...this.mainStationData.map(station => station.currentTemp));
+    this.highestTempSubject.next(highestTemp);
+    console.log('Highest Temperature:', highestTemp); // Kontrollausgabe der höchsten Temperatur
   }
 
-  // Lade historische Daten
+  // Lade historische Daten (noch nicht implementiert)
   private loadHistoricalData(): void {
-    // Logik zum Laden der historischen Daten implementieren
-    console.log('Lade historische Daten');
+    // Implementiere das Laden historischer Daten hier
   }
 }
