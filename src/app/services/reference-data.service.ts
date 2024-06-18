@@ -30,7 +30,7 @@ export interface ReferenceData {
 @Injectable({
   providedIn: 'root'
 })
-export class HistoryDataService {
+export class ReferenceDataService {
 
   constructor() { }
 
