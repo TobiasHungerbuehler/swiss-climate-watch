@@ -3,6 +3,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { TemperatureService, CurrentTemp } from './temperature.service';
 import { ReferenceDataService, ReferenceData } from './reference-data.service';
 import { DataDisplayService } from './data-display.service';
+import { DayAverageTemperatureService } from './day-average.service';
+import { StandardStationDataService, StandardStationData } from './standard-station-data.service';
+
 
 export interface MainStationData {
   cityName: string;
@@ -49,7 +52,8 @@ export class MainStationDataService {
   constructor(
     private temperatureService: TemperatureService,
     private referenceDataService: ReferenceDataService,
-    private dataDisplayService: DataDisplayService
+    private dataDisplayService: DataDisplayService,
+    private dayAverageTemperatureService: DayAverageTemperatureService
   ) {
     this.subscribeToDisplayMode();
   }
@@ -70,9 +74,11 @@ export class MainStationDataService {
       if (mode === 'current') {
         this.subscribeToTemperatureUpdates();
         this.loadReferenceTemperatures();
-      } else {
-        this.loadHistoricalData();
-      }
+      } 
+      if (mode === 'dayAverage') {
+        this.subscribeToDayAverage();
+
+      } 
     });
   }
 
@@ -104,6 +110,39 @@ export class MainStationDataService {
       this.calculateAndSetHighestTemp();
     });
   }
+
+
+  // Abonniere die durchschnittlichen Tagestemperaturen vom DayAverageTemperatureService
+  private subscribeToDayAverage(): void {
+    this.dayAverageTemperatureService.getAverageTemperatures().subscribe(avgTemps => {
+      this.updateDayAverageTemps(avgTemps);
+    });
+  }
+
+  // Aktualisiere die durchschnittlichen Tagestemperaturen
+  private updateDayAverageTemps(avgTemps: any[]): void {
+    const mainStationData = this.mainStationDataSubject.getValue();
+    avgTemps.forEach(temp => {
+      const station = mainStationData.find(station => station.city === temp.city);
+      if (station) {
+        station.currentTemp = temp.avg_temp;
+        station.anomaly = station.currentTemp - station.refTemp;
+      }
+    });
+    this.mainStationDataSubject.next(mainStationData);
+    this.calculateAndSetHighestTemp();
+    console.log(mainStationData); // Kontrollausgabe der aktualisierten Daten
+  }
+
+
+
+
+
+
+
+
+
+
 
   // Aktualisiere die aktuellen Temperaturen und Anomalien
   private updateCurrentTemps(currentTemps: CurrentTemp[]): void {
