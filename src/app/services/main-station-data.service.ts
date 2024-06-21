@@ -88,7 +88,7 @@ export class MainStationDataService {
       }
     });
     this.mainStationDataSubject.next(this.mainStationData);
-    //console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Referenzdaten
+    console.log(this.mainStationData); // Kontrollausgabe der aktualisierten Referenzdaten
   }
 
   // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)

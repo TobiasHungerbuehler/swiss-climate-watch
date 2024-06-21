@@ -36,7 +36,7 @@ export class ReferenceDataService {
 
   private referenceData: ReferenceData[] = [
     {
-      "city": "Zürich / Fluntern",
+      "city": "SMA",
       "referenceTemp": {
         "1": { "average": -1.3, "highest": 3.1, "highest_date": "1948-01", "lowest": -6.3, "lowest_date": "1963-01" },
         "2": { "average": -0.2, "highest": 5.6, "highest_date": "1966-02", "lowest": -8.9, "lowest_date": "1956-02" },
@@ -54,7 +54,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "St. Gallen",
+      "city": "STG",
       "referenceTemp": {
         "1": { "average": -1.5, "highest": 3.0, "highest_date": "1948-01", "lowest": -7.3, "lowest_date": "1940-01" },
         "2": { "average": -0.2, "highest": 5.2, "highest_date": "1966-02", "lowest": -10.6, "lowest_date": "1956-02" },
@@ -72,7 +72,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Säntis",
+      "city": "SAE",
       "referenceTemp": {
         "1": { "average": -8.3, "highest": -5.1, "highest_date": "1964-01", "lowest": -13.6, "lowest_date": "1942-01" },
         "2": { "average": -8.4, "highest": -4.1, "highest_date": "1959-02", "lowest": -16.8, "lowest_date": "1956-02" },
@@ -90,7 +90,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Sion",
+      "city": "SIO",
       "referenceTemp": {
         "1": { "average": -1.3, "highest": 1.9, "highest_date": "1948-01", "lowest": -6.9, "lowest_date": "1945-01" },
         "2": { "average": 0.1, "highest": 5.4, "highest_date": "1966-02", "lowest": -6.5, "lowest_date": "1956-02" },
@@ -108,7 +108,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Samedan",
+      "city": "SAM",
       "referenceTemp": {
         "1": { "average": -9.1, "highest": -5.4, "highest_date": "1948-01", "lowest": -13.8, "lowest_date": "1945-01" },
         "2": { "average": -7.2, "highest": -2.4, "highest_date": "1966-02", "lowest": -15.5, "lowest_date": "1956-02" },
@@ -126,7 +126,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Basel / Binningen",
+      "city": "BAS",
       "referenceTemp": {
         "1": { "average": 0.2, "highest": 5.3, "highest_date": "1948-01", "lowest": -6.1, "lowest_date": "1940-01" },
         "2": { "average": 0.7, "highest": 6.8, "highest_date": "1966-02", "lowest": -9.0, "lowest_date": "1956-02" },
@@ -144,7 +144,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Bern / Zollikofen",
+      "city": "BER",
       "referenceTemp": {
         "1": { "average": -1.0, "highest": 2.7, "highest_date": "1962-01", "lowest": -7.1, "lowest_date": "1963-01" },
         "2": { "average": 0.2, "highest": 4.7, "highest_date": "1966-02", "lowest": -9.4, "lowest_date": "1956-02" },
@@ -162,7 +162,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Genève / Cointrin",
+      "city": "GEA",
       "referenceTemp": {
         "1": { "average": 0.9, "highest": 3.7, "highest_date": "1948-01", "lowest": -4.1, "lowest_date": "1963-01" },
         "2": { "average": 2.1, "highest": 5.6, "highest_date": "1966-02", "lowest": -2.9, "lowest_date": "1963-02" },
@@ -180,7 +180,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Locarno / Monti",
+      "city": "OTL",
       "referenceTemp": {
         "1": { "average": 2.3, "highest": 4.7, "highest_date": "1944-01", "lowest": -0.8, "lowest_date": "1945-01" },
         "2": { "average": 3.8, "highest": 6.5, "highest_date": "1946-02", "lowest": -1.1, "lowest_date": "1956-02" },
@@ -198,7 +198,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Luzern",
+      "city": "LUZ",
       "referenceTemp": {
         "1": { "average": -0.3, "highest": 3.7, "highest_date": "1948-01", "lowest": -5.3, "lowest_date": "1940-01" },
         "2": { "average": 0.4, "highest": 5.2, "highest_date": "1961-02", "lowest": -8.3, "lowest_date": "1956-02" },
@@ -216,7 +216,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Davos",
+      "city": "DAV",
       "referenceTemp": {
         "1": { "average": -6.0, "highest": -2.9, "highest_date": "1948-01", "lowest": -11.7, "lowest_date": "1945-01" },
         "2": { "average": -5.3, "highest": -1.8, "highest_date": "1957-02", "lowest": -14.8, "lowest_date": "1956-02" },
@@ -234,7 +234,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Engelberg",
+      "city": "ENG",
       "referenceTemp": {
         "1": { "average": -3.4, "highest": 0.9, "highest_date": "1948-01", "lowest": -8.4, "lowest_date": "1945-01" },
         "2": { "average": -1.4, "highest": 2.8, "highest_date": "1941-02", "lowest": -6.6, "lowest_date": "1942-02" },
@@ -252,7 +252,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Meiringen",
+      "city": "MER",
       "referenceTemp": {
         "1": { "average": -2.9, "highest": 0.9, "highest_date": "1948-01", "lowest": -8.4, "lowest_date": "1945-01" },
         "2": { "average": -1.3, "highest": 2.5, "highest_date": "1941-02", "lowest": -9.5, "lowest_date": "1956-02" },
@@ -270,7 +270,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Andermatt",
+      "city": "ANT",
       "referenceTemp": {
         "1": { "average": -5.8, "highest": -2.7, "highest_date": "1948-01", "lowest": -11.6, "lowest_date": "1942-01" },
         "2": { "average": -5.3, "highest": 2.5, "highest_date": "1941-02", "lowest": -14.9, "lowest_date": "1956-02" },
@@ -288,7 +288,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Bad Ragaz",
+      "city": "RAG",
       "referenceTemp": {
         "1": { "average": -1.5, "highest": 4.1, "highest_date": "1948-01", "lowest": -6.2, "lowest_date": "1945-01" },
         "2": { "average": 0.3, "highest": 7.3, "highest_date": "1966-02", "lowest": -9.7, "lowest_date": "1956-02" },
@@ -306,7 +306,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "La Chaux-de-Fonds",
+      "city": "CDF",
       "referenceTemp": {
         "1": { "average": -2.8, "highest": 0.7, "highest_date": "1948-01", "lowest": -7.6, "lowest_date": "1945-01" },
         "2": { "average": -1.7, "highest": 3.0, "highest_date": "1966-02", "lowest": -6.8, "lowest_date": "1942-02" },
@@ -324,7 +324,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Payerne",
+      "city": "PAY",
       "referenceTemp": {
         "1": { "average": -0.5, "highest": 2.7, "highest_date": "1966-01", "lowest": -2.7, "lowest_date": "1966-01" },
         "2": { "average": 0.3, "highest": 4.7, "highest_date": "1966-02", "lowest": -2.8, "lowest_date": "1965-02" },
@@ -342,7 +342,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Château-d'Oex",
+      "city": "CHD",
       "referenceTemp": {
         "1": { "average": -3.2, "highest": 1.6, "highest_date": "1941-01", "lowest": -8.6, "lowest_date": "1945-01" },
         "2": { "average": -1.4, "highest": 2.4, "highest_date": "1967-02", "lowest": -11.6, "lowest_date": "1956-02" },
@@ -360,7 +360,7 @@ export class ReferenceDataService {
     },
     
     {
-      "city": "Lugano",
+      "city": "LUG",
       "referenceTemp": {
         "1": { "average": 1.8, "highest": 3.9, "highest_date": "1949-01", "lowest": -0.7, "lowest_date": "1945-01" },
         "2": { "average": 3.3, "highest": 6.3, "highest_date": "1946-02", "lowest": -1.7, "lowest_date": "1956-02" },
@@ -378,7 +378,7 @@ export class ReferenceDataService {
     },
        
     {
-      "city": "Col du Grand St-Bernard",
+      "city": "GSB",
       "referenceTemp": {
         "1": { "average": -8.4, "highest": -5.2, "highest_date": "1944-01", "lowest": -13.8, "lowest_date": "1945-01" },
         "2": { "average": -8.5, "highest": -4.0, "highest_date": "1961-02", "lowest": -16.2, "lowest_date": "1956-02" },
@@ -397,6 +397,7 @@ export class ReferenceDataService {
       
     // Add other cities here
   ];
+
   
   getReferenceData(): ReferenceData[] {
     return this.referenceData;
