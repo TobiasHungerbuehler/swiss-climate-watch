@@ -16,7 +16,7 @@ export class DayAverageTemperatureService {
   // Methode zum Abrufen der durchschnittlichen Temperaturen
   getAverageTemperatures(): Observable<any> {
     return this.http.get<any>(this.apiUrl).pipe(
-      tap(data => console.log('Fetched average temperatures:', data))
+      //tap(data => console.log('Fetched average temperatures:', data))
     );
   }
 }

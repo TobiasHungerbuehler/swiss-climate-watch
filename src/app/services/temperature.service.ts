@@ -47,7 +47,7 @@ export class TemperatureService {
     return rows.map(row => {
       const columns = row.split(';');
       return {
-        Stadt: columns[0]?.replace(/"/g, ''),
+        Stadt: columns[1]?.replace(/"/g, ''),
         Temperatur: columns[3]?.replace(/"/g, '')
       };
     }).filter(row => row.Stadt && row.Temperatur);
