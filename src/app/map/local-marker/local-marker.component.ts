@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainStationDataService, MainStationData } from '../../services/main-station-data.service';
+import { DayAverageTemperatureService } from '../../services/day-average.service';
 
 @Component({
   selector: 'app-local-marker',
@@ -17,13 +18,15 @@ export class LocalMarkerComponent implements OnInit {
   cityMarkers: MainStationData[] = [];
   displayMode: 'current' | 'historical' = 'current';
 
-  constructor(private mainStationDataService: MainStationDataService) { }
+  constructor(private mainStationDataService: MainStationDataService, private dayAverageTemperatureService: DayAverageTemperatureService) { }
 
   ngOnInit(): void {
     // Abonniere die mainStationData von MainStationDataService
     this.mainStationDataService.getMainStationData().subscribe(markers => {
       this.cityMarkers = markers;
     });
+
+    this.dayAverageTemperatureService.getAverageTemperatures().subscribe();
   }
 
   onMarkerMouseEnter(event: MouseEvent, city: string): void {
