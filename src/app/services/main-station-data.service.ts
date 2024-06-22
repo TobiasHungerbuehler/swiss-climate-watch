@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, combineLatest, subscribeOn } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { TemperatureService, CurrentTemp } from './temperature.service';
 import { ReferenceDataService } from './reference-data.service';
@@ -51,18 +51,21 @@ export class MainStationDataService {
     });
   }
 
-  // Lade die Referenztemperaturen aus dem HistoryDataService
+
+
+  // Lade die Referenztemperaturen von Firebase
   private loadReferenceTemperatures(): void {
-    const referenceData = this.referenceDataService.getReferenceData();
-    const currentMonth = this.getMonth().toString(); // Konvertiere die Monatszahl in einen String
-    this.mainStationData.forEach(station => {
-      const ref = referenceData.find(r => r.city === station.city);
-      if (ref && ref.referenceTemp[currentMonth as keyof typeof ref.referenceTemp]) {
-        station.refTemp = ref.referenceTemp[currentMonth as keyof typeof ref.referenceTemp].average;
-        station.anomaly = station.currentTemp - station.refTemp;
-      }
+    const currentMonth = this.getMonth(); // Konvertiere die Monatszahl in einen String
+    this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).subscribe(referenceData => {
+      this.mainStationData.forEach(station => {
+        const ref = referenceData.find(r => r.city === station.city);
+        if (ref) {
+          station.refTemp = ref.referenceTemp.average;
+          station.anomaly = parseFloat((station.currentTemp - station.refTemp).toFixed(1));
+        }
+      });
+      this.mainStationDataSubject.next(this.mainStationData);      
     });
-    this.mainStationDataSubject.next(this.mainStationData);
   }
 
   // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)

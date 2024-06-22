@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { LocalMarkerComponent } from './local-marker/local-marker.component';
 import { MainStationDataService } from '../services/main-station-data.service';
-import { FirebaseDataService } from '../services/firebase-data.service';
+
 
 
 @Component({
@@ -22,7 +22,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   highestTemp: number = 0;
   isViewInit = false; // Flag to check if view is initialized
 
-  constructor(private mainStationDataService: MainStationDataService, private firebase: FirebaseDataService) {}
+  constructor(private mainStationDataService: MainStationDataService) {}
 
   ngOnInit(): void {
     // Abonniere die höchste Temperatur und aktualisiere `highestTemp`
