@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MapComponent } from '../map/map.component';
 import { DataToggleComponent } from '../data-toggle/data-toggle.component';
 import { TemperatureService } from '../services/temperature.service';
+import { FirebaseDataService } from '../services/firebase-data.service';
 
 
 @Component({
@@ -13,10 +14,13 @@ import { TemperatureService } from '../services/temperature.service';
 })
 export class MainContentComponent implements OnInit {
 
-  constructor() { // Füge den TemperatureService zum Konstruktor hinzu
+  constructor(private firebaseDataService: FirebaseDataService) { // Füge den TemperatureService zum Konstruktor hinzu
   }
 
   ngOnInit(): void {
+
+    const month = 1; // Beispiel für Januar
+    this.firebaseDataService.subscribeToReferenceDataForMonth(month);
 
   }
 }

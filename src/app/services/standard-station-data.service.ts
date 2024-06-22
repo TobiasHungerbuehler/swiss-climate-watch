@@ -23,7 +23,7 @@ export class StandardStationDataService {
     { cityName: "Samedan", top: '60%', left: '86%', city: 'SAM', als: 1708, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Basel", top: '14%', left: '37%', city: 'BAS', als: 316, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Bern", top: '42%', left: '34%', city: 'BER', als: 553, currentTemp: 0, refTemp: 0, anomaly: 0 },
-    { cityName: "Genf", top: '76%', left: '6%', city: 'GEA', als: 376, currentTemp: 0, refTemp: 0, anomaly: 0 },
+    { cityName: "Genf", top: '76%', left: '6%', city: 'GVE', als: 376, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Locarno", top: '79%', left: '63%', city: 'OTL', als: 367, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Luzern", top: '37%', left: '52%', city: 'LUZ', als: 455, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Davos", top: '48%', left: '87%', city: 'DAV', als: 1594, currentTemp: 0, refTemp: 0, anomaly: 0 },
