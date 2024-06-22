@@ -4,6 +4,7 @@ import { DataToggleComponent } from '../data-toggle/data-toggle.component';
 import { TemperatureService } from '../services/temperature.service';
 
 
+
 @Component({
   selector: 'app-main-content',
   standalone: true,
@@ -17,6 +18,7 @@ export class MainContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
 
   }
 }

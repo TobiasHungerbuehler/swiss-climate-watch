@@ -3,6 +3,8 @@ import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angula
 import { LocalMarkerComponent } from './local-marker/local-marker.component';
 import { MainStationDataService } from '../services/main-station-data.service';
 
+
+
 @Component({
   selector: 'app-map',
   standalone: true,
