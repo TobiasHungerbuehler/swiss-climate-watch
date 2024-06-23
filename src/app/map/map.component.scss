@@ -1,16 +1,23 @@
 
+.test{
+    height: 50px;
+    width: 100%;
+    background-color: red;
+}
+
 .map-frame{
     border: solid 1px rgb(0, 255, 123);
-    width: 100vw;
+    width: 100%;
 
 }
 
 .map-container {
     position: relative;
-    width: 100%;
+    width: 60%;
 
 
     height: 66.7vw;
+    height: 36vw;
     // width: 50vw;
     // height: 33.5vw;
 
