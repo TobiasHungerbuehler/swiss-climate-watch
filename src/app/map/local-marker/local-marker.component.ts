@@ -26,7 +26,7 @@ export class LocalMarkerComponent implements OnInit {
       this.cityMarkers = markers;
     });
 
-    this.dayAverageTemperatureService.getAverageTemperatures().subscribe();
+    //this.dayAverageTemperatureService.getAverageTemperatures().subscribe();
   }
 
   onMarkerMouseEnter(event: MouseEvent, city: string): void {

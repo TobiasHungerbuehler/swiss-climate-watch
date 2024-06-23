@@ -1,0 +1,28 @@
+section{
+    width: 100%;
+
+    >div{
+        display: flex;
+        border: 2px groove rgb(245, 245, 245, 0.6);
+        border-radius: 12px;
+
+        >p{
+            margin: 4px;
+            
+        }
+
+        >p:nth-child(1){
+            width: 60%;
+        }
+
+        >p:nth-child(2){
+            width: 20%;
+        }
+
+        >p:nth-child(3){
+            width: 20%;
+        }
+    }
+
+    
+}
