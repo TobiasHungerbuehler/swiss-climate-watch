@@ -1,5 +1,5 @@
 section{
-    margin-top: 200px;
+    margin-top: 64px;
     border: 1px solid rgb(240, 230, 140, 0.2);
 
     >.wrapper {
@@ -7,13 +7,13 @@ section{
         display: flex;
 
         >.map-box {
-            width: 75%;
+            width: 70%;
             border: 1px solid rgb(240, 140, 140, 0.2);
     
         }
     
         >.table-box {
-            width: 25%;
+            width: 30%;
         }
     }
     

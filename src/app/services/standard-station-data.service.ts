@@ -27,7 +27,7 @@ export class StandardStationDataService {
     { cityName: "Locarno", top: '79%', left: '63%', city: 'OTL', als: 367, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Luzern", top: '37%', left: '52%', city: 'LUZ', als: 455, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Davos", top: '48%', left: '87%', city: 'DAV', als: 1594, currentTemp: 0, refTemp: 0, anomaly: 0 },
-    // { cityName: "Engelberg", top: '47%', left: '55%', city: 'ENG', als: 1035, currentTemp: 0, refTemp: 0, anomaly: 0 },
+    { cityName: "Engelberg", top: '47%', left: '55%', city: 'ENG', als: 1035, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Meiringen", top: '52%', left: '48%', city: 'MER', als: 588, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Andermatt", top: '56%', left: '58%', city: 'ANT', als: 1438, currentTemp: 0, refTemp: 0, anomaly: 0 },
     { cityName: "Bad Ragaz", top: '38%', left: '77%', city: 'RAG', als: 496, currentTemp: 0, refTemp: 0, anomaly: 0 },

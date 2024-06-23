@@ -2,10 +2,14 @@
 
     @for (city of citys; track $index) {
 
-        <div >
-            <p>{{city.cityName}}</p>
-            <p>{{city.refTemp}}</p>
-            <p>{{city.anomaly}}</p>
-        </div>
+        @if (city.als < 800 ) {
+
+            <div >
+                <p>{{city.cityName}}</p>
+                <p>{{city.refTemp}}</p>
+                <p>{{city.anomaly}}</p>
+            </div>
+        }
+
     }
 </section>
