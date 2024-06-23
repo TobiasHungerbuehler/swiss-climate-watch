@@ -1,27 +1,13 @@
 
-.test{
-    height: 50px;
-    width: 100%;
-    background-color: red;
-}
 
-.map-frame{
-    border: solid 1px rgb(0, 255, 123);
-    width: 100%;
-
-}
 
 .map-container {
     position: relative;
-    width: 60%;
+    width: 100%;
 
 
     height: 66.7vw;
     height: 36vw;
-    // width: 50vw;
-    // height: 33.5vw;
-
-    border: solid 1px yellow;
 }
 
 .map {
@@ -35,7 +21,7 @@
     opacity: 0;
     pointer-events: none;
 
-    border: solid 1px rgb(255, 0, 204);
+    border: solid 1px rgb(255, 0, 204, 0.1);
 }
 
 .top-layer {
