@@ -1,0 +1,21 @@
+section{
+    display: flex;
+
+    min-height: 100px;
+    width: 100%;
+    background-color: rgba(200, 27, 27, 0.2);
+    margin-left: 20px;
+    margin-right: 20px;
+
+    >.map-box {
+        width: 50%;
+        border: 1px solid rgb(255, 255, 0, 0.3);
+    }
+    
+    >.table-box {
+        width: 50%;
+        border: 1px solid rgba(47, 179, 111, 0.4);
+    }
+
+
+}

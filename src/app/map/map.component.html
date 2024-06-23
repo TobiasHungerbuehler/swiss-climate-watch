@@ -1,6 +1,6 @@
 <!-- map.component.html< -->
-<div class="map-frame">
-  <div class="map-container">
+<!-- <div class="map-frame" > -->
+  <div class="map-container"  #mapContainer>
     <img src="./assets/img/maps/swissmap_cold.png" alt="Cold Map" class="map map-layer" #coldMap>
     <img src="./assets/img/maps/swissmap_cool.png" alt="Cool Map" class="map map-layer" #coolMap>
     <img src="./assets/img/maps/swissmap_warm.png" alt="Warm Map" class="map map-layer" #warmMap>
@@ -8,8 +8,8 @@
     <img src="./assets/img/maps/swissmap_veryhot.png" alt="Very Hot Map" class="map map-layer" #veryHotMap>
     <img src="./assets/img/maps/swissmap_topLayer.png" alt="Base Map" class="top-layer">
   
-    <app-local-marker></app-local-marker>
+    <app-local-marker [mapHeight]="mapHeight"></app-local-marker>
   </div>
   
 
-</div>
+<!-- </div> -->

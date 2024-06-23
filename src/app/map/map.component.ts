@@ -1,28 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core';
 import { LocalMarkerComponent } from './local-marker/local-marker.component';
 import { MainStationDataService } from '../services/main-station-data.service';
-
-
 
 @Component({
   selector: 'app-map',
   standalone: true,
   imports: [CommonModule, LocalMarkerComponent],
   templateUrl: './map.component.html',
-  styleUrl: './map.component.scss'
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, AfterViewInit {
+  @ViewChild('mapContainer') mapContainer!: ElementRef;
   @ViewChild('coldMap') coldMap!: ElementRef;
   @ViewChild('coolMap') coolMap!: ElementRef;
   @ViewChild('warmMap') warmMap!: ElementRef;
   @ViewChild('hotMap') hotMap!: ElementRef;
   @ViewChild('veryHotMap') veryHotMap!: ElementRef;
 
+  mapHeight: number = 0; // Höhe des map-container
   highestTemp: number = 0;
   isViewInit = false; // Flag to check if view is initialized
 
-  constructor(private mainStationDataService: MainStationDataService) {}
+  constructor(private mainStationDataService: MainStationDataService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // Abonniere die höchste Temperatur und aktualisiere `highestTemp`
@@ -38,13 +38,21 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.isViewInit = true;
     // Sicherstellen, dass das DOM-Element verfügbar ist, bevor `updateMapOpacity` aufgerufen wird
     this.updateMapOpacity(this.highestTemp);
+    this.updateMapHeight();
+
+    const resizeObserver = new ResizeObserver(() => {
+      this.updateMapHeight();
+    });
+
+    resizeObserver.observe(this.mapContainer.nativeElement);
+    this.cdr.detectChanges(); // Manuelles Triggern der Veränderungsüberprüfung
   }
 
   updateMapOpacity(temp: number): void {
     if (!this.isViewInit) {
       return;
     }
-    
+
     this.coldMap.nativeElement.style.opacity = '0';
     this.coolMap.nativeElement.style.opacity = '0';
     this.warmMap.nativeElement.style.opacity = '0';
@@ -62,5 +70,11 @@ export class MapComponent implements OnInit, AfterViewInit {
     } else {
       this.veryHotMap.nativeElement.style.opacity = '0.8';
     }
+  }
+
+  updateMapHeight(): void {
+    this.mapHeight = this.mapContainer.nativeElement.offsetHeight;
+    console.log('Map Container Height:', this.mapHeight);
+    this.cdr.detectChanges(); // Manuelles Triggern der Veränderungsüberprüfung
   }
 }

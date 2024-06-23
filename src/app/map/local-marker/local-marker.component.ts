@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainStationDataService, MainStationData } from '../../services/main-station-data.service';
 import { DayAverageTemperatureService } from '../../services/day-average.service';
@@ -12,7 +12,9 @@ import { DayAverageTemperatureService } from '../../services/day-average.service
 })
 export class LocalMarkerComponent implements OnInit {
   @ViewChild('tooltip') tooltip!: ElementRef;
-  @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
+  @ViewChild('markerContainer', { static: true }) markerContainer!: ElementRef;
+
+  @Input() mapHeight: number = 0; // Höhe des map-container
 
   tooltipContent = '';
   cityMarkers: MainStationData[] = [];
@@ -47,7 +49,7 @@ export class LocalMarkerComponent implements OnInit {
 
   moveTooltip(event: MouseEvent): void {
     const tooltip = this.tooltip.nativeElement as HTMLElement;
-    const mapContainer = this.mapContainer.nativeElement as HTMLElement;
+    const mapContainer = this.markerContainer.nativeElement as HTMLElement;
     const containerRect = mapContainer.getBoundingClientRect();
     tooltip.style.top = `${event.clientY - containerRect.top + 10}px`;
     tooltip.style.left = `${event.clientX - containerRect.left + 10}px`;
