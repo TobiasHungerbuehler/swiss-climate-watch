@@ -8,13 +8,14 @@
     @for (city of citys; track $index) {
 
 
-        @if ($index < 12 ) {
+        @if ($index < 8 ) {
 
             <div >
                 <p>{{ city.cityName }}</p>
                 <p>{{ city.refTemp | number: '1.1-1' }}°</p>
                 <p>
-                  {{ city.anomaly >= 0 ? '+' : '' }}{{ city.anomaly | number: '1.1-1' }}°
+                  <!-- {{ city.anomaly >= 0 ? '+' : '' }}{{ city.anomaly | number: '1.1-1' }}° -->
+                  {{ city.anomaly >= 0 ? '+' : '' }}{{ city.currentTemp -city.refTemp| number: '1.1-1' }}°
                 </p>
             </div>
         }
