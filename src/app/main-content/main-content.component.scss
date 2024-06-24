@@ -1,4 +1,9 @@
 .main-content{
-    background-color: green($color: #000000);
-    width: 90vw;
+    width: 100%;
+
+
+    >.inner-content{
+        width: 90vw;
+        
+    }
 }

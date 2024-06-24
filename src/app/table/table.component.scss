@@ -6,14 +6,33 @@ section{
     align-items: flex-end;
     flex-direction: column;
     
-    >div{
-        display: flex;
-        border: 2px groove rgb(245, 245, 245, 0.6);
-        border-radius: 2px;
-        width: 90%;
+    >.table-header {
 
         >p{
-            margin: 8px;
+            color: yellow;
+            font-size: 12px;
+            font-size: clamp(8px, 0.6vw, 25px);
+        }
+
+    }
+    >div{
+        display: flex;
+        width: 90%;
+        background: rgba(255, 255, 255, 0.32);
+        border-radius: 8px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        margin-bottom: 5px;
+
+
+
+
+        >p{
+            margin: 3%;
+            color: white;
+            font-size: 1.4vw;
             
         }
 

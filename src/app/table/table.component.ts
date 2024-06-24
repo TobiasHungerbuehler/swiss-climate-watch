@@ -7,22 +7,19 @@ import { MainStationDataService, MainStationData } from '../services/main-statio
   standalone: true,
   imports: [CommonModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.scss'
+  styleUrls: ['./table.component.scss']
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
 
   citys: MainStationData[] = [];
 
-  constructor(private mainStationDataService: MainStationDataService){}
+  constructor(private mainStationDataService: MainStationDataService) {}
 
   ngOnInit() {
     this.mainStationDataService.getMainStationData().subscribe(citys => {
-      this.citys = citys;
+      this.citys = citys.sort((a, b) => b.anomaly - a.anomaly);
+      console.log('Sorted citys by anomaly:', this.citys);
     });
-    console.log('row',this.citys);
-    
   }
-
-
 
 }

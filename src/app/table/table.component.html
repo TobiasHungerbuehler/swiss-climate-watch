@@ -1,13 +1,21 @@
 <section>
+    <div class="table-header" >
+        <p>{{'Station'}}</p>
+        <p>{{'Temperatur'}}</p>
+        <p>{{'Anonmalie'}}</p>
+    </div>
 
     @for (city of citys; track $index) {
 
-        @if (city.als < 800 ) {
+
+        @if ($index < 12 ) {
 
             <div >
-                <p>{{city.cityName}}</p>
-                <p>{{city.refTemp}}</p>
-                <p>{{city.anomaly}}</p>
+                <p>{{ city.cityName }}</p>
+                <p>{{ city.refTemp | number: '1.1-1' }}°</p>
+                <p>
+                  {{ city.anomaly >= 0 ? '+' : '' }}{{ city.anomaly | number: '1.1-1' }}°
+                </p>
             </div>
         }
 
