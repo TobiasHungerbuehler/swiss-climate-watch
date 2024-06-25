@@ -1,6 +1,10 @@
 .main-content{
-    background-color: green($color: #000000);
-    height: 2000px;
-    width: 90vw;
-    height: 100vh;
+    width: 100%;
+
+
+
+    >.inner-content{
+        width: 90vw;
+        
+    }
 }
