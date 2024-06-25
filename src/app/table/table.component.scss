@@ -5,13 +5,17 @@ section{
     justify-content: space-between;
     align-items: flex-end;
     flex-direction: column;
+
+    @media (max-width: 1200px) {
+        margin-top: 34px;
+    }
+
     
     >.table-header {
 
         >p{
             color: yellow;
-            font-size: 12px;
-            font-size: clamp(8px, 0.6vw, 25px);
+            font-size: clamp(10px, 1vw, 25px);
         }
 
     }
@@ -25,14 +29,17 @@ section{
         -webkit-backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.28);
         margin-bottom: 5px;
-
+        
+        @media (max-width: 1200px) {
+            width: 100%;
+        }
 
 
 
         >p{
             margin: 3%;
             color: white;
-            font-size: 1.4vw;
+            font-size: clamp(14px, 1.4vw, 25px);
             
         }
 

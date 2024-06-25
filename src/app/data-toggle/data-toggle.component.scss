@@ -1,6 +1,7 @@
 button{
-    height: 2vw;
+    //height: 2vw;
     width: 16%;
+    min-width: 150px;
     margin-right: 2%;
     background: rgba(255, 255, 255, 0.17);
     border-radius: 8px;
@@ -9,5 +10,11 @@ button{
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.28);
     color: white;
-    font-size: 1.2vw;
+    font-size: clamp(14px, 1.2vw, 28px);
+    margin-bottom: 32px;
+
+
+
+
+
 }

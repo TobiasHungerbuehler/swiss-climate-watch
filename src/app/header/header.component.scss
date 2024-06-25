@@ -1,8 +1,22 @@
 section{
+    height: 100px;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 1200px) {
+        height: 50px;
+    }
+
 
 
     >p{
-        margin: 24px;
+        margin: 12px;
+        margin-left: 5%;
         color: white;
         font-size: 4vw;
         font-weight: 400;
