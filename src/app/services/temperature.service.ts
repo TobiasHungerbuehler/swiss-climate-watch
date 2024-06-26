@@ -36,7 +36,7 @@ export class TemperatureService {
       .pipe(
         map(response => this.parseCSV(response)),
         map(parsedData => this.mapTemperatures(parsedData)),
-        tap(currentTemps => console.log('new current temps',currentTemps)) // log the temperatures for debugging
+        //tap(currentTemps => console.log('new current temps',currentTemps)) // log the temperatures for debugging
       );
   }
 

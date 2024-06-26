@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+import { MonthAverageService } from './services/month-average.service';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,6 @@ import { HeaderComponent } from './header/header.component';
 })
 export class AppComponent {
   title = 'swiss-climate-watch';
+
+  constructor(private monthAverageService: MonthAverageService){}
 }
