@@ -10,7 +10,10 @@ export interface StandardStationData {
   refTemp: number;
   anomaly: number;
   monthAverages?: { year: number, month: number, temperature: number | null, precipitation: number | null }[];
+  temp?: number; // Neue Position für aktuelle Temperaturen
+  refAverageTemp?: number; // Neue Position für Referenztemperaturen
 }
+
 
 
 @Injectable({

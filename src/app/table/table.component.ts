@@ -18,7 +18,7 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.mainStationDataService.getMainStationData().subscribe(citys => {
       this.citys = citys.sort((a, b) => b.anomaly - a.anomaly);
-      console.log('Sorted citys by anomaly:', this.citys);
+      //console.log('Sorted citys by anomaly:', this.citys);
     });
   }
 
