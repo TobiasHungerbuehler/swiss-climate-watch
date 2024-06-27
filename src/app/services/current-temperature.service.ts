@@ -5,6 +5,11 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { StandardStationDataService, StandardStationData } from './standard-station-data.service';
 import { ReferenceDataService } from './reference-data.service';
 
+export interface CurrentTemp {
+  city: string;
+  currentTemp: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,23 +18,13 @@ export class CurrentTemperatureService {
   private standardStationData: StandardStationData[] = this.standardStationDataService.getStandardStationData();
   private currentTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
   public currentTemperature$ = this.currentTemperatureSubject.asObservable();
-  private currentTemperatureData: StandardStationData[] = [];
 
   constructor(
     private http: HttpClient,
     private standardStationDataService: StandardStationDataService,
     private referenceDataService: ReferenceDataService
   ) {
-    this.initializeCurrentTemperatureData();
     this.loadCurrentTemperatures();
-  }
-
-  private initializeCurrentTemperatureData(): void {
-    this.currentTemperatureData = this.standardStationData.map(station => ({
-      ...station,
-      temp: 0,
-      refAverageTemp: 0
-    }));
   }
 
   private loadCurrentTemperatures(): void {
@@ -42,9 +37,7 @@ export class CurrentTemperatureService {
         })
       )
       .subscribe(() => {
-        this.loadReferenceTemperatures();
-        this.currentTemperatureSubject.next(this.currentTemperatureData);
-        //console.log('Updated current temperature data:', this.currentTemperatureData);
+        console.log('Updated current temperature data:', this.standardStationData);
       });
   }
 
@@ -53,6 +46,7 @@ export class CurrentTemperatureService {
       .pipe(
         map(response => this.parseCSV(response)),
         tap(parsedData => this.updateStationData(parsedData)),
+        switchMap(() => this.loadReferenceTemperatures()), // Lade die Referenztemperaturen nach dem Aktualisieren der aktuellen Temperaturen
         map(() => {}) // map to void
       );
   }
@@ -70,25 +64,28 @@ export class CurrentTemperatureService {
 
   private updateStationData(data: { Stadt: string, Temperatur: string }[]): void {
     data.forEach(item => {
-      const station = this.currentTemperatureData.find(station => station.city === item.Stadt);
+      const station = this.standardStationData.find(station => station.city === item.Stadt);
       if (station) {
-        station.temp = parseFloat(parseFloat(item.Temperatur).toFixed(1));
+        station.currentTemp = parseFloat(parseFloat(item.Temperatur).toFixed(1));
       }
     });
   }
 
   // Lade die Referenztemperaturen von Firebase
-  private loadReferenceTemperatures(): void {
+  private loadReferenceTemperatures(): Observable<void> {
     const currentMonth = this.getMonth(); // Konvertiere die Monatszahl in einen String
-    this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).subscribe(referenceData => {
-      this.currentTemperatureData.forEach(station => {
-        const ref = referenceData.find(r => r.city === station.city);
-        if (ref) {
-          station.refAverageTemp = ref.referenceTemp.average;
-        }
-      });
-      this.currentTemperatureSubject.next(this.currentTemperatureData);
-    });
+    return this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).pipe(
+      tap(referenceData => {
+        this.standardStationData.forEach(station => {
+          const ref = referenceData.find(r => r.city === station.city);
+          if (ref) {
+            station.refAverageTemp = ref.referenceTemp.average;
+          }
+        });
+        this.currentTemperatureSubject.next(this.standardStationData);
+      }),
+      map(() => {}) // map to void
+    );
   }
 
   // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)

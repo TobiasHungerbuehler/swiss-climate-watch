@@ -13,10 +13,15 @@ import { StandardStationData } from '../services/standard-station-data.service';
 })
 export class MapDisplayComponent implements OnInit {
 
+  currentTempData: StandardStationData[] = [];
+
+  mapDisplayData: StandardStationData[] = [];
+
   constructor(private currentTemperatureService: CurrentTemperatureService) { }
 
   ngOnInit(): void {
     this.currentTemperatureService.currentTemperature$.subscribe((data: StandardStationData[]) => {
+      this.currentTempData = data;
       console.log('CURRENT TEMP DATA:', data);
     });
   }
