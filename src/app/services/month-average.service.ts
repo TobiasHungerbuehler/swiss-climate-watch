@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StandardStationDataService, StandardStationData } from './standard-station-data.service';
 import { ReferenceDataService } from './reference-data.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +10,8 @@ export class MonthAverageService {
   private tempMonthAverages: any[] = []; // Zwischenarray zum Speichern der heruntergeladenen Daten
   private availableDateList: { year: number, month: number }[] = []; // Liste der verfügbaren Daten
 
-  private monthAverageTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
-  public monthAverageTemperature$ = this.monthAverageTemperatureSubject.asObservable();
-
   constructor(
-    private standardStationDataService: StandardStationDataService, 
+    private standardStationDataService: StandardStationDataService,
     private referenceDataService: ReferenceDataService
   ) {
     this.createMonthAverageJson();
@@ -93,10 +89,10 @@ export class MonthAverageService {
       return b.year - a.year;
     });
 
-    this.monthTempToStaionData();
+    this.monthTempToStationData();
   }
 
-  monthTempToStaionData(year?: number, month?: number): void {
+  monthTempToStationData(year?: number, month?: number): void {
     if (!year || !month) {
       const latestDate = this.availableDateList[0];
       year = latestDate.year;
@@ -121,7 +117,10 @@ export class MonthAverageService {
           station.refTemp = ref.referenceTemp.average;
         }
       });
-      this.monthAverageTemperatureSubject.next(this.deepCopy(this.monthAverageData));
     });
+  }
+
+  getMonthAverageData(): StandardStationData[] {
+    return this.deepCopy(this.monthAverageData);
   }
 }
