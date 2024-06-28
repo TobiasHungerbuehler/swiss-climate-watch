@@ -13,6 +13,8 @@ export class MonthAverageService {
 
   private monthAverageTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
   public monthAverageTemperature$ = this.monthAverageTemperatureSubject.asObservable();
+  private availableDateListSubject = new BehaviorSubject<{ year: number, month: number }[]>([]);
+  public availableDateList$ = this.availableDateListSubject.asObservable();
 
   constructor(
     private standardStationDataService: StandardStationDataService, 
@@ -25,11 +27,12 @@ export class MonthAverageService {
     return JSON.parse(JSON.stringify(data));
   }
 
-  createMonthAverageJson() {
-    this.loadMonthData();
+  async createMonthAverageJson(): Promise<void> {
+    await this.loadMonthData();
+    this.createAvailableDateList();
   }
 
-  async loadMonthData() {
+  private async loadMonthData(): Promise<void> {
     for (let index = 0; index < this.monthAverageData.length; index++) {
       const station = this.monthAverageData[index];
       const url = `https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-homogen/homog_mo_${station.city}.txt`;
@@ -47,7 +50,7 @@ export class MonthAverageService {
         console.error(`Error fetching data for city ${station.city}:`, error);
       }
     }
-    this.createAvailableDateList();
+    console.log('Temporary Month Averages:', this.tempMonthAverages);
   }
 
   private parseData(data: string): any[] {
@@ -93,16 +96,11 @@ export class MonthAverageService {
       return b.year - a.year;
     });
 
-    this.monthTempToStaionData();
+    console.log('Available Date List:', this.availableDateList);
+    this.availableDateListSubject.next(this.availableDateList);
   }
 
-  monthTempToStaionData(year?: number, month?: number): void {
-    if (!year || !month) {
-      const latestDate = this.availableDateList[0];
-      year = latestDate.year;
-      month = latestDate.month;
-    }
-
+  setMonthData(year: number, month: number): void {
     this.monthAverageData.forEach(station => {
       const record = this.tempMonthAverages.find(item => item.city === station.city && item.year === year && item.month === month);
       if (record) {
@@ -110,6 +108,7 @@ export class MonthAverageService {
       }
     });
 
+    console.log('Updated Standard Station Data with month temperatures:', this.monthAverageData);
     this.refTempToStationData(month);
   }
 
@@ -123,5 +122,13 @@ export class MonthAverageService {
       });
       this.monthAverageTemperatureSubject.next(this.deepCopy(this.monthAverageData));
     });
+  }
+
+  getMonthAverageData(): StandardStationData[] {
+    return this.deepCopy(this.monthAverageData);
+  }
+
+  getAvailableDates(): { year: number, month: number }[] {
+    return this.deepCopy(this.availableDateList);
   }
 }

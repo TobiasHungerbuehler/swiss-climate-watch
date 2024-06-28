@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class DataDisplayService {
   private displayModeSubject = new BehaviorSubject<'current' | 'dayAverage' | 'monthAverage'>('current');
+  private monthDataSelectedSubject = new BehaviorSubject<{ year: number, month: number } | null>(null);
 
   setDisplayMode(mode: 'current' | 'dayAverage' | 'monthAverage'): void {
     this.displayModeSubject.next(mode);
@@ -17,5 +18,13 @@ export class DataDisplayService {
 
   getDisplayModeValue(): 'current' | 'dayAverage' | 'monthAverage' {
     return this.displayModeSubject.getValue();
+  }
+
+  selectMonthData(year: number, month: number): void {
+    this.monthDataSelectedSubject.next({ year, month });
+  }
+
+  getMonthDataSelected(): Observable<{ year: number, month: number } | null> {
+    return this.monthDataSelectedSubject.asObservable();
   }
 }
