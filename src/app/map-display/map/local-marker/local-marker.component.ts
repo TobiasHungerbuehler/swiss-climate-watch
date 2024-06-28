@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StandardStationData } from '../../../services/standard-station-data.service';
 
@@ -13,18 +13,18 @@ export class LocalMarkerComponent implements OnInit, OnChanges {
   @ViewChild('tooltip') tooltip!: ElementRef;
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
 
-  @Input() cityMarkers: StandardStationData[] = [];
+  @Input() mapDisplayData: StandardStationData[] = [];
 
   tooltipContent = '';
-  displayMode: 'current' | 'historical' = 'current';
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['cityMarkers']) {
-      console.log('City Markers:', this.cityMarkers);
+    if (changes['mapDisplayData']) {
+      //console.log('New mapDisplayData::::::::::::::::::::', this.mapDisplayData);
+  
     }
   }
 

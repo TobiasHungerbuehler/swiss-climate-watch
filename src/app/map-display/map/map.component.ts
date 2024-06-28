@@ -18,7 +18,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('hotMap') hotMap!: ElementRef;
   @ViewChild('veryHotMap') veryHotMap!: ElementRef;
 
-  @Input() currentTempData: StandardStationData[] = [];
+  @Input() mapDisplayData: StandardStationData[] = [];
 
   highestTemp: number = 0;
   isViewInit = false; // Flag to check if view is initialized
@@ -26,7 +26,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['currentTempData']) {
+    if (changes['mapDisplayData']) {
       this.calculateHighestTemp();
       if (this.isViewInit) {
         this.updateMapOpacity(this.highestTemp);
@@ -47,8 +47,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   calculateHighestTemp(): void {
-    if (this.currentTempData.length > 0) {
-      this.highestTemp = Math.max(...this.currentTempData.map(station => station.currentTemp));
+    if (this.mapDisplayData.length > 0) {
+      this.highestTemp = Math.max(...this.mapDisplayData.map(station => station.currentTemp));
     } else {
       this.highestTemp = 0;
     }
@@ -58,7 +58,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     if (!this.isViewInit) {
       return;
     }
-    
+
     this.coldMap.nativeElement.style.opacity = '0';
     this.coolMap.nativeElement.style.opacity = '0';
     this.warmMap.nativeElement.style.opacity = '0';
@@ -80,6 +80,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
 
   logMapContainerHeight(): void {
     const height = this.mapContainer.nativeElement.offsetHeight;
-    console.log('Map Container Height:', height);
+    //console.log('Map Container Height:', height);
   }
 }

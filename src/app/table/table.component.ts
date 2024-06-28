@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MainStationDataService, MainStationData } from '../services/main-station-data.service';
+//import { MainStationDataService, MainStationData } from '../services/main-station-data.service';
 
 @Component({
   selector: 'app-table',

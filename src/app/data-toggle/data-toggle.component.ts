@@ -12,7 +12,7 @@ import { DataDisplayService } from '../services/data-display.service';
 export class DataToggleComponent {
   constructor(private dataDisplayService: DataDisplayService) {}
 
-  setMode(mode: 'current' | 'dayAverage' | 'historical') {
+  setMode(mode: 'current' | 'dayAverage' | 'monthAverage') {
     this.dataDisplayService.setDisplayMode(mode);
   }
 }

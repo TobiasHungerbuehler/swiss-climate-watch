@@ -5,25 +5,21 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { StandardStationDataService, StandardStationData } from './standard-station-data.service';
 import { ReferenceDataService } from './reference-data.service';
 
-export interface CurrentTemp {
-  city: string;
-  currentTemp: number;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class CurrentTemperatureService {
   private csvUrl = 'https://data.geo.admin.ch/ch.meteoschweiz.messwerte-lufttemperatur-10min/ch.meteoschweiz.messwerte-lufttemperatur-10min_de.csv';
-  private standardStationData: StandardStationData[] = this.standardStationDataService.getStandardStationData();
   private currentTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
   public currentTemperature$ = this.currentTemperatureSubject.asObservable();
+  private currentTempData: StandardStationData[] = [];
 
   constructor(
     private http: HttpClient,
     private standardStationDataService: StandardStationDataService,
     private referenceDataService: ReferenceDataService
   ) {
+    this.currentTempData = this.standardStationDataService.getStandardStationData().map(data => ({ ...data }));
     this.loadCurrentTemperatures();
   }
 
@@ -37,7 +33,7 @@ export class CurrentTemperatureService {
         })
       )
       .subscribe(() => {
-        console.log('Updated current temperature data:', this.standardStationData);
+        //console.log('Updated current temperature data:', this.currentTempData);
       });
   }
 
@@ -64,11 +60,12 @@ export class CurrentTemperatureService {
 
   private updateStationData(data: { Stadt: string, Temperatur: string }[]): void {
     data.forEach(item => {
-      const station = this.standardStationData.find(station => station.city === item.Stadt);
+      const station = this.currentTempData.find(station => station.city === item.Stadt);
       if (station) {
         station.currentTemp = parseFloat(parseFloat(item.Temperatur).toFixed(1));
       }
     });
+    this.currentTemperatureSubject.next(this.currentTempData);
   }
 
   // Lade die Referenztemperaturen von Firebase
@@ -76,13 +73,13 @@ export class CurrentTemperatureService {
     const currentMonth = this.getMonth(); // Konvertiere die Monatszahl in einen String
     return this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).pipe(
       tap(referenceData => {
-        this.standardStationData.forEach(station => {
+        this.currentTempData.forEach(station => {
           const ref = referenceData.find(r => r.city === station.city);
           if (ref) {
-            station.refAverageTemp = ref.referenceTemp.average;
+            station.refTemp = ref.referenceTemp.average;
           }
         });
-        this.currentTemperatureSubject.next(this.standardStationData);
+        this.currentTemperatureSubject.next(this.currentTempData);
       }),
       map(() => {}) // map to void
     );
