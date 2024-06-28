@@ -32,7 +32,7 @@ export class DayAverageTemperatureService {
         })
       )
       .subscribe(() => {
-        console.log('Day average temperatures updated:', this.standardStationData);
+        //console.log('Day average temperatures updated:', this.standardStationData);
       });
   }
 
@@ -40,7 +40,7 @@ export class DayAverageTemperatureService {
     return this.http.get<any[]>(this.apiUrl)
       .pipe(
         tap(parsedData => {
-          console.log('Fetched day average data:', parsedData);
+          //console.log('Fetched day average data:', parsedData);
           this.updateStationData(parsedData);
         }),
         switchMap(() => this.loadReferenceTemperatures()), // Lade die Referenztemperaturen nach dem Aktualisieren der durchschnittlichen Temperaturen
@@ -53,12 +53,12 @@ export class DayAverageTemperatureService {
       const found = data.find(item => item.city === station.city);
       if (found) {
         station.currentTemp = parseFloat(parseFloat(found.avg_temp).toFixed(1));
-        console.log(`Updated station ${station.city} with average temperature: ${station.currentTemp}`);
+        //console.log(`Updated station ${station.city} with average temperature: ${station.currentTemp}`);
       } else {
-        console.warn(`Station ${station.city} not found in fetched day average data`);
+        //console.warn(`Station ${station.city} not found in fetched day average data`);
       }
     });
-    console.log('------------------------------------', this.standardStationData);
+    //console.log('------------------------------------', this.standardStationData);
   }
 
   // Lade die Referenztemperaturen von Firebase
@@ -66,18 +66,18 @@ export class DayAverageTemperatureService {
     const currentMonth = this.getMonth(); // Konvertiere die Monatszahl in einen String
     return this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).pipe(
       tap(referenceData => {
-        console.log('Fetched reference data:', referenceData);
+        //console.log('Fetched reference data:', referenceData);
         this.standardStationData.forEach(station => {
           const ref = referenceData.find(r => r.city === station.city);
           if (ref) {
             station.refTemp = ref.referenceTemp.average;
-            console.log(`Updated station ${station.city} with reference temperature: ${station.refTemp}`);
+            //console.log(`Updated station ${station.city} with reference temperature: ${station.refTemp}`);
           } else {
-            console.warn(`Reference data for station ${station.city} not found`);
+            //console.warn(`Reference data for station ${station.city} not found`);
           }
         });
         this.dayAverageTemperatureSubject.next(this.deepCopy(this.standardStationData));
-        console.log('Day average temperature data with reference temperatures:', this.standardStationData);
+        //console.log('Day average temperature data with reference temperatures:', this.standardStationData);
       }),
       map(() => {}) // map to void
     );

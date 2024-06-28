@@ -23,7 +23,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
 
   mapDisplayData: StandardStationData[] = [];
   private subscriptions: Subscription[] = [];
-  private displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
+  private displayMode: 'current' | 'dayAverage' = 'current';
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -44,17 +44,13 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
       this.dayAverageTemperatureService.dayAverageTemperature$.subscribe((data: StandardStationData[]) => {
         this.dayAverageData = data;
         this.updateMapDisplayData(this.displayMode);
-        //console.log('DAY AVERAGE', this.dayAverageData);
       })
     );
 
-    this.subscriptions.push(
-      this.monthAverageService.monthAverageTemperature$.subscribe((data: StandardStationData[]) => {
-        this.monthAverageData = data;
-        this.updateMapDisplayData(this.displayMode);
-        //console.log('MONTH DATA', this.monthAverageData);
-      })
-    );
+    this.monthAverageService.createMonthAverageJson().then(() => {
+      this.monthAverageData = this.monthAverageService.getMonthAverageData();
+      this.updateMapDisplayData(this.displayMode);
+    });
 
     this.subscriptions.push(
       this.dataDisplayService.getDisplayMode().subscribe(mode => {
@@ -62,19 +58,32 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
         this.updateMapDisplayData(this.displayMode);
       })
     );
+
+    this.subscriptions.push(
+      this.dataDisplayService.getMonthDataSelected().subscribe(date => {
+        if (date) {
+          this.setMonthData(date.year, date.month);
+        }
+      })
+    );
   }
 
-  private updateMapDisplayData(mode: 'current' | 'dayAverage' | 'monthAverage'): void {
+  setMonthData(year: number, month: number): void {
+    this.monthAverageService.setMonthData(year, month);
+    this.monthAverageData = this.monthAverageService.getMonthAverageData();
+    this.updateMapDisplayData();
+    console.log('Month data after setting to', year, month, ':', this.monthAverageData);
+  }
+
+  private updateMapDisplayData(mode?: 'current' | 'dayAverage'): void {
     if (mode === 'current') {
       this.mapDisplayData = this.currentTempData;
-      //console.log('current:', this.mapDisplayData);
     } else if (mode === 'dayAverage') {
       this.mapDisplayData = this.dayAverageData;
-      //console.log('day average:', this.mapDisplayData);
-    } else if (mode === 'monthAverage') {
+    } else {
       this.mapDisplayData = this.monthAverageData;
-      //console.log('month average:', this.mapDisplayData);
     }
+    //console.log(${this.displayMode}:, this.mapDisplayData);
   }
 
   ngOnDestroy(): void {
