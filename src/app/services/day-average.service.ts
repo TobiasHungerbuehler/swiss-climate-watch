@@ -23,7 +23,7 @@ export class DayAverageTemperatureService {
   }
 
   private loadDayAverageTemperatures(): void {
-    timer(0, 600000) // 0ms delay, then every 10 minutes (600000ms)
+    timer(0, 6000) // 0ms delay, then every 10 minutes (600000ms)
       .pipe(
         switchMap(() => this.fetchAndStoreDayAverageTemperatureData()),
         catchError(error => {

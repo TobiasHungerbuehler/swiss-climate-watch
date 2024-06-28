@@ -33,50 +33,40 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // Abonniere die aktuellen Temperaturdaten
+    // Erst den Anzeigemodus abonnieren
+    this.subscriptions.push(
+      this.dataDisplayService.getDisplayMode().subscribe(mode => {
+        this.displayMode = mode;
+        this.updateMapDisplayData();
+      })
+    );
+
+    // Dann die Daten abonnieren
     this.subscriptions.push(
       this.currentTemperatureService.currentTemperature$.subscribe((data: StandardStationData[]) => {
         this.currentTempData = data;
         if (this.displayMode === 'current') {
-          this.updateMapDisplayData(this.displayMode);
+          this.updateMapDisplayData();
         }
       })
     );
 
-    // Abonniere die Tagesdurchschnittsdaten
     this.subscriptions.push(
       this.dayAverageTemperatureService.dayAverageTemperature$.subscribe((data: StandardStationData[]) => {
         this.dayAverageData = data;
         if (this.displayMode === 'dayAverage') {
-          this.updateMapDisplayData(this.displayMode);
+          this.updateMapDisplayData();
         }
       })
     );
 
-    // Abonniere die verfügbaren Monatsdurchschnittsdaten
-    this.subscriptions.push(
-      this.monthAverageService.availableDateList$.subscribe(() => {
-        if (this.displayMode === 'monthAverage') {
-          const defaultDate = this.monthAverageService.getAvailableDates()[0];
-          this.setMonthData(defaultDate.year, defaultDate.month);
-        }
-      })
-    );
+    this.monthAverageService.createMonthAverageJson().then(() => {
+      this.monthAverageData = this.monthAverageService.getMonthAverageData();
+      if (this.displayMode === 'monthAverage') {
+        this.updateMapDisplayData();
+      }
+    });
 
-    // Abonniere den Anzeigemodus
-    this.subscriptions.push(
-      this.dataDisplayService.getDisplayMode().subscribe(mode => {
-        this.displayMode = mode;
-        if (mode === 'monthAverage') {
-          const defaultDate = this.monthAverageService.getAvailableDates()[0];
-          this.setMonthData(defaultDate.year, defaultDate.month);
-        } else {
-          this.updateMapDisplayData(this.displayMode);
-        }
-      })
-    );
-
-    // Abonniere die Auswahl von Monatsdaten
     this.subscriptions.push(
       this.dataDisplayService.getMonthDataSelected().subscribe(date => {
         if (date) {
@@ -89,19 +79,21 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   setMonthData(year: number, month: number): void {
     this.monthAverageService.setMonthData(year, month);
     this.monthAverageData = this.monthAverageService.getMonthAverageData();
-    this.updateMapDisplayData('monthAverage');
+    if (this.displayMode === 'monthAverage') {
+      this.updateMapDisplayData();
+    }
     console.log('Month data after setting to', year, month, ':', this.monthAverageData);
   }
 
-  private updateMapDisplayData(mode: 'current' | 'dayAverage' | 'monthAverage'): void {
-    if (mode === 'current') {
+  private updateMapDisplayData(): void {
+    if (this.displayMode === 'current') {
       this.mapDisplayData = this.currentTempData;
-    } else if (mode === 'dayAverage') {
+    } else if (this.displayMode === 'dayAverage') {
       this.mapDisplayData = this.dayAverageData;
     } else {
       this.mapDisplayData = this.monthAverageData;
     }
-    console.log(`${mode}:`, this.mapDisplayData);
+    console.log(`${this.displayMode}:`, this.mapDisplayData);
   }
 
   ngOnDestroy(): void {
