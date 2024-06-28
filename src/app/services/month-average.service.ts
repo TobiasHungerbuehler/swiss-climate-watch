@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StandardStationDataService, StandardStationData } from './standard-station-data.service';
 import { ReferenceDataService } from './reference-data.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,13 @@ export class MonthAverageService {
   private tempMonthAverages: any[] = []; // Zwischenarray zum Speichern der heruntergeladenen Daten
   private availableDateList: { year: number, month: number }[] = []; // Liste der verfügbaren Daten
 
-  constructor(
-    private standardStationDataService: StandardStationDataService,
-    private referenceDataService: ReferenceDataService
-  ) {
+  private availableDateListSubject = new BehaviorSubject<{ year: number, month: number }[]>([]);
+  public availableDateList$ = this.availableDateListSubject.asObservable();
+
+  private monthAverageTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
+  public monthAverageTemperature$ = this.monthAverageTemperatureSubject.asObservable();
+
+  constructor(private standardStationDataService: StandardStationDataService, private referenceDataService: ReferenceDataService) {
     this.createMonthAverageJson();
   }
 
@@ -21,13 +25,14 @@ export class MonthAverageService {
     return JSON.parse(JSON.stringify(data));
   }
 
-  createMonthAverageJson() {
-    this.loadMonthData();
+  createMonthAverageJson(): Promise<void> {
+    return this.loadMonthData().then(() => {
+      this.createAvailableDateList();
+    });
   }
 
-  async loadMonthData() {
-    for (let index = 0; index < this.monthAverageData.length; index++) {
-      const station = this.monthAverageData[index];
+  private async loadMonthData(): Promise<void> {
+    const promises = this.monthAverageData.map(async (station) => {
       const url = `https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-homogen/homog_mo_${station.city}.txt`;
       try {
         const response = await fetch(url);
@@ -38,12 +43,12 @@ export class MonthAverageService {
         if (jsonData.length) {
           this.tempMonthAverages.push(...jsonData.map(item => ({ city: station.city, ...item })));
         }
-
       } catch (error) {
         console.error(`Error fetching data for city ${station.city}:`, error);
       }
-    }
-    this.createAvailableDateList();
+    });
+
+    await Promise.all(promises);
   }
 
   private parseData(data: string): any[] {
@@ -89,10 +94,11 @@ export class MonthAverageService {
       return b.year - a.year;
     });
 
-    this.monthTempToStationData();
+    this.availableDateListSubject.next(this.availableDateList);
+    this.monthTempToStaionData();
   }
 
-  monthTempToStationData(year?: number, month?: number): void {
+  private monthTempToStaionData(year?: number, month?: number): void {
     if (!year || !month) {
       const latestDate = this.availableDateList[0];
       year = latestDate.year;
@@ -109,7 +115,7 @@ export class MonthAverageService {
     this.refTempToStationData(month);
   }
 
-  refTempToStationData(currentMonth: number): void {
+  private refTempToStationData(currentMonth: number): void {
     this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).subscribe(referenceData => {
       this.monthAverageData.forEach(station => {
         const ref = referenceData.find(r => r.city === station.city);
@@ -117,7 +123,12 @@ export class MonthAverageService {
           station.refTemp = ref.referenceTemp.average;
         }
       });
+      this.monthAverageTemperatureSubject.next(this.deepCopy(this.monthAverageData));
     });
+  }
+
+  setMonthData(year: number, month: number): void {
+    this.monthTempToStaionData(year, month);
   }
 
   getMonthAverageData(): StandardStationData[] {

@@ -47,9 +47,10 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
       })
     );
 
-    // MonthAverageService nicht mehr abonnieren
-    this.monthAverageData = this.monthAverageService.getMonthAverageData();
-    this.updateMapDisplayData(this.displayMode);
+    this.monthAverageService.createMonthAverageJson().then(() => {
+      this.monthAverageData = this.monthAverageService.getMonthAverageData();
+      this.updateMapDisplayData(this.displayMode);
+    });
 
     this.subscriptions.push(
       this.dataDisplayService.getDisplayMode().subscribe(mode => {
@@ -57,15 +58,33 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
         this.updateMapDisplayData(this.displayMode);
       })
     );
+
+    this.subscriptions.push(
+      this.dataDisplayService.getMonthDataSelected().subscribe(date => {
+        if (date) {
+          this.setMonthData(date.year, date.month);
+        }
+      })
+    );
+  }
+
+  setMonthData(year: number, month: number): void {
+    this.monthAverageService.setMonthData(year, month);
+    this.monthAverageData = this.monthAverageService.getMonthAverageData();
+    this.updateMapDisplayData('monthAverage');
+    console.log('Month data after setting to', year, month, ':', this.monthAverageData);
   }
 
   private updateMapDisplayData(mode: 'current' | 'dayAverage' | 'monthAverage'): void {
     if (mode === 'current') {
       this.mapDisplayData = this.currentTempData;
+      console.log('current:', this.mapDisplayData);
     } else if (mode === 'dayAverage') {
       this.mapDisplayData = this.dayAverageData;
+      console.log('day average:', this.mapDisplayData);
     } else if (mode === 'monthAverage') {
       this.mapDisplayData = this.monthAverageData;
+      console.log('month average:', this.mapDisplayData);
     }
   }
 
