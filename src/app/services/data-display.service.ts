@@ -5,18 +5,18 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataDisplayService {
-  private displayModeSubject = new BehaviorSubject<'current' | 'dayAverage'>('current');
+  private displayModeSubject = new BehaviorSubject<'current' | 'dayAverage' | 'monthAverage'>('current');
   private monthDataSelectedSubject = new BehaviorSubject<{ year: number, month: number } | null>(null);
 
-  setDisplayMode(mode: 'current' | 'dayAverage'): void {
+  setDisplayMode(mode: 'current' | 'dayAverage' | 'monthAverage'): void {
     this.displayModeSubject.next(mode);
   }
 
-  getDisplayMode(): Observable<'current' | 'dayAverage'> {
+  getDisplayMode(): Observable<'current' | 'dayAverage' | 'monthAverage'> {
     return this.displayModeSubject.asObservable();
   }
 
-  getDisplayModeValue(): 'current' | 'dayAverage' {
+  getDisplayModeValue(): 'current' | 'dayAverage' | 'monthAverage' {
     return this.displayModeSubject.getValue();
   }
 
@@ -28,6 +28,3 @@ export class DataDisplayService {
     return this.monthDataSelectedSubject.asObservable();
   }
 }
-
-//jadnfloadfjogadjfiogjadofgjoidfjb
-///jadhfghadfghaodfügdfa ghhadkjhfghadgfh

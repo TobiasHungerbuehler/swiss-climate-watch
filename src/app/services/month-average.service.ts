@@ -11,13 +11,15 @@ export class MonthAverageService {
   private tempMonthAverages: any[] = []; // Zwischenarray zum Speichern der heruntergeladenen Daten
   private availableDateList: { year: number, month: number }[] = []; // Liste der verfügbaren Daten
 
+  private monthAverageTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
+  public monthAverageTemperature$ = this.monthAverageTemperatureSubject.asObservable();
   private availableDateListSubject = new BehaviorSubject<{ year: number, month: number }[]>([]);
   public availableDateList$ = this.availableDateListSubject.asObservable();
 
-  private monthAverageTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
-  public monthAverageTemperature$ = this.monthAverageTemperatureSubject.asObservable();
-
-  constructor(private standardStationDataService: StandardStationDataService, private referenceDataService: ReferenceDataService) {
+  constructor(
+    private standardStationDataService: StandardStationDataService, 
+    private referenceDataService: ReferenceDataService
+  ) {
     this.createMonthAverageJson();
   }
 
@@ -25,14 +27,14 @@ export class MonthAverageService {
     return JSON.parse(JSON.stringify(data));
   }
 
-  createMonthAverageJson(): Promise<void> {
-    return this.loadMonthData().then(() => {
-      this.createAvailableDateList();
-    });
+  async createMonthAverageJson(): Promise<void> {
+    await this.loadMonthData();
+    this.createAvailableDateList();
   }
 
   private async loadMonthData(): Promise<void> {
-    const promises = this.monthAverageData.map(async (station) => {
+    for (let index = 0; index < this.monthAverageData.length; index++) {
+      const station = this.monthAverageData[index];
       const url = `https://data.geo.admin.ch/ch.meteoschweiz.klima/nbcn-homogen/homog_mo_${station.city}.txt`;
       try {
         const response = await fetch(url);
@@ -43,12 +45,12 @@ export class MonthAverageService {
         if (jsonData.length) {
           this.tempMonthAverages.push(...jsonData.map(item => ({ city: station.city, ...item })));
         }
+
       } catch (error) {
         console.error(`Error fetching data for city ${station.city}:`, error);
       }
-    });
-
-    await Promise.all(promises);
+    }
+    console.log('Temporary Month Averages:', this.tempMonthAverages);
   }
 
   private parseData(data: string): any[] {
@@ -94,17 +96,11 @@ export class MonthAverageService {
       return b.year - a.year;
     });
 
+    console.log('Available Date List:', this.availableDateList);
     this.availableDateListSubject.next(this.availableDateList);
-    this.monthTempToStaionData();
   }
 
-  private monthTempToStaionData(year?: number, month?: number): void {
-    if (!year || !month) {
-      const latestDate = this.availableDateList[0];
-      year = latestDate.year;
-      month = latestDate.month;
-    }
-
+  setMonthData(year: number, month: number): void {
     this.monthAverageData.forEach(station => {
       const record = this.tempMonthAverages.find(item => item.city === station.city && item.year === year && item.month === month);
       if (record) {
@@ -112,10 +108,11 @@ export class MonthAverageService {
       }
     });
 
+    console.log('Updated Standard Station Data with month temperatures:', this.monthAverageData);
     this.refTempToStationData(month);
   }
 
-  private refTempToStationData(currentMonth: number): void {
+  refTempToStationData(currentMonth: number): void {
     this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).subscribe(referenceData => {
       this.monthAverageData.forEach(station => {
         const ref = referenceData.find(r => r.city === station.city);
@@ -127,11 +124,11 @@ export class MonthAverageService {
     });
   }
 
-  setMonthData(year: number, month: number): void {
-    this.monthTempToStaionData(year, month);
-  }
-
   getMonthAverageData(): StandardStationData[] {
     return this.deepCopy(this.monthAverageData);
+  }
+
+  getAvailableDates(): { year: number, month: number }[] {
+    return this.deepCopy(this.availableDateList);
   }
 }
