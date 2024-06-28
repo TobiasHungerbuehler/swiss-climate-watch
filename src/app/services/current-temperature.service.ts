@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, timer, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, timer } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { StandardStationDataService, StandardStationData } from './standard-station-data.service';
 import { ReferenceDataService } from './reference-data.service';
@@ -9,85 +9,72 @@ import { ReferenceDataService } from './reference-data.service';
   providedIn: 'root'
 })
 export class CurrentTemperatureService {
-  private csvUrl = 'https://data.geo.admin.ch/ch.meteoschweiz.messwerte-lufttemperatur-10min/ch.meteoschweiz.messwerte-lufttemperatur-10min_de.csv';
+  private apiUrl = 'https://swissclimatewatch.thtech.ch/get_current_temp_data.php';
+  private standardStationData: StandardStationData[] = this.deepCopy(this.standardStationDataService.getStandardStationData());
   private currentTemperatureSubject = new BehaviorSubject<StandardStationData[]>([]);
   public currentTemperature$ = this.currentTemperatureSubject.asObservable();
-  private currentTempData: StandardStationData[] = [];
 
   constructor(
     private http: HttpClient,
     private standardStationDataService: StandardStationDataService,
     private referenceDataService: ReferenceDataService
   ) {
-    this.currentTempData = this.standardStationDataService.getStandardStationData().map(data => ({ ...data }));
     this.loadCurrentTemperatures();
   }
 
+  private deepCopy(data: any): any {
+    return JSON.parse(JSON.stringify(data));
+  }
+
   private loadCurrentTemperatures(): void {
-    timer(0, 60000) // 0ms delay, then every 1 minute (60000ms)
-      .pipe(
-        switchMap(() => this.fetchAndStoreTemperatureData()),
-        catchError(error => {
-          console.error('Error fetching temperature data', error);
-          return [];
-        })
-      )
-      .subscribe(() => {
-        //console.log('Updated current temperature data:', this.currentTempData);
-      });
+    timer(0, 60000).pipe( // Update every minute
+      switchMap(() => this.fetchAndStoreCurrentTemperatureData()),
+      catchError(error => {
+        console.error('Error fetching current temperature data', error);
+        return [];
+      })
+    ).subscribe(() => {
+      console.log('Current temperatures updated:', this.standardStationData);
+    });
   }
 
-  private fetchAndStoreTemperatureData(): Observable<void> {
-    return this.http.get(this.csvUrl, { responseType: 'text' })
-      .pipe(
-        map(response => this.parseCSV(response)),
-        tap(parsedData => this.updateStationData(parsedData)),
-        switchMap(() => this.loadReferenceTemperatures()), // Lade die Referenztemperaturen nach dem Aktualisieren der aktuellen Temperaturen
-        map(() => {}) // map to void
-      );
+  private fetchAndStoreCurrentTemperatureData(): Observable<void> {
+    return this.http.get<any[]>(this.apiUrl).pipe(
+      tap(parsedData => {
+        this.updateStationData(parsedData);
+      }),
+      switchMap(() => this.loadReferenceTemperatures()), // Load reference temperatures after updating current temperatures
+      map(() => {}) // map to void
+    );
   }
 
-  private parseCSV(data: string): { Stadt: string, Temperatur: string }[] {
-    const rows = data.split('\n').slice(1);
-    return rows.map(row => {
-      const columns = row.split(';');
-      return {
-        Stadt: columns[1]?.replace(/"/g, ''),
-        Temperatur: columns[3]?.replace(/"/g, '')
-      };
-    }).filter(row => row.Stadt && row.Temperatur);
-  }
-
-  private updateStationData(data: { Stadt: string, Temperatur: string }[]): void {
-    data.forEach(item => {
-      const station = this.currentTempData.find(station => station.city === item.Stadt);
-      if (station) {
-        station.currentTemp = parseFloat(parseFloat(item.Temperatur).toFixed(1));
+  private updateStationData(data: { city: string, temp: string }[]): void {
+    this.standardStationData.forEach(station => {
+      const found = data.find(item => item.city === station.city);
+      if (found) {
+        station.currentTemp = parseFloat(parseFloat(found.temp).toFixed(1));
       }
     });
-    this.currentTemperatureSubject.next(this.currentTempData);
   }
 
-  // Lade die Referenztemperaturen von Firebase
   private loadReferenceTemperatures(): Observable<void> {
-    const currentMonth = this.getMonth(); // Konvertiere die Monatszahl in einen String
+    const currentMonth = this.getMonth();
     return this.referenceDataService.subscribeToReferenceDataForMonth(currentMonth).pipe(
       tap(referenceData => {
-        this.currentTempData.forEach(station => {
+        this.standardStationData.forEach(station => {
           const ref = referenceData.find(r => r.city === station.city);
           if (ref) {
             station.refTemp = ref.referenceTemp.average;
           }
         });
-        this.currentTemperatureSubject.next(this.currentTempData);
+        this.currentTemperatureSubject.next(this.deepCopy(this.standardStationData));
       }),
       map(() => {}) // map to void
     );
   }
 
-  // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
   private getMonth(): number {
     const date = new Date();
-    return date.getMonth() + 1; // JavaScript gibt Monate von 0-11 zurück, daher +1
+    return date.getMonth() + 1;
   }
 }
