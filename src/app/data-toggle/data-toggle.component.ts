@@ -29,7 +29,7 @@ export class DataToggleComponent implements OnInit, OnDestroy {
     );
   }
 
-  setMode(mode: 'current' | 'dayAverage' | 'monthAverage') {
+  setMode(mode: 'current' | 'dayAverage') {
     this.dataDisplayService.setDisplayMode(mode);
   }
 
