@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
+
+import { CurrentTemperatureService } from './services/current-temperature.service';
+import { DayAverageTemperatureService } from './services/day-average.service';
 import { MonthAverageService } from './services/month-average.service';
 
 @Component({
@@ -13,5 +16,11 @@ import { MonthAverageService } from './services/month-average.service';
 export class AppComponent {
   title = 'swiss-climate-watch';
 
-  constructor(private monthAverageService: MonthAverageService){}
+  constructor(
+              private monthAverageService: MonthAverageService,
+              //private dayAverageTemperatureService: DayAverageTemperatureService,
+              private currentTemperatureService: CurrentTemperatureService
+              // private monthAverageService: MonthAverageService,
+
+  ){}
 }

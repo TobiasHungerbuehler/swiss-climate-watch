@@ -1,7 +1,6 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainStationDataService, MainStationData } from '../../services/main-station-data.service';
-import { DayAverageTemperatureService } from '../../services/day-average.service';
+import { StandardStationData } from '../../../services/standard-station-data.service';
 
 @Component({
   selector: 'app-local-marker',
@@ -10,23 +9,23 @@ import { DayAverageTemperatureService } from '../../services/day-average.service
   templateUrl: './local-marker.component.html',
   styleUrls: ['./local-marker.component.scss']
 })
-export class LocalMarkerComponent implements OnInit {
+export class LocalMarkerComponent implements OnInit, OnChanges {
   @ViewChild('tooltip') tooltip!: ElementRef;
   @ViewChild('mapContainer', { static: true }) mapContainer!: ElementRef;
 
+  @Input() mapDisplayData: StandardStationData[] = [];
+
   tooltipContent = '';
-  cityMarkers: MainStationData[] = [];
-  displayMode: 'current' | 'historical' = 'current';
 
-  constructor(private mainStationDataService: MainStationDataService, private dayAverageTemperatureService: DayAverageTemperatureService) { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
-  ngOnInit(): void {
-    // Abonniere die mainStationData von MainStationDataService
-    this.mainStationDataService.getMainStationData().subscribe(markers => {
-      this.cityMarkers = markers;
-    });
+  ngOnInit(): void { }
 
-    //this.dayAverageTemperatureService.getAverageTemperatures().subscribe();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['mapDisplayData']) {
+      //console.log('New mapDisplayData::::::::::::::::::::', this.mapDisplayData);
+  
+    }
   }
 
   onMarkerMouseEnter(event: MouseEvent, city: string): void {
