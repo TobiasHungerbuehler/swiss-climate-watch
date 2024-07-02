@@ -21,6 +21,7 @@ export class DataToggleComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // Abonniere die verfügbaren Daten aus dem MonthAverageService
     this.subscriptions.push(
       this.monthAverageService.availableDateList$.subscribe(dates => {
         this.availableDateList = dates;
@@ -29,13 +30,16 @@ export class DataToggleComponent implements OnInit, OnDestroy {
     );
   }
 
-  setMode(mode: 'current' | 'dayAverage') {
+  // Setzt den Modus auf 'current' oder 'dayAverage'
+  setMode(mode: 'current' | 'dayAverage'): void {
     this.dataDisplayService.setDisplayMode(mode);
   }
 
-  setMonthData(): void {
+  // Setzt den Modus auf 'monthAverage' und gibt die Daten für den ersten verfügbaren Monat aus
+  setInitMonthData(): void {
     if (this.availableDateList.length > 0) {
       const { year, month } = this.availableDateList[0];
+      this.dataDisplayService.setDisplayMode('monthAverage');  // Setzt den Modus auf 'monthAverage'
       this.dataDisplayService.selectMonthData(year, month);
       console.log(`Emitted month data: ${year}-${month}`);
     } else {
@@ -43,7 +47,14 @@ export class DataToggleComponent implements OnInit, OnDestroy {
     }
   }
 
+  //gibt die Daten nach ausgewähltem Datum aus
+  setSelectedMonthData(year: number, month: number): void{
+    this.dataDisplayService.setDisplayMode('monthAverage');  // Setzt den Modus auf 'monthAverage'
+    this.dataDisplayService.selectMonthData(year, month);
+  }
+
   ngOnDestroy(): void {
+    // Aufräumen der Abonnements
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

@@ -17,11 +17,10 @@ import { MonthAverageService } from '../services/month-average.service';
 })
 export class MapDisplayComponent implements OnInit, OnDestroy {
 
-  // Array to hold the data to be displayed on the map
   mapDisplayData: StandardStationData[] = [];
-  private subscriptions: Subscription[] = []; // Subscriptions for observables
-  private displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current'; // Display mode
-  private serviceSubscription: Subscription | null = null; // Subscription for the selected data service
+  private subscriptions: Subscription[] = [];
+  private displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
+  private serviceSubscription: Subscription | null = null; // Abonnement für den ausgewählten Datenservice
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -31,7 +30,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // Subscribe to the display mode observable
+    // Abonniere den Anzeigemodus
     this.subscriptions.push(
       this.dataDisplayService.getDisplayMode().subscribe(mode => {
         this.displayMode = mode;
@@ -39,14 +38,14 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Initialize month average data and update the map if the display mode is monthAverage
+    // Initialisiere die Monatsdurchschnittsdaten und aktualisiere die Karte, wenn der Modus 'monthAverage' ist
     this.monthAverageService.createMonthAverageJson().then(() => {
       if (this.displayMode === 'monthAverage') {
         this.updateMapDisplayData('monthAverage');
       }
     });
 
-    // Subscribe to the month data selected observable
+    // Abonniere die ausgewählten Monat-Daten
     this.subscriptions.push(
       this.dataDisplayService.getMonthDataSelected().subscribe(date => {
         if (date) {
@@ -56,7 +55,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     );
   }
 
-  // Set the month data and update the map display
+  // Setzt die Monat-Daten und aktualisiert die Kartendarstellung
   setMonthData(year: number, month: number): void {
     this.monthAverageService.setMonthData(year, month);
     this.mapDisplayData = this.monthAverageService.getMonthAverageData();
@@ -65,14 +64,14 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     console.log('Month data after setting to', year, month, ':', this.mapDisplayData);
   }
 
-  // Update the map display data based on the selected mode
+  // Aktualisiert die Kartendarstellung basierend auf dem ausgewählten Modus
   private updateMapDisplayData(mode: 'current' | 'dayAverage' | 'monthAverage'): void {
-    // Unsubscribe from any existing service subscription to avoid multiple subscriptions
+    // Beende das Abonnement des aktuellen Datenservice, um Mehrfachabonnements zu vermeiden
     if (this.serviceSubscription) {
       this.serviceSubscription.unsubscribe();
     }
 
-    // Subscribe to the appropriate data service based on the display mode
+    // Abonniere den entsprechenden Datenservice basierend auf dem Anzeigemodus
     if (mode === 'current') {
       this.subscribeToService(this.currentTemperatureService.currentTemperature$);
     } else if (mode === 'dayAverage') {
@@ -83,7 +82,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Subscribe to a data service and update the map display data
+  // Abonniere einen Datenservice und aktualisiere die Kartendarstellung
   private subscribeToService(source: Observable<StandardStationData[]>): void {
     this.serviceSubscription = source.subscribe((data: StandardStationData[]) => {
       this.mapDisplayData = data;
@@ -91,7 +90,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Clean up subscriptions when the component is destroyed
+  // Aufräumen der Abonnements beim Zerstören der Komponente
   ngOnDestroy(): void {
     if (this.serviceSubscription) {
       this.serviceSubscription.unsubscribe();
