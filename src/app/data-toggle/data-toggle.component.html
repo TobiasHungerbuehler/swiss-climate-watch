@@ -1,10 +1,12 @@
 <button (click)="setMode('current')">Aktuelle Temperaturen</button>
 <button (click)="setMode('dayAverage')">letzte 24h Schnitt</button>
 <button (click)="setInitMonthData()">Monats Durschnitt</button>
-<button (click)="setSelectedMonthData(2024,4)">Wahl Daten</button>
+<button (click)="setSelectedMonthData(2024,5)">Wahl Daten</button>
+
+
 
 <div *ngIf="availableDateList.length">
-  <h3>Verfügbare Daten:</h3>
+  <!-- <h3>Verfügbare Daten:</h3> -->
   <ul>
     <!-- <li *ngFor="let date of availableDateList">{{ date.year }}/{{ date.month }}</li> -->
   </ul>
