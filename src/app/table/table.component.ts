@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-//import { MainStationDataService, MainStationData } from '../services/main-station-data.service';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { StandardStationData } from '../services/standard-station-data.service';
 
 @Component({
   selector: 'app-table',
@@ -9,17 +9,34 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
 
-  citys: MainStationData[] = [];
+  @Input() mapDisplayData: StandardStationData[] = [];
+  citys: StandardStationData[] = [];
 
-  constructor(private mainStationDataService: MainStationDataService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.mainStationDataService.getMainStationData().subscribe(citys => {
-      this.citys = citys.sort((a, b) => b.anomaly - a.anomaly);
-      //console.log('Sorted citys by anomaly:', this.citys);
-    });
+    this.updateCityData();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['mapDisplayData']) {
+      this.updateCityData();
+    }
+  }
+
+  private updateCityData(): void {
+    this.citys = [...this.mapDisplayData];
+    this.sortCitysByAnomalie();
+  }
+
+  private sortCitysByAnomalie(): void {
+    this.citys.sort((a, b) => {
+      const anomalyA = a.currentTemp - (a.refTemp || 0);
+      const anomalyB = b.currentTemp - (b.refTemp || 0);
+      return anomalyB - anomalyA;
+    });
+    console.log('Sorted city data by anomaly:', this.citys);
+  }
 }

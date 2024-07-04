@@ -7,11 +7,13 @@ import { StandardStationData } from '../services/standard-station-data.service';
 import { DataDisplayService } from '../services/data-display.service';
 import { Observable, Subscription } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
+import { TableComponent } from '../table/table.component';
+import { DataToggleComponent } from '../data-toggle/data-toggle.component';
 
 @Component({
   selector: 'app-map-display',
   standalone: true,
-  imports: [CommonModule, MapComponent],
+  imports: [CommonModule, MapComponent, TableComponent, DataToggleComponent],
   templateUrl: './map-display.component.html',
   styleUrls: ['./map-display.component.scss']
 })
@@ -21,6 +23,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
   private serviceSubscription: Subscription | null = null; // Abonnement für den ausgewählten Datenservice
+
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,

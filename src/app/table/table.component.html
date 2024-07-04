@@ -14,9 +14,10 @@
                 <p>{{ city.cityName }}</p>
                 <p>{{ city.refTemp | number: '1.1-1' }}°</p>
                 <p>
-     
-                  {{ city.anomaly >= 0 ? '+' : '' }}{{ city.currentTemp -city.refTemp| number: '1.1-1' }}°
+                    <span *ngIf="city.currentTemp - city.refTemp > 0">+</span>
+                    {{ city.currentTemp - city.refTemp | number: '1.1-1' }}°
                 </p>
+                  
             </div>
         }
 
