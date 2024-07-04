@@ -16,7 +16,7 @@ section{
         }
 
         >.map-box {
-            width: 65%;
+            width: 50%;
             border: 1px solid rgb(240, 140, 140, 0.2);
             @media (max-width: 1200px) {
                 width: 100%;
@@ -24,7 +24,7 @@ section{
         }
     
         >.table-box {
-            width: 35%;
+            width: 50%;
             @media (max-width: 1200px) {
                 width: 100%;
             }
