@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { StandardStationData } from '../services/standard-station-data.service';
+import { timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -11,7 +12,7 @@ import { StandardStationData } from '../services/standard-station-data.service';
 })
 export class TableComponent implements OnInit, OnChanges {
 
-  
+
 
   @Input() mapDisplayData: StandardStationData[] = [];
   citys: any[] = [];
@@ -25,6 +26,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['mapDisplayData'] && this.mapDisplayData.length > 0) {
+      console.log('table component onChanges', this.mapDisplayData);
       this.updateCityData();
     }
   }
@@ -42,6 +44,7 @@ export class TableComponent implements OnInit, OnChanges {
         refTemp: city.refTemp,
         anomaly: anomaly
       };
+      
     });
 
     // Check if refTemp values are present, if not, retry update
@@ -52,12 +55,12 @@ export class TableComponent implements OnInit, OnChanges {
     } else {
       this.updateCounter = 0; // Reset counter if refTemp values are present
       this.sortCitysByAnomalie();
-      console.log('Updated city data:', this.citys);
+      //console.log('Updated city data:', this.citys);
     }
   }
 
   private sortCitysByAnomalie(): void {
     this.citys.sort((a, b) => b.anomaly - a.anomaly);
-    console.log('Sorted city data by anomaly:', this.citys);
+    //console.log('Sorted city data by anomaly:', this.citys);
   }
 }
