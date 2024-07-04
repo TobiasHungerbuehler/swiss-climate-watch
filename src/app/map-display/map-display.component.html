@@ -1,2 +1,14 @@
-<app-map [mapDisplayData]="mapDisplayData"></app-map>
-
+<section>
+    <app-data-toggle></app-data-toggle>
+    
+    <div class="wrapper">
+        <div class="map-box">
+            <app-map [mapDisplayData]="mapDisplayData"></app-map>
+        </div>
+    
+        <div class="table-box">
+            <app-table [mapDisplayData]="mapDisplayData"></app-table>
+        </div>
+    </div>
+  </section>
+  

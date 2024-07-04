@@ -1,0 +1,35 @@
+section{
+    margin-top: 110px;
+    border: 1px solid rgb(240, 230, 140, 0.2);
+    padding-bottom: 20%;
+    
+    @media (max-width: 1200px) {
+        margin-top: 60px;
+    }
+
+
+    >.wrapper {
+        width: 100%;
+        display: flex;
+        @media (max-width: 1200px) {
+            flex-direction: column;
+        }
+
+        >.map-box {
+            width: 50%;
+            border: 1px solid rgb(240, 140, 140, 0.2);
+            @media (max-width: 1200px) {
+                width: 100%;
+            }
+        }
+    
+        >.table-box {
+            width: 40%;
+            @media (max-width: 1200px) {
+                width: 100%;
+            }
+        }
+    }
+    
+
+}

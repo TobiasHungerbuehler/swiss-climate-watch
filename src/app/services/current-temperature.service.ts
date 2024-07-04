@@ -24,7 +24,7 @@ export class CurrentTemperatureService {
   }
 
   private loadCurrentTemperatures(): void {
-    timer(0, 60000) // 0ms delay, then every 1 minute (60000ms)
+    timer(500, 60000) // 0ms delay, then every 1 minute (60000ms)
       .pipe(
         switchMap(() => this.fetchAndStoreTemperatureData()),
         catchError(error => {
