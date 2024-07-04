@@ -33,7 +33,7 @@ export class DataToggleComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.monthAverageService.availableDateList$.subscribe(dates => {
         this.availableDateList = dates;
-        console.log('Available Date List:', this.availableDateList);
+        //console.log('Available Date List:', this.availableDateList);
       })
     );
   }
