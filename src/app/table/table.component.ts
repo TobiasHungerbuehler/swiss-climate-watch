@@ -11,6 +11,8 @@ import { StandardStationData } from '../services/standard-station-data.service';
 })
 export class TableComponent implements OnInit, OnChanges {
 
+  
+
   @Input() mapDisplayData: StandardStationData[] = [];
   citys: any[] = [];
   updateCounter: number = 0; // Counter to track update attempts
