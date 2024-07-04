@@ -1,29 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MapComponent } from './map/map.component';
 import { CurrentTemperatureService } from '../services/current-temperature.service';
 import { DayAverageTemperatureService } from '../services/day-average.service';
 import { StandardStationData } from '../services/standard-station-data.service';
 import { DataDisplayService } from '../services/data-display.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
 import { TableComponent } from '../table/table.component';
 import { DataToggleComponent } from '../data-toggle/data-toggle.component';
+import { MapComponent } from './map/map.component';
 
 @Component({
   selector: 'app-map-display',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent, DataToggleComponent],
+  imports: [CommonModule, MapComponent, DataToggleComponent],
   templateUrl: './map-display.component.html',
   styleUrls: ['./map-display.component.scss']
 })
 export class MapDisplayComponent implements OnInit, OnDestroy {
 
-  mapDisplayData: StandardStationData[] = [];
+  mapDisplayData$: BehaviorSubject<StandardStationData[]> = new BehaviorSubject<StandardStationData[]>([]);
   private subscriptions: Subscription[] = [];
   private displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
   private serviceSubscription: Subscription | null = null; // Abonnement für den ausgewählten Datenservice
-
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -61,10 +60,10 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   // Setzt die Monat-Daten und aktualisiert die Kartendarstellung
   setMonthData(year: number, month: number): void {
     this.monthAverageService.setMonthData(year, month);
-    this.mapDisplayData = this.monthAverageService.getMonthAverageData();
+    const monthData = this.monthAverageService.getMonthAverageData();
+    this.mapDisplayData$.next(monthData);
     this.displayMode = 'monthAverage';
-    this.updateMapDisplayData('monthAverage');
-    console.log('Month data after setting to', year, month, ':', this.mapDisplayData);
+    console.log('Month data after setting to', year, month, ':', monthData);
   }
 
   // Aktualisiert die Kartendarstellung basierend auf dem ausgewählten Modus
@@ -80,16 +79,17 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     } else if (mode === 'dayAverage') {
       this.subscribeToService(this.dayAverageTemperatureService.dayAverageTemperature$);
     } else if (mode === 'monthAverage') {
-      this.mapDisplayData = this.monthAverageService.getMonthAverageData();
-      console.log(`Data for ${mode}:`, this.mapDisplayData);
+      const monthData = this.monthAverageService.getMonthAverageData();
+      this.mapDisplayData$.next(monthData);
+      console.log(`Data for ${mode}:`, monthData);
     }
   }
 
   // Abonniere einen Datenservice und aktualisiere die Kartendarstellung
   private subscribeToService(source: Observable<StandardStationData[]>): void {
     this.serviceSubscription = source.subscribe((data: StandardStationData[]) => {
-      this.mapDisplayData = data;
-      console.log(`Data for ${this.displayMode}:`, this.mapDisplayData);
+      this.mapDisplayData$.next(data);
+      console.log(`Data for ${this.displayMode}:`, data);
     });
   }
 

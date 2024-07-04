@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild, AfterViewInit, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { LocalMarkerComponent } from './local-marker/local-marker.component';
 import { StandardStationData } from '../../services/standard-station-data.service';
+import { Subscription } from 'rxjs';
+import { MapDisplayComponent } from '../map-display.component';
 
 @Component({
   selector: 'app-map',
@@ -10,7 +12,7 @@ import { StandardStationData } from '../../services/standard-station-data.servic
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit, OnChanges {
+export class MapComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   @ViewChild('coldMap') coldMap!: ElementRef;
   @ViewChild('coolMap') coolMap!: ElementRef;
@@ -18,19 +20,27 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('hotMap') hotMap!: ElementRef;
   @ViewChild('veryHotMap') veryHotMap!: ElementRef;
 
-  @Input() mapDisplayData: StandardStationData[] = [];
 
+  mapDisplayData: StandardStationData[] = [];
   highestTemp: number = 0;
   isViewInit = false; // Flag to check if view is initialized
+  private subscription: Subscription | null = null;
 
-  ngOnInit(): void { }
+  constructor(private mapDisplayComponent: MapDisplayComponent) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['mapDisplayData']) {
+  ngOnInit(): void {
+    this.subscription = this.mapDisplayComponent.mapDisplayData$.subscribe(data => {
+      this.mapDisplayData = data;
       this.calculateHighestTemp();
       if (this.isViewInit) {
         this.updateMapOpacity(this.highestTemp);
       }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
@@ -46,7 +56,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     resizeObserver.observe(this.mapContainer.nativeElement);
   }
 
-  calculateHighestTemp(): void {
+  private calculateHighestTemp(): void {
     if (this.mapDisplayData.length > 0) {
       this.highestTemp = Math.max(...this.mapDisplayData.map(station => station.currentTemp));
     } else {
@@ -54,7 +64,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  updateMapOpacity(temp: number): void {
+  private updateMapOpacity(temp: number): void {
     if (!this.isViewInit) {
       return;
     }
@@ -78,8 +88,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  logMapContainerHeight(): void {
+  private logMapContainerHeight(): void {
     const height = this.mapContainer.nativeElement.offsetHeight;
-    //console.log('Map Container Height:', height);
+    console.log('Map Container Height:', height);
   }
 }
