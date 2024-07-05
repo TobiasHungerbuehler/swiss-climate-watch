@@ -25,6 +25,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   monthAverageTemperatureData: StandardStationData[] = [];
   public displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
   private subscriptions: Subscription[] = [];
+  public selectedMonth: { year: number, month: number } | null = null;
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -62,6 +63,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     // Abonniere die ausgewählten Monat-Daten
     this.subscriptions.push(
       this.dataDisplayService.getMonthDataSelected().subscribe(date => {
+        this.selectedMonth = date;
         if (date) {
           this.setMonthData(date.year, date.month);
         }
@@ -80,12 +82,9 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     this.monthAverageTemperatureData = this.monthAverageService.getMonthAverageData();
   }
 
-  public getMonthName(month: any){
+  public getMonthName(month: any): string {
     return this.dateNameService.getMonthName(month);
-    
   }
-
-
 
   // Aufräumen der Abonnements beim Zerstören der Komponente
   ngOnDestroy(): void {

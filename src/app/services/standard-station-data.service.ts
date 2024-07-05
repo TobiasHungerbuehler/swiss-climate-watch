@@ -11,6 +11,7 @@ export interface StandardStationData {
   monthAverages?: { year: number, month: number, temperature: number | null, precipitation: number | null }[];
   temp?: number; // Neue Position für aktuelle Temperaturen
   refAverageTemp?: number; // Neue Position für Referenztemperaturen
+  refAverageMonth?: number;
   anomaly?: number;
   year?: number;
   month?: number;

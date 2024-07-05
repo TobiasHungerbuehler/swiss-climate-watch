@@ -16,7 +16,7 @@ export class DateNameService {
     if (month < 1 || month > 12) {
       throw new Error('Ungültiger Monat. Bitte geben Sie eine Zahl zwischen 1 und 12 ein.');
     }
-    console.log(monthNames[month -1]);
+
     
     return monthNames[month - 1];
   }
