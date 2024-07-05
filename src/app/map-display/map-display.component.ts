@@ -9,6 +9,7 @@ import { Observable, Subscription, of } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
 import { TableComponent } from '../table/table.component';
 import { catchError } from 'rxjs/operators';
+import { DateNameService } from '../services/date-name.service';
 
 @Component({
   selector: 'app-map-display',
@@ -29,7 +30,8 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     private currentTemperatureService: CurrentTemperatureService,
     private dayAverageTemperatureService: DayAverageTemperatureService,
     private monthAverageService: MonthAverageService,
-    private dataDisplayService: DataDisplayService
+    private dataDisplayService: DataDisplayService,
+    private dateNameService: DateNameService
   ) {
     this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$.pipe(
       catchError(() => of([]))
@@ -77,6 +79,13 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   private updateMonthAverageData(): void {
     this.monthAverageTemperatureData = this.monthAverageService.getMonthAverageData();
   }
+
+  public getMonthName(month: any){
+    return this.dateNameService.getMonthName(month);
+    
+  }
+
+
 
   // Aufräumen der Abonnements beim Zerstören der Komponente
   ngOnDestroy(): void {

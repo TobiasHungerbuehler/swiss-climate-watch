@@ -1,14 +1,23 @@
-<section>
-    <div class="table-box">
-      <ng-container *ngIf="displayMode === 'current'">
-        <app-table [mapDisplayData]="(sortedData$ | async) || []"></app-table>
-      </ng-container>
-      <ng-container *ngIf="displayMode === 'dayAverage'">
-        <app-table [mapDisplayData]="(sortedData$ | async) || []"></app-table>
-      </ng-container>
-      <ng-container *ngIf="displayMode === 'monthAverage'">
-        <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
-      </ng-container>
-    </div>
-  </section>
-  
+<section id="table-display">
+
+  <div class="table-description">
+
+    @if(displayMode === "current"){
+      <p>Vergleich zu {{monthAverageTemperatureData[0]}} 1940 -1970</p>
+    }
+  </div> 
+
+
+  <div class="table-box">
+    @if (displayMode === "current") {
+      <app-table  [mapDisplayData]="(sortedData$ | async) || []"></app-table>
+    }
+    @if (displayMode === "dayAverage") {
+      <app-table [mapDisplayData]="(sortedData$ | async) || []"></app-table>
+    }
+    @if (displayMode === "monthAverage") {
+      <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
+    }
+
+  </div>
+</section>

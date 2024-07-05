@@ -6,6 +6,7 @@ section{
     align-items: flex-end;
     flex-direction: column;
 
+
     @media (max-width: 1200px) {
         margin-top: 34px;
     }
@@ -21,7 +22,7 @@ section{
     }
     >div{
         display: flex;
-        width: 90%;
+        width: 100%;
         background: rgba(255, 255, 255, 0.32);
         border-radius: 8px;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);

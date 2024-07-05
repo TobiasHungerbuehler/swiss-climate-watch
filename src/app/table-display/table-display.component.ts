@@ -81,6 +81,8 @@ export class TableDisplayComponent implements OnInit, OnDestroy {
   }
 
   private sortDataByAnomaly(data: StandardStationData[]): StandardStationData[] {
+    console.log('DATA',data);
+    
     return data.map(city => ({
       ...city,
       anomaly: city.currentTemp - (city.refTemp || 0)

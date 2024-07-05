@@ -109,6 +109,9 @@ export class MonthAverageService {
       const record = this.tempMonthAverages.find(item => item.city === station.city && item.year === year && item.month === month);
       if (record) {
         station.currentTemp = record.temperature !== null ? record.temperature : 0;
+        // Speichere Jahr und Monat
+        station.year = year;
+        station.month = month;
       }
     });
 
@@ -123,6 +126,7 @@ export class MonthAverageService {
           station.refTemp = ref.referenceTemp.average;
         }
       });
+      console.log('Month Average Data:', this.monthAverageData); // Zum Testen
       this.monthAverageTemperatureSubject.next(this.deepCopy(this.monthAverageData));
     });
   }
