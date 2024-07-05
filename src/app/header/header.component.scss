@@ -1,5 +1,4 @@
 section{
-    height: 100px;
     position: absolute;
     z-index: 10;
     top: 0;
@@ -18,7 +17,7 @@ section{
         margin: 12px;
         margin-left: 5%;
         color: white;
-        font-size: 4vw;
+        font-size: clamp(16px, 2vw, 32px);
         font-weight: 400;
     }
 }

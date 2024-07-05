@@ -1,1 +1,14 @@
-<p>table-display works!</p>
+<section>
+    <div class="table-box">
+      <ng-container *ngIf="displayMode === 'current'">
+        <app-table [mapDisplayData]="(sortedData$ | async) || []"></app-table>
+      </ng-container>
+      <ng-container *ngIf="displayMode === 'dayAverage'">
+        <app-table [mapDisplayData]="(sortedData$ | async) || []"></app-table>
+      </ng-container>
+      <ng-container *ngIf="displayMode === 'monthAverage'">
+        <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
+      </ng-container>
+    </div>
+  </section>
+  

@@ -8,13 +8,12 @@ import { DataDisplayService } from '../services/data-display.service';
 import { Observable, Subscription, of } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
 import { TableComponent } from '../table/table.component';
-import { DataToggleComponent } from '../data-toggle/data-toggle.component';
 import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map-display',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent, DataToggleComponent],
+  imports: [CommonModule, MapComponent, TableComponent],
   templateUrl: './map-display.component.html',
   styleUrls: ['./map-display.component.scss']
 })

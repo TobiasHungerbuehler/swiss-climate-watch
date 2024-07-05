@@ -1,11 +1,9 @@
 .city-marker {
     position: absolute;
-
-
-    height: 3vw;
+    height: 2vw;
+    width:  2vw;
     font-weight: 700;
     
-
     background: rgba(255, 255, 255, 0.25);
     border-radius: 50%;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -22,8 +20,7 @@
     
     >.temp{
         color: rgb(129, 127, 127);
-        font-size: 1.3vw;
-        font-size: clamp(12px, 1.3vw, 25px);
+        font-size: clamp(12px, 1.1vw, 16px);
         
         font-weight: 700;
         margin: 0;
@@ -49,7 +46,7 @@
         
         >p{
             color: rgb(100, 97, 97);
-            font-size: 1vw;
+            font-size: clamp(12px, 0.8vw, 15px);
             font-weight: 300;
             margin: 0;
         }

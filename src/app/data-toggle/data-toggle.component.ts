@@ -6,9 +6,6 @@ import { Subscription } from 'rxjs';
 import {MatSliderModule} from '@angular/material/slider';
 
 
-
-
-
 @Component({
   selector: 'app-data-toggle',
   standalone: true,
@@ -24,9 +21,6 @@ export class DataToggleComponent implements OnInit, OnDestroy {
     private dataDisplayService: DataDisplayService,
     private monthAverageService: MonthAverageService
   ) {}
-
-  sliderValue: number = 2024;
-  bulletPosition: number = 100; // Initial position for max value
 
   ngOnInit(): void {
     // Abonniere die verfügbaren Daten aus dem MonthAverageService

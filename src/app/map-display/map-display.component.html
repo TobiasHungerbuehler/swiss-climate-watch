@@ -1,5 +1,17 @@
 <section>
-    <app-data-toggle></app-data-toggle>
+
+    <div class="map-description">
+
+      <ng-container *ngIf="displayMode === 'current'">
+        <p>Temperaturen von Jetzt</p>
+      </ng-container>
+      <ng-container *ngIf="displayMode === 'dayAverage'">
+        <p>Durschnitt letzte 24 h</p>
+      </ng-container>
+
+    </div>
+    
+  
   
     <div class="wrapper">
       <div class="map-box">
@@ -14,17 +26,6 @@
         </ng-container>
       </div>
   
-      <div class="table-box">
-        <ng-container *ngIf="displayMode === 'current'">
-          <app-table [mapDisplayData]="(currentTemperatureData$ | async) || []"></app-table>
-        </ng-container>
-        <ng-container *ngIf="displayMode === 'dayAverage'">
-          <app-table [mapDisplayData]="(dayAverageTemperatureData$ | async) || []"></app-table>
-        </ng-container>
-        <ng-container *ngIf="displayMode === 'monthAverage'">
-          <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
-        </ng-container>
-      </div>
     </div>
   </section>
   
