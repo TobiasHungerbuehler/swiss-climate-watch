@@ -15,7 +15,15 @@
       </div>
   
       <div class="table-box">
-        <!-- <app-table [mapDisplayData]="mapDisplayData"></app-table> -->
+        <ng-container *ngIf="displayMode === 'current'">
+          <app-table [mapDisplayData]="(currentTemperatureData$ | async) || []"></app-table>
+        </ng-container>
+        <ng-container *ngIf="displayMode === 'dayAverage'">
+          <app-table [mapDisplayData]="(dayAverageTemperatureData$ | async) || []"></app-table>
+        </ng-container>
+        <ng-container *ngIf="displayMode === 'monthAverage'">
+          <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
+        </ng-container>
       </div>
     </div>
   </section>

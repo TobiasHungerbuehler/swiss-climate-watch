@@ -5,10 +5,11 @@ import { CurrentTemperatureService } from '../services/current-temperature.servi
 import { DayAverageTemperatureService } from '../services/day-average.service';
 import { StandardStationData } from '../services/standard-station-data.service';
 import { DataDisplayService } from '../services/data-display.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
 import { TableComponent } from '../table/table.component';
 import { DataToggleComponent } from '../data-toggle/data-toggle.component';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map-display',
@@ -31,8 +32,12 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     private monthAverageService: MonthAverageService,
     private dataDisplayService: DataDisplayService
   ) {
-    this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$;
-    this.dayAverageTemperatureData$ = this.dayAverageTemperatureService.dayAverageTemperature$;
+    this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$.pipe(
+      catchError(() => of([]))
+    );
+    this.dayAverageTemperatureData$ = this.dayAverageTemperatureService.dayAverageTemperature$.pipe(
+      catchError(() => of([]))
+    );
   }
 
   ngOnInit(): void {

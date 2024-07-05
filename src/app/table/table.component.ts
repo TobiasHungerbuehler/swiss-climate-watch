@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { StandardStationData } from '../services/standard-station-data.service';
-import { timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-table',
@@ -11,8 +10,6 @@ import { timestamp } from 'rxjs';
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit, OnChanges {
-
-
 
   @Input() mapDisplayData: StandardStationData[] = [];
   citys: any[] = [];
@@ -44,14 +41,13 @@ export class TableComponent implements OnInit, OnChanges {
         refTemp: city.refTemp,
         anomaly: anomaly
       };
-      
     });
 
     // Check if refTemp values are present, if not, retry update
     const refTempMissing = this.citys.some(city => city.refTemp === 0 && this.updateCounter < 5);
     if (refTempMissing) {
       this.updateCounter++;
-      setTimeout(() => this.updateCityData(), ); // Retry after 1 second
+      setTimeout(() => this.updateCityData(), 1000); // Retry after 1 second
     } else {
       this.updateCounter = 0; // Reset counter if refTemp values are present
       this.sortCitysByAnomalie();
