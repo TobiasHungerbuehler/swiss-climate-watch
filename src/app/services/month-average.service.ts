@@ -41,7 +41,7 @@ export class MonthAverageService {
 
         // Füge die Daten in das Zwischenarray ein
         if (jsonData.length) {
-          this.tempMonthAverages.push(...jsonData.map(item => ({ city: station.city, ...item })));
+          this.tempMonthAverages.push(...jsonData.map(item => ({ city: station.city, ...item })));          
         }
       } catch (error) {
         console.error(`Error fetching data for city ${station.city}:`, error);
@@ -126,7 +126,7 @@ export class MonthAverageService {
           station.refTemp = ref.referenceTemp.average;
         }
       });
-      console.log('Month Average Data:', this.monthAverageData); // Zum Testen
+      //console.log('Month Average Data:', this.monthAverageData); // Zum Testen
       this.monthAverageTemperatureSubject.next(this.deepCopy(this.monthAverageData));
     });
   }

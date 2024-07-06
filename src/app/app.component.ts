@@ -6,6 +6,7 @@ import { CurrentTemperatureService } from './services/current-temperature.servic
 import { DayAverageTemperatureService } from './services/day-average.service';
 import { MonthAverageService } from './services/month-average.service';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -19,8 +20,9 @@ export class AppComponent {
   constructor(
               private monthAverageService: MonthAverageService,
               //private dayAverageTemperatureService: DayAverageTemperatureService,
-              private currentTemperatureService: CurrentTemperatureService
+              private currentTemperatureService: CurrentTemperatureService,
               // private monthAverageService: MonthAverageService,
 
-  ){}
+
+  ){ } 
 }

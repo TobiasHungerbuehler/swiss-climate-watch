@@ -98,7 +98,6 @@ export class TableDisplayComponent implements OnInit, OnDestroy {
 
   // Funktion zur Sortierung der Daten nach Anomalie (currentTemp - refTemp)
   private sortDataByAnomaly(data: StandardStationData[]): StandardStationData[] {
-    console.log('DATA', data);
     return data.map(city => ({
       ...city,
       anomaly: city.currentTemp - (city.refTemp || 0)

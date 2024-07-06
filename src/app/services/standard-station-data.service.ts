@@ -38,7 +38,7 @@ export class StandardStationDataService {
     { cityName: "Engelberg", top: '47%', left: '55%', city: 'ENG', als: 1035, currentTemp: 0, refTemp: 0},
     { cityName: "Meiringen", top: '52%', left: '48%', city: 'MER', als: 588, currentTemp: 0, refTemp: 0},
     { cityName: "Andermatt", top: '56%', left: '58%', city: 'ANT', als: 1438, currentTemp: 0, refTemp: 0},
-    { cityName: "Bad Ragaz", top: '38%', left: '77%', city: 'RAG', als: 496, currentTemp: 0, refTemp: 0},
+    // { cityName: "Bad Ragaz", top: '38%', left: '77%', city: 'RAG', als: 496, currentTemp: 0, refTemp: 0},
     { cityName: "Elm", top: '43%', left: '71%', city: 'ELM', als: 957, currentTemp: 0, refTemp: 0},
     { cityName: "La Chaux-de-Fonds", top: '35%', left: '21%', city: 'CDF', als: 1017, currentTemp: 0, refTemp: 0},
     { cityName: "Payerne", top: '47%', left: '23%', city: 'PAY', als: 490, currentTemp: 0, refTemp: 0},
