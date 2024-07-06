@@ -20,7 +20,7 @@
     
     >.temp{
         color: rgb(129, 127, 127);
-        font-size: clamp(12px, 1.1vw, 16px);
+        font-size: clamp(13px, 1.1vw, 16px);
         
         font-weight: 700;
         margin: 0;
@@ -46,8 +46,8 @@
         
         >p{
             color: rgb(100, 97, 97);
-            font-size: clamp(12px, 0.8vw, 15px);
-            font-weight: 300;
+            font-size: clamp(8px, 0.8vw, 15px);
+            font-weight: 200;
             margin: 0;
         }
     }

@@ -1,23 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    background-color: #02465F;
-    display: flex;
-    justify-content: center;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    //height: 100vh;
-    width: 100vw;
-    max-width: 100%;
-    overflow-x: hidden;
-    // background: linear-gradient(170deg, #7ed0dd 10%, #7ed0dd 5%, #00283d 40%, #00283d 100%);
-    // background: linear-gradient(170deg, #5a88d9 10%, #5a88d9 5%, #00283d 40%, #00283d 100%);
-    background: linear-gradient(170deg, #5a88d9 10%, #5a88d9 5%, #52bef7 40%, #00283d 100%);
-  
-  }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #02465F;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vh; // Ensures the background covers the entire viewport height
+  overflow-x: hidden; // Prevent horizontal scrollbars
+  background: linear-gradient(170deg, #5a88d9 10%, #5a88d9 5%, #52bef7 40%, #00283d 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Hide scrollbars in WebKit browsers (Safari, Chrome) */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbars in Firefox */
+* {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Optionally hide scrollbars in Edge, IE */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+}

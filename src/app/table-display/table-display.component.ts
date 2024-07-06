@@ -31,6 +31,8 @@ export class TableDisplayComponent implements OnInit, OnDestroy {
   public sortedData$: Observable<StandardStationData[]> = of([]);
   // Variable zum Speichern des ausgewählten Monats
   public selectedMonth: { year: number, month: number } | null = null;
+  // Variable zum Speichern des aktuellen Monats
+  public todayMonth: number = 0;
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -66,6 +68,11 @@ export class TableDisplayComponent implements OnInit, OnDestroy {
         }
       })
     );
+
+    //aktualisiere die aktuelle Monata variable
+    this.todayMonth = this.getMonth()
+    console.log('todayMonth', this.todayMonth);
+    
 
     // Initialisieren der sortierten Daten
     this.initializeSortedData();
@@ -108,6 +115,8 @@ export class TableDisplayComponent implements OnInit, OnDestroy {
   setMonthData(year: number, month: number): void {
     this.monthAverageService.setMonthData(year, month);
     this.updateMonthAverageData();
+    console.log(month);
+    
   }
   getMonthName(month: any){
     return this.dateNameService.getMonthName(month)
@@ -118,6 +127,12 @@ export class TableDisplayComponent implements OnInit, OnDestroy {
     this.monthAverageTemperatureData = this.monthAverageService.getMonthAverageData();
     this.initializeSortedData();  // Reinitialize sorted data
   }
+
+    // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
+    private getMonth(): number {
+      const date = new Date();
+      return date.getMonth() + 1; // JavaScript gibt Monate von 0-11 zurück, daher +1
+    }
 
   // Aufräumen der Abonnements beim Zerstören der Komponente
   ngOnDestroy(): void {

@@ -3,10 +3,10 @@
   <div class="table-description">
 
     @if(displayMode === "current"){
-      <p>Vergleich zu 1940 -1970</p>
+      <p>Vergleich zu {{getMonthName(todayMonth)}} 1940 -1970</p>
     }
     @if(displayMode === "dayAverage"){
-      <p>Vergleich zu 1940 -1970</p>
+      <p>Vergleich zu {{getMonthName(todayMonth)}}  1940 -1970</p>
     }
     @if(displayMode === "monthAverage"){
       <p>Vergleich zu {{getMonthName(selectedMonth?.month) }} 1940 -1970</p>

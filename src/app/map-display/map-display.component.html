@@ -2,15 +2,23 @@
 
     <div class="map-description">
 
-      <ng-container *ngIf="displayMode === 'current'">
-        <p>Temperaturen von Jetzt</p>
-      </ng-container>
-      <ng-container *ngIf="displayMode === 'dayAverage'">
-        <p>Durschnitt letzte 24 h</p>
-      </ng-container>
-      <ng-container *ngIf="displayMode === 'monthAverage'">
-        <p>Durschnitt {{getMonthName(selectedMonth?.month)}} {{monthAverageTemperatureData[0].year}}</p>
-      </ng-container>
+      <div class="layer">
+        <ng-container *ngIf="displayMode === 'current'">
+          <p>Temperaturen von Jetzt</p>
+          <p>{{currentDate}}</p>
+          <p>{{currentTime}} Uhr</p>
+        </ng-container>
+        <ng-container *ngIf="displayMode === 'dayAverage'">
+          <p>Temperaturen  24h bis</p>
+          <p>{{previousDate}}</p>
+          <p>{{currentTime}} Uhr</p>
+        </ng-container>
+        <ng-container *ngIf="displayMode === 'monthAverage'">
+          <p>Durschnitt {{getMonthName(selectedMonth?.month)}} {{monthAverageTemperatureData[0].year}}</p>
+        </ng-container>
+      </div>
+
+
 
     </div>
     

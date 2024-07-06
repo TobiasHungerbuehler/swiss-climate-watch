@@ -10,6 +10,7 @@ import { MonthAverageService } from '../services/month-average.service';
 import { TableComponent } from '../table/table.component';
 import { catchError } from 'rxjs/operators';
 import { DateNameService } from '../services/date-name.service';
+import { DateTimeService } from '../services/date-time.service';
 
 @Component({
   selector: 'app-map-display',
@@ -27,12 +28,17 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public selectedMonth: { year: number, month: number } | null = null;
 
+  currentTime: string = '';
+  currentDate: string = '';
+  previousDate: string = '';
+
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
     private dayAverageTemperatureService: DayAverageTemperatureService,
     private monthAverageService: MonthAverageService,
     private dataDisplayService: DataDisplayService,
-    private dateNameService: DateNameService
+    private dateNameService: DateNameService,
+    private dateTimeService: DateTimeService
   ) {
     this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$.pipe(
       catchError(() => of([]))
@@ -68,6 +74,12 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
           this.setMonthData(date.year, date.month);
         }
       })
+    );
+
+    this.subscriptions.push(
+      this.dateTimeService.getCurrentTime().subscribe(time => this.currentTime = time),
+      this.dateTimeService.getCurrentDate().subscribe(date => this.currentDate = date),
+      this.dateTimeService.getPreviousDate().subscribe(prevDate => this.previousDate = prevDate)
     );
   }
 

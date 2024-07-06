@@ -1,35 +1,22 @@
 section{
 
-    border: 1px solid rgb(240, 230, 140, 0.2);
+    border: 1px solid rgb(240, 230, 140, 0.1);
 
-    
-    @media (max-width: 1200px) {
-        margin-top: 60px;
-    }
+    >.map-description{
+        position: relative;
+        color: white;
 
-
-    >.wrapper {
-        width: 100%;
-        display: flex;
-        @media (max-width: 1200px) {
-            flex-direction: column;
-        }
-
-        >.map-box {
-            width: 100%;
-            border: 1px solid rgb(240, 140, 140, 0.2);
-            @media (max-width: 1200px) {
-                width: 100%;
-            }
-        }
-    
-        >.table-box {
-            width: 40%;
-            @media (max-width: 1200px) {
-                width: 100%;
-            }
+        >.layer{
+            position: absolute;
+            z-index: 3;
+            border: 1px solid yellow;
+            top: -40px;
+            left: 1%;
         }
     }
+
+
+    
     
 
 }

@@ -1,53 +1,29 @@
 section{
     width: 100%;
-    height: 100%;
+
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     flex-direction: column;
 
-
     @media (max-width: 1200px) {
         margin-top: 34px;
     }
 
-    
+
     >.table-header {
+        display: flex;
+        width: 100%;
 
         >p{
             color: yellow;
             font-size: clamp(10px, 1vw, 25px);
         }
 
-    }
-    >div{
-        display: flex;
-        width: 100%;
-        background: rgba(255, 255, 255, 0.32);
-        border-radius: 8px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        margin-bottom: 5px;
-        
-        @media (max-width: 1200px) {
-            width: 100%;
-        }
-
-
-
-        >p{
-            margin: 5px 0 5px ;
-            
-
-            color: white;
-            font-size: clamp(14px, 1.4vw, 15px);
-            
-        }
-
         >p:nth-child(1){
-            width: 50%;
+            margin-left: 2%;
+            width: 40%;
+
         }
 
         >p:nth-child(2){
@@ -57,6 +33,63 @@ section{
         >p:nth-child(3){
             width: 25%;
         }
+
+        >p:nth-child(4){
+            margin-right: 2%;
+            width: 14%;
+            text-align: right;
+        }
+
+
+
+    }
+
+    >.table{
+        width: 100%;
+        height: 33vw;
+        overflow: scroll;
+
+        >#single-city-element{
+            display: flex;
+            align-items: center;
+    
+            width: 100%;
+            background: rgba(255, 255, 255, 0.32);
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            margin-bottom: 8px;
+            >p{
+                margin: 8px 0 8px ;
+                color: white;
+                font-size: clamp(14px, 1.4vw, 15px);
+            }
+    
+            >p:nth-child(1){
+                margin-left: 2%;
+                width: 40%;
+    
+            }
+    
+            >p:nth-child(2){
+                width: 25%;
+            }
+    
+            >p:nth-child(3){
+                width: 25%;
+            }
+            >p:nth-child(4){
+                margin-right: 2%;
+                width: 14%;
+                text-align: right;
+                font-size: clamp(8px, 0.8vw, 14px);
+                color: rgb(75, 13, 247, 0.5);
+    
+            }
+        }
+    
     }
 
     
