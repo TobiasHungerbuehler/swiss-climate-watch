@@ -9,8 +9,14 @@ section{
         >.layer{
             position: absolute;
             z-index: 3;
-            top: -40px;
-            left: 1%;
+            top: 0;
+            left: 5%;
+
+            >.title{
+                font-size: clamp(18px, 1.8vw, 32px);
+                margin: 0;
+                font-weight: 500;
+            }
         }
     }
 

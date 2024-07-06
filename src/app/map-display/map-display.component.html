@@ -4,17 +4,17 @@
 
       <div class="layer">
         <ng-container *ngIf="displayMode === 'current'">
-          <p>Temperaturen von Jetzt</p>
+          <p class="title">Temperaturen von Jetzt</p>
           <p>{{currentDate}}</p>
           <p>{{currentTime}} Uhr</p>
         </ng-container>
         <ng-container *ngIf="displayMode === 'dayAverage'">
-          <p>Temperaturen  24h bis</p>
+          <p class="title">Temperaturen 24h von jetzt bis</p>
           <p>{{previousDate}}</p>
           <p>{{currentTime}} Uhr</p>
         </ng-container>
         <ng-container *ngIf="displayMode === 'monthAverage'">
-          <p>Durschnitt {{getMonthName(selectedMonth?.month)}} {{monthAverageTemperatureData[0].year}}</p>
+          <p class="title">Durschnitt {{getMonthName(selectedMonth?.month)}} {{monthAverageTemperatureData[0].year}}</p>
         </ng-container>
       </div>
 
