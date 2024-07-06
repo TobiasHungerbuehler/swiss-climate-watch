@@ -1,18 +1,37 @@
 section{
     display: flex;
+    justify-content: center;
     width: 100%;
+    margin-top: 100px;
+
+
+    @media (max-width: 1000px) {
+        flex-direction: column;
+    }
 
     >.map{
-        width: 50%;
+        width: 55%;
+
+        @media (max-width: 1000px) {
+            width: 100%;
+        }
     }
     
     >.table{
-        width: 50%;
+        width: 45%;
         display: flex;
         justify-content: flex-end;
+
+        @media (max-width: 1000px) {
+            width: 100%;
+        }
     }
 
     .table-display{
         width: 90%;
+
+        @media (max-width: 1000px) {
+            width: 100%;
+        }
     }
 }

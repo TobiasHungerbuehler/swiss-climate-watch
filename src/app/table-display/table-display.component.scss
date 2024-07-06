@@ -1,0 +1,13 @@
+section{
+  
+
+    >.table-description{
+        color: white;
+
+        >.title{
+            font-size: clamp(18px, 1.8vw, 32px);
+            margin: 0;
+            font-weight: 500;
+        }
+    }
+}

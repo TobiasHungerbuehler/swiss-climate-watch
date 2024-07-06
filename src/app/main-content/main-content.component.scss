@@ -1,10 +1,11 @@
 .main-content{
     width: 100%;
-
-
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
     >.inner-content{
-        width: 90vw;
+        width: 94vw;
         
     }
 }
