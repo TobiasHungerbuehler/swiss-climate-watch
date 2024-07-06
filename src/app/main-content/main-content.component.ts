@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DataToggleComponent } from '../data-toggle/data-toggle.component';
-
 import { MapComponent } from '../map-display/map/map.component';
-import { MapDisplayComponent } from '../map-display/map-display.component';
-
-
+import { TempDisplaysComponent } from '../temp-displays/temp-displays.component';
 
 @Component({
   selector: 'app-main-content',
   standalone: true,
-  imports: [ DataToggleComponent,MapComponent, MapDisplayComponent],
+  imports: [ DataToggleComponent,MapComponent, TempDisplaysComponent],
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss']
 })

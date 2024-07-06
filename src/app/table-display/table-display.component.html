@@ -1,0 +1,29 @@
+<section id="table-display">
+
+  <div class="table-description">
+
+    @if(displayMode === "current"){
+      <p>Vergleich zu 1940 -1970</p>
+    }
+    @if(displayMode === "dayAverage"){
+      <p>Vergleich zu 1940 -1970</p>
+    }
+    @if(displayMode === "monthAverage"){
+      <p>Vergleich zu {{getMonthName(selectedMonth?.month) }} 1940 -1970</p>
+    }
+  </div> 
+
+
+  <div class="table-box">
+    @if (displayMode === "current") {
+      <app-table  [mapDisplayData]="(sortedData$ | async) || []"></app-table>
+    }
+    @if (displayMode === "dayAverage") {
+      <app-table [mapDisplayData]="(sortedData$ | async) || []"></app-table>
+    }
+    @if (displayMode === "monthAverage") {
+      <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
+    }
+
+  </div>
+</section>

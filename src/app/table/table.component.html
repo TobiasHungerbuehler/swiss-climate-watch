@@ -1,4 +1,5 @@
 <section id="table">
+    
     <div class="table-header" >
         <p>{{'Station'}}</p>
         <p>{{'Temperatur'}}</p>
@@ -8,7 +9,7 @@
     @for (city of citys; track $index) {
 
 
-        @if ($index < 20 ) {
+        @if ($index < 10 ) {
 
             <div id="single-city-element">
                 <p>{{ city.cityName }}</p>

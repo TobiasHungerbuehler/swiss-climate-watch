@@ -1,0 +1,18 @@
+section{
+    display: flex;
+    width: 100%;
+
+    >.map{
+        width: 50%;
+    }
+    
+    >.table{
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .table-display{
+        width: 90%;
+    }
+}
