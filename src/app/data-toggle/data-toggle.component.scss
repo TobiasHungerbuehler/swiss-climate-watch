@@ -3,11 +3,12 @@ section{
     >div{
         margin-top: 80px;
         width: 100%;
-
-        >button{
+        display: flex;
+        
+        >button, .menu{
             //height: 2vw;
-            width: 14%;
-            min-width: 150px;
+            width: 25%;
+            
             margin-right: 2%;
             background: rgba(255, 255, 255, 0.17);
             border-radius: 8px;
@@ -18,8 +19,24 @@ section{
             color: white;
             font-size: clamp(14px, 1vw, 18px);
             margin-bottom: 32px;
-        
+            
         }
+        
+        .menu{
+            display: flex;
+            justify-content: space-around;
+
+        }
+
+        #yearSelect{
+            width: auto;
+        }
+
+        #monthSelect{
+            width: auto;
+        }
+
+
     }
 
     

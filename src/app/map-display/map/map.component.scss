@@ -5,9 +5,9 @@
     position: relative;
     width: 100%;
     height: 34.5vw;
-    border: solid 1px rgba(217, 255, 0, 0.5);
+    //border: solid 1px rgba(217, 255, 0, 0.5);
 
-    @media (max-width: 800px) {
+    @media (max-width: 1000px) {
         height: 62.5vw;
     }
 }
@@ -23,7 +23,7 @@
     opacity: 0;
     pointer-events: none;
 
-    border: solid 1px rgb(255, 0, 204, 0.5);
+    //border: solid 1px rgb(255, 0, 204, 0.5);
 }
 
 .top-layer {
