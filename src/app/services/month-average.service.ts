@@ -126,7 +126,7 @@ export class MonthAverageService {
           station.refTemp = ref.referenceTemp.average;
         }
       });
-      console.log('Month Average Data:', this.monthAverageData); // Zum Testen
+      //console.log('Month Average Data:', this.monthAverageData); // Zum Testen
       this.monthAverageTemperatureSubject.next(this.deepCopy(this.monthAverageData));
     });
   }

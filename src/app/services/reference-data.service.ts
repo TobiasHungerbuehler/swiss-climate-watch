@@ -17,13 +17,17 @@ export class ReferenceDataService {
     
     return collectionData(referenceDataRef).pipe(
       map(docs => {
+        // Ausgabe der Rohdaten in der Konsole
+        console.log('Raw reference data from Firestore:', docs);
+
         const processedDocs = docs.map(doc => ({
           city: doc['city'],
           referenceTemp: doc['referenceTemp'][month],
+          refAverageMonth: month
         }));
         
         // Ausgabe der verarbeiteten Daten in der Konsole, um zu überprüfen, ob refAverageMonth hinzugefügt wurde
-        //console.log('Processed reference data with refAverageMonth:', processedDocs);
+        console.log('Processed reference data with refAverageMonth:', processedDocs);
 
         return processedDocs;
       })
