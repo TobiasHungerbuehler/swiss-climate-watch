@@ -18,7 +18,7 @@ export class ReferenceDataService {
     return collectionData(referenceDataRef).pipe(
       map(docs => {
         // Ausgabe der Rohdaten in der Konsole
-        console.log('Raw reference data from Firestore:', docs);
+        //console.log('Raw reference data from Firestore:', docs);
 
         const processedDocs = docs.map(doc => ({
           city: doc['city'],
