@@ -5,8 +5,8 @@
     position: relative;
     width: 100%;
     height: 34.5vw;
-    //border: solid 1px rgba(217, 255, 0, 0.5);
-
+    border: solid 1px rgba(217, 255, 0, 0.5);
+    max-height: 613px;
     @media (max-width: 1000px) {
         height: 62.5vw;
     }
