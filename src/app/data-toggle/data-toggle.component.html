@@ -1,11 +1,11 @@
 <section>
   <div>
-    <button (click)="setMode('current')">Aktuelle Temperaturen</button>
-    <button (click)="setMode('dayAverage')">letzte 24h Schnitt</button>
-    <button (click)="setInitMonthData()">Monats Durschnitt</button>
+    <button [ngClass]="{'btn-on': displayMode === 'current'}" (click)="setMode('current')">Aktuelle Temperaturen</button>
+    <button [ngClass]="{'btn-on': displayMode === 'dayAverage'}" (click)="setMode('dayAverage')">letzte 24h Schnitt</button>
+    <button [ngClass]="{'btn-on': displayMode === 'monthAverage'}" (click)="setInitMonthData()">Monats Durschnitt</button>
 
     @if(displayMode === 'monthAverage'){
-      <div class="menu">
+      <div [ngClass]="{'btn-on': displayMode === 'monthAverage'}" class="menu">
         <div>
   
           <select id="yearSelect" (change)="onYearChange($event)" [value]="selectedYear">

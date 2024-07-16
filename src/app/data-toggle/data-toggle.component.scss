@@ -6,12 +6,10 @@ section{
         display: flex;
         
         >button, .menu{
-            //height: 2vw;
             width: 25%;
-            
             margin-right: 2%;
-            background: rgba(255, 255, 255, 0.17);
             border-radius: 8px;
+            background: rgba(255, 255, 255, 0.17);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
@@ -19,8 +17,17 @@ section{
             color: white;
             font-size: clamp(14px, 1vw, 18px);
             margin-bottom: 32px;
-            
+
+            &:hover{
+                background: rgba(255, 255, 255, 0.25);
+            }
         }
+        
+        .btn-on{
+            background-color: #fb901d;
+        }
+
+
         
         .menu{
             display: flex;
