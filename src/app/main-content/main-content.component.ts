@@ -7,20 +7,23 @@ import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { MapDashboardComponent } from '../map-dashboard/map-dashboard.component';
 import { TableDashboardComponent } from '../table-dashboard/table-dashboard.component';
+import { DashboardToggleComponent } from '../dashboard-toggle/dashboard-toggle.component';
+import { DashboardToggleServiceService } from '../services/dashboard-toggle-service.service';
 
 @Component({
   selector: 'app-main-content',
   standalone: true,
-  imports: [CommonModule ,DataToggleComponent,MapComponent, TempDisplaysComponent, MapDashboardComponent, TableDashboardComponent],
+  imports: [CommonModule ,DataToggleComponent,MapComponent, TempDisplaysComponent, MapDashboardComponent, TableDashboardComponent, DashboardToggleComponent], 
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss']
 })
 export class MainContentComponent implements OnInit {
   public displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
+  public dashboardMode: 'map' | 'table' = 'map';
   private subscriptions: Subscription[] = [];
 
 
-  constructor(private dataDisplayService: DataDisplayService) { 
+  constructor(private dataDisplayService: DataDisplayService, private dashboardToggleService: DashboardToggleServiceService) { 
     
   }
   
@@ -30,9 +33,20 @@ export class MainContentComponent implements OnInit {
     this.subscriptions.push(
       this.dataDisplayService.getDisplayMode().subscribe(mode => {
         this.displayMode = mode;
-        //console.log('toggle',this.displayMode);
+            })
+          );
+
+    // Abonniere den Dashboardmodus
+    this.subscriptions.push(
+      this.dashboardToggleService.getDashboardMode().subscribe(mode => {
+        this.dashboardMode = mode;
             })
           );
 
   }
+
+  
+
+
+
 }

@@ -5,8 +5,17 @@
     <div class="inner-content">
         <app-data-toggle></app-data-toggle>
 
+        <app-dashboard-toggle></app-dashboard-toggle>
 
-        <app-map-dashboard></app-map-dashboard>
+        @if (dashboardMode === 'map') {
+            <app-map-dashboard></app-map-dashboard>
+        }
+        @else if (dashboardMode === 'table') {
+            <app-table-dashboard></app-table-dashboard>
+        }
+
+
+
 
 
 
