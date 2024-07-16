@@ -1,9 +1,12 @@
 section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
 
-    //border: 1px solid rgb(240, 230, 140, 0.1);
-    //padding: 5%;
-    max-width: 920px;
-    max-height: 613px;
+    >.map-box{
+        width: 70%;
+        max-width: 900px;
+    }
 
 
     >.map-description{

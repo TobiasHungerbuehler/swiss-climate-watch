@@ -1,16 +1,35 @@
+section{
+    width: 100%;
+    height: auto;
+    border: 1px solid yellow;
 
+
+
+
+}
+
+    
+.frame{
+    position: relative;
+
+}
+
+.placeholder{
+    width:  100%;
+    height: auto;
+}
 
 
 .map-container {
-    position: relative;
+    position: absolute;
+    top: 0;
     width: 100%;
-    height: 34.5vw;
-    border: solid 1px rgba(217, 255, 0, 0.5);
-    max-height: 613px;
-    @media (max-width: 1000px) {
-        height: 62.5vw;
-    }
+    height: 38vw;
+    height: 100%;
+    
 }
+
+
 
 .map {
     width: 100%;
@@ -23,7 +42,7 @@
     opacity: 0;
     pointer-events: none;
 
-    //border: solid 1px rgb(255, 0, 204, 0.5);
+    border: solid 1px rgb(255, 0, 204, 0.5);
 }
 
 .top-layer {
