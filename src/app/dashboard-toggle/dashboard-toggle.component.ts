@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DashboardToggleServiceService } from '../services/dashboard-toggle-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-toggle',
@@ -10,14 +11,30 @@ import { DashboardToggleServiceService } from '../services/dashboard-toggle-serv
   styleUrl: './dashboard-toggle.component.scss'
 })
 export class DashboardToggleComponent {
+  public dashboardMode: 'map' | 'table' = 'map';
+  private subscriptions: Subscription[] = [];
 
-  constructor(private dashboardToggleService: DashboardToggleServiceService){
+  constructor(private dashboardToggleService: DashboardToggleServiceService) {
 
   }
 
-    // Setzt den Modus auf 'current' oder 'dayAverage'
-    setMode(mode: 'table' | 'map'): void {
-      this.dashboardToggleService.setDashboardMode(mode);
-    }
+  ngOnInit(): void {
+    
+        // Abonniere den Dashboardmodus
+        this.subscriptions.push(
+          this.dashboardToggleService.getDashboardMode().subscribe(mode => {
+            this.dashboardMode = mode;
+          })
+        );
+  }
+
+
+
+  // Setzt den Modus
+  setMode(mode: 'table' | 'map'): void {
+    this.dashboardToggleService.setDashboardMode(mode);
+  }
+
+
 
 }

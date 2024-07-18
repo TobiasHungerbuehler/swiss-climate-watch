@@ -1,6 +1,12 @@
 
 <div>
-    <button (click)="setMode('table')">Table</button>
-    <button (click)="setMode('map')">Map</button>
+
+    @if (dashboardMode === 'map') {
+        <button (click)="setMode('table')">zeige Tabelle</button>
+    }
+    @else if (dashboardMode === 'table') {
+        <button (click)="setMode('map')">Zeige Karte</button>
+    }
+
 </div>
 
