@@ -1,52 +1,76 @@
 .city-marker {
     position: absolute;
-    height: 2vw;
-    width:  2vw;
-    font-weight: 700;
-    
-    background: rgba(255, 255, 255, 0.25);
+    transform: translate(-50%, -50%);
+    z-index: 9 !important;
+    height: 8px;
+    width: 8px;
     border-radius: 50%;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: #dba940;
+    background: #d6db40;
+    background: white;
+    background: black;
     border: 1px solid rgba(255, 255, 255, 0.28);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 3;
-    transform: translate(-50%, -50%);
     
-    >.temp{
-        color: rgb(129, 127, 127);
-        font-size: clamp(13px, 1.1vw, 16px);
+    >.marker-img{
+        position: absolute;
+        z-index: 8;
+        transform: translate(-41%, -90%);
+
+        >.layer {
+            position: relative;
+            height: 100%;
+            width: 100%;
+
+            >img {
+                position: absolute;
+                z-index: 1;
+                height: 35px;
+                width: 26px;
+            }
+            
+            >.inlay {
+                position: absolute;
+                z-index: 2;
+                left: 50%;
+                right: 50%;
+                transform: translate(-50%, 18%);
+                height: 27px;
+                width: 27px;
+                border-radius: 25px;
+                background: #2d8192;
+                background: #DBA940;
+                //background: #98c7af;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                color: white;
+                font-size: 11px;
+            }
+        }
         
-        font-weight: 700;
-        margin: 0;
+
     }
     
-    >.label {
-
-        padding: 6%;
-        border: 1px groove white;
-        border-radius: 15px;
+    .label {
         position: absolute;
-        top: 65%;
-        left: 100%; /* Adjust this value to change the distance from the marker */
-        transform: translateY(-50%);
+        z-index: 7;
+        height: 3.2vh;
+        width: 100px;
         white-space: nowrap;
+        background: rgba(71, 113, 129, 0.9);
 
-        background: rgba(255, 255, 255, 0.62);
-        border-radius: 8px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.28);
-        
+        border: 1px groove rgb(255, 255, 255), 0.9;
+        border-radius: 25px;
+        transform: translate( 8px, -60%);
+
         >p{
+            padding-left: 10px;
             color: rgb(100, 97, 97);
-            font-size: clamp(8px, 0.8vw, 15px);
+            color: white;
+            font-size: clamp(8px, 0.8vw, 10px);
             font-weight: 200;
             margin: 0;
         }
