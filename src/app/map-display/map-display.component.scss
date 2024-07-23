@@ -6,6 +6,11 @@ section{
     >.map-box{
         width: 70%;
         max-width: 900px;
+
+        @media (max-width: 1000px) {
+            width: 100%;
+
+        }
     }
 
 
@@ -24,6 +29,12 @@ section{
                 margin: 0;
                 font-weight: 500;
             }
+        }
+
+
+        @media (max-width: 1000px) {
+            display: none;
+
         }
     }
 

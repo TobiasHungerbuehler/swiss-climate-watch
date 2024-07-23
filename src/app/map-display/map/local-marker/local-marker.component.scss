@@ -1,77 +1,99 @@
 .city-marker {
     position: absolute;
     transform: translate(-50%, -50%);
-    z-index: 9 !important;
-    height: 8px;
-    width: 8px;
+    z-index: 9;
+    height: clamp(4px, 2vw, 8px);
+    width: clamp(6px, 2vw, 14px);
     border-radius: 50%;
-    background: #dba940;
-    background: #d6db40;
-    background: white;
-    background: black;
+    background: rgba(0, 0, 0, 0.579);
     border: 1px solid rgba(255, 255, 255, 0.28);
 
-    
-    >.marker-img{
+    >.marker-img-box{
         position: absolute;
         z-index: 8;
-        transform: translate(-41%, -90%);
-
+ 
         >.layer {
             position: relative;
-            height: 100%;
-            width: 100%;
-
-            >img {
+            height: 50px;
+            height: clamp(40px, 7vw, 50px);
+            width: clamp(40px, 7vw, 50px);
+            transform: translate(-50%, -100%) ;
+            
+            .marker-img {
                 position: absolute;
+                bottom: 0;
+                left: 50%;
+                right: 50%;
+                transform: translate(-38%);
                 z-index: 1;
-                height: 35px;
-                width: 26px;
+                height: 100%;
+                width: auto;
+                //border: 1px solid purple;
             }
             
+
             >.inlay {
                 position: absolute;
                 z-index: 2;
                 left: 50%;
                 right: 50%;
-                transform: translate(-50%, 18%);
-                height: 27px;
-                width: 27px;
+                transform: translate(-27%, 10%);
+                height: 55%;
+                width: 55%;
                 border-radius: 25px;
-                background: #2d8192;
-                background: #DBA940;
-                //background: #98c7af;
-
+                background: #d1c2a3;
                 display: flex;
                 justify-content: center;
                 align-items: center;
 
+                >.temp{
+
+                }
                 color: white;
-                font-size: 11px;
+                font-size: clamp(12px, 1vw, 16px);
+                text-shadow: 
+                -1px -1px 0 rgba(0, 0, 0, 0.753),  
+                 1px -1px 0 rgba(0, 0, 0, 0.753),
+                -1px  1px 0 rgba(0, 0, 0, 0.753),
+                 1px  1px 0 rgba(0, 0, 0, 0.753) /* Schwarzer Schatten um den Text */
             }
         }
-        
-
+    
     }
     
     .label {
         position: absolute;
         z-index: 7;
-        height: 3.2vh;
-        width: 100px;
+        left: 10px;
+        height: auto;
+        min-width: 100px;
         white-space: nowrap;
-        background: rgba(71, 113, 129, 0.9);
-
-        border: 1px groove rgb(255, 255, 255), 0.9;
+        display: flex;
         border-radius: 25px;
         transform: translate( 8px, -60%);
+        background-color: #0f1750a5;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(1px);
+        -webkit-backdrop-filter: blur(1px);
+        border: 1px solid rgba(248, 248, 248, 0.549);
+        -webkit-box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
+        -moz-box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
+        box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
+
+        @media (max-width: 600px) {
+            width: auto;
+            min-width: 10px;
+
+            display: none;
+
+        }
 
         >p{
             padding-left: 10px;
-            color: rgb(100, 97, 97);
-            color: white;
-            font-size: clamp(8px, 0.8vw, 10px);
-            font-weight: 200;
+            color: rgb(248, 246, 246);
+
+            font-size: clamp(10px, 0.8vw, 12px);
+            font-weight: 400;
             margin: 0;
         }
     }
