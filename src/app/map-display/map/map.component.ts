@@ -66,15 +66,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     this.veryHotMap.nativeElement.style.opacity = '0';
 
     if (temp <= 0) {
-      this.coldMap.nativeElement.style.opacity = '0.8';
+      this.coldMap.nativeElement.style.opacity = '1';
     } else if (temp > 0 && temp <= 10) {
-      this.coolMap.nativeElement.style.opacity = '0.8';
+      this.coolMap.nativeElement.style.opacity = '1';
     } else if (temp > 10 && temp <= 20) {
-      this.warmMap.nativeElement.style.opacity = '0.8';
+      this.warmMap.nativeElement.style.opacity = '1';
     } else if (temp > 20 && temp <= 30) {
-      this.hotMap.nativeElement.style.opacity = '0.8';
+      this.hotMap.nativeElement.style.opacity = '1';
     } else {
-      this.veryHotMap.nativeElement.style.opacity = '0.8';
+      this.veryHotMap.nativeElement.style.opacity = '1';
     }
   }
 

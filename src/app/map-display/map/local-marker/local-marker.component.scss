@@ -14,49 +14,51 @@
  
         >.layer {
             position: relative;
-            height: 50px;
-            height: clamp(40px, 7vw, 50px);
+            height: clamp(30px, 7vw, 50px);
             width: clamp(40px, 7vw, 50px);
-            transform: translate(-50%, -100%) ;
+            transform: translate(-40%, -100%) ;
             
             .marker-img {
                 position: absolute;
                 bottom: 0;
                 left: 50%;
                 right: 50%;
-                transform: translate(-38%);
+                transform: translate(-50%);
                 z-index: 1;
                 height: 100%;
-                width: auto;
-                //border: 1px solid purple;
+                width: 92%;
             }
-            
 
-            >.inlay {
+            .txt-box{
                 position: absolute;
-                z-index: 2;
-                left: 50%;
-                right: 50%;
-                transform: translate(-27%, 10%);
-                height: 55%;
-                width: 55%;
-                border-radius: 25px;
-                background: #d1c2a3;
+                margin-top: 25%;
+                left: 5%;
+                right: 5%;
+                z-index: 5;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-
+                
                 >.temp{
+                    margin: 0;
+                    color: rgb(76, 77, 76);
+                    font-size: clamp(10px, 2vw, 13px);
 
+                    >span{
+
+                        font-size: clamp(9px, 0.8vw, 12px);
+                        color: rgb(230, 114, 13);
+    
+                    }
+                
                 }
-                color: white;
-                font-size: clamp(12px, 1vw, 16px);
-                text-shadow: 
-                -1px -1px 0 rgba(0, 0, 0, 0.753),  
-                 1px -1px 0 rgba(0, 0, 0, 0.753),
-                -1px  1px 0 rgba(0, 0, 0, 0.753),
-                 1px  1px 0 rgba(0, 0, 0, 0.753) /* Schwarzer Schatten um den Text */
+
+
             }
+
+
+            
+
         }
     
     }
@@ -66,7 +68,7 @@
         z-index: 7;
         left: 10px;
         height: auto;
-        min-width: 100px;
+        min-width: 50px;
         white-space: nowrap;
         display: flex;
         border-radius: 25px;
