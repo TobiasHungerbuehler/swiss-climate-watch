@@ -31,13 +31,14 @@
 
             .txt-box{
                 position: absolute;
-                margin-top: 25%;
+                height: 80%;
                 left: 5%;
                 right: 5%;
                 z-index: 5;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
                 
                 >.temp{
                     margin: 0;

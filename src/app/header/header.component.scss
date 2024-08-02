@@ -6,16 +6,23 @@ section{
     right: 0;
     display: flex;
     align-items: center;
+    //background-color: #03E7FE;
 
     @media (max-width: 1200px) {
         height: 50px;
     }
 
+    img{
+        margin-left: 3%;
+        margin-top: 10px;
+        height: 70px;
+        width: auto;
+    };
 
 
     >p{
         margin: 12px;
-        margin-left: 3%;
+        margin-left: 10px;
         color: white;
         font-size: clamp(16px, 2vw, 32px);
         font-weight: 400;

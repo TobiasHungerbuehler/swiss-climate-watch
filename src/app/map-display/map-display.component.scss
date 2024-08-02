@@ -1,11 +1,16 @@
 section{
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    //border: 1px solid purple;
 
     >.map-box{
-        width: 70%;
+        width: 60%;
         max-width: 900px;
+        //border: 1px solid purple;
 
         @media (max-width: 1000px) {
             width: 100%;
@@ -15,25 +20,44 @@ section{
 
 
     >.map-description{
-        position: relative;
+        position: absolute;
+        z-index: 3;
+        left: 0;
+        top: 0;
         color: white;
+        //border: 1px solid purple;
 
-        >.layer{
-            position: absolute;
-            z-index: 3;
-            top: 0;
-            left: 5%;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(250, 246, 246, 0.28);
 
-            >.title{
-                font-size: clamp(18px, 1.8vw, 32px);
-                margin: 0;
-                font-weight: 500;
-            }
+
+        
+        
+        >p{
+            padding-right: 8px;
         }
 
+        .title{
+            font-size: clamp(18px, 1.8vw, 32px);
+            margin: 0;
+            font-weight: 500;
+
+        }
 
         @media (max-width: 1000px) {
-            display: none;
+            position: static;
+            left: auto;
+            color: white;
+            //border: 1px solid purple;
+            z-index: 3;
+            top: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
         }
     }

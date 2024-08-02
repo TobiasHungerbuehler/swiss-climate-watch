@@ -1,30 +1,27 @@
 <section>
-
     <div class="map-description">
 
-      <div class="layer">
+
         <ng-container *ngIf="displayMode === 'current'">
-          <p class="title">Unterschied von Jetzt</p>
+          <p class="title">Anomalie von Jetzt</p>
           <p>{{currentDate}}</p>
           <p>{{currentTime}} Uhr</p>
         </ng-container>
         <ng-container *ngIf="displayMode === 'dayAverage'">
-          <p class="title">Unterschied  letzte 24h</p>
+          <p class="title">Anomalie letzte 24h</p>
           <p>{{previousDate}}</p>
-          <p>{{currentTime}} Uhr</p>
         </ng-container>
         <ng-container *ngIf="displayMode === 'monthAverage'">
           <p class="title">Unterschied im Monat {{getMonthName(selectedMonth?.month)}} {{monthAverageTemperatureData[0].year}}</p>
         </ng-container>
-      </div>
+        <p>gegenüber</p>
+        <p>{{getMonthName(getMonth())}} 1940 - 1970</p>
+
 
 
 
     </div>
     
-  
-  
-    <!-- <div class="wrapper"> -->
       <div class="map-box">
         <ng-container *ngIf="displayMode === 'current'">
           <app-map [mapDisplayData]="(currentTemperatureData$ | async) || []"></app-map>
@@ -37,6 +34,6 @@
         </ng-container>
       </div>
   
-    <!-- </div> -->
+
   </section>
   

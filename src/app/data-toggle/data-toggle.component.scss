@@ -35,8 +35,12 @@ section{
             -webkit-backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.28);
             color: white;
-            font-size: clamp(8px, 0.8vw, 18px);
+            font-size: clamp(12px, 0.8vw, 18px);
             margin-bottom: 32px;
+
+            @media (max-width: 1000px){
+                height: 100%;
+            }
 
             &:hover{
                 background: rgba(255, 255, 255, 0.25);
@@ -44,10 +48,11 @@ section{
         }
         
         .btn-on{
-            background-color: #FFE91F;
+
             background-color: #ffcb2a;
-            //background-color: #FFEB3B;
-            //background-color: #fafb1c;
+            background-color: #fff700;
+
+
 
 
             color: #00283D;

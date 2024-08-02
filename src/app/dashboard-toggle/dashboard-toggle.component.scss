@@ -1,11 +1,16 @@
 div{
     position: absolute;
-    z-index: 10;
+    z-index: 12;
     left: 50;
     right: 50;
     transform: translate(-50%);
     bottom: 0;
     margin-bottom: 32px;
+
+    @media (max-width: 1000px){
+    margin-bottom: 132px;
+
+    }
     
     >button{
         background-color: transparent;

@@ -54,4 +54,12 @@ export class DateTimeService {
     const year = date.getFullYear();
     return `${dayName}, ${day}. ${monthName} ${year}`;
   }
+
+
+    // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
+    // getMonth(): number {
+    //   const date = new Date();
+    //   return date.getMonth() + 1; // JavaScript gibt Monate von 0-11 zurück, daher +1
+    // }
+
 }

@@ -31,6 +31,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   currentTime: string = '';
   currentDate: string = '';
   previousDate: string = '';
+  actualMonth: number =  0;
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -71,6 +72,8 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
       this.dataDisplayService.getMonthDataSelected().subscribe(date => {
         this.selectedMonth = date;
         if (date) {
+          console.log('abnoniere monatsdaten',date);
+          
           this.setMonthData(date.year, date.month);
         }
       })
@@ -81,6 +84,10 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
       this.dateTimeService.getCurrentDate().subscribe(date => this.currentDate = date),
       this.dateTimeService.getPreviousDate().subscribe(prevDate => this.previousDate = prevDate)
     );
+
+
+
+
   }
 
   // Setzt die Monat-Daten und aktualisiert die Kartendarstellung
@@ -102,4 +109,13 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+
+
+    // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
+    getMonth(): number {
+      const date = new Date();
+      return date.getMonth() + 1; // JavaScript gibt Monate von 0-11 zurück, daher +1
+    }
+
+
 }
