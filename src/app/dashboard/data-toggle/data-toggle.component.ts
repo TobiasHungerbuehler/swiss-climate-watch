@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DataDisplayService } from '../services/data-display.service';
-import { MonthAverageService } from '../services/month-average.service';
+import { DataDisplayService } from '../../services/data-display.service';
+import { MonthAverageService } from '../../services/month-average.service';
 import { Subscription } from 'rxjs';
-import { DateTimeService } from '../services/date-time.service';  // Assuming you have a DateTimeService for month names
-import { DateNameService } from '../services/date-name.service';
+import { DateTimeService } from '../../services/date-time.service';
+import { DateNameService } from '../../services/date-name.service';
 
 @Component({
   selector: 'app-data-toggle',

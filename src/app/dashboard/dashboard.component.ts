@@ -1,25 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MapComponent } from '../map-display/map/map.component';
+import { MapComponent } from './map/map.component';
 import { CurrentTemperatureService } from '../services/current-temperature.service';
 import { DayAverageTemperatureService } from '../services/day-average.service';
 import { StandardStationData } from '../services/standard-station-data.service';
 import { DataDisplayService } from '../services/data-display.service';
 import { Observable, Subscription, of } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
-import { TableComponent } from '../table/table.component';
+import { TableComponent } from './table/table.component';
 import { catchError, tap } from 'rxjs/operators';
 import { DateNameService } from '../services/date-name.service';
 import { DateTimeService } from '../services/date-time.service';
 import { HighestRefListComponent } from '../shared/highest-ref-list/highest-ref-list.component';
 import { DashboardToggleServiceService } from '../services/dashboard-toggle-service.service';
-import { OnboardingComponent } from '../onboarding/onboarding.component';
+import { OnboardingComponent } from './onboarding/onboarding.component';
 import { DateboxComponent } from './datebox/datebox.component';
+import { DashboardToggleComponent } from './dashboard-toggle/dashboard-toggle.component';
+import { DataToggleComponent } from "./data-toggle/data-toggle.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent],
+  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

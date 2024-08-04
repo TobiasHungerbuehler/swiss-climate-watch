@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DashboardToggleServiceService } from '../services/dashboard-toggle-service.service';
+import { DashboardToggleServiceService } from '../../services/dashboard-toggle-service.service';
 import { Subscription } from 'rxjs';
 
 @Component({

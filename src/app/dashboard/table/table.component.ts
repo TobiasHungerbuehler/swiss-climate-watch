@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { StandardStationData } from '../services/standard-station-data.service';
+import { StandardStationData } from '../../services/standard-station-data.service';
 
 @Component({
   selector: 'app-table',
