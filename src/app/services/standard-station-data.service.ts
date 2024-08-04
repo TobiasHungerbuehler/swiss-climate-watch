@@ -15,6 +15,8 @@ export interface StandardStationData {
   anomaly?: number;
   year?: number;
   month?: number;
+  highestRefTemp?: number; 
+  highestRefTempDate?: Date;
 }
 
 

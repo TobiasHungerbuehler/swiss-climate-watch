@@ -1,27 +1,46 @@
 <section>
+
+
+  <!-- mache als componenet -->
     <div class="map-description">
-
-
         <ng-container *ngIf="displayMode === 'current'">
           <p class="title">Anomalie von Jetzt</p>
-          <p>{{currentDate}}</p>
-          <p>{{currentTime}} Uhr</p>
+          <div class="line"></div>
+          <p class="date">{{currentDate}}</p>
+          <p class="time">{{currentTime}} Uhr</p>
+          <p>gegenüber {{getMonthName(getMonth())}} 1940 - 1970</p>
+
         </ng-container>
+        
         <ng-container *ngIf="displayMode === 'dayAverage'">
           <p class="title">Anomalie letzte 24h</p>
-          <p>{{previousDate}}</p>
-        </ng-container>
-        <ng-container *ngIf="displayMode === 'monthAverage'">
-          <p class="title">Unterschied im Monat {{getMonthName(selectedMonth?.month)}} {{monthAverageTemperatureData[0].year}}</p>
-        </ng-container>
-        <p>gegenüber</p>
-        <p>{{getMonthName(getMonth())}} 1940 - 1970</p>
+          <div class="line"></div>
+          <p class="date">{{currentDate}}</p>
+          <p class="time">{{currentTime}} Uhr - 24h</p>
 
+        <p>gegenüber {{getMonthName(getMonth())}} 1940 - 1970</p>
+
+        </ng-container>
+        
+        <ng-container *ngIf="displayMode === 'monthAverage'">
+          <p class="title">Anomalie {{getMonthName(selectedMonth?.month)}} {{monthAverageTemperatureData[0].year}}</p>
+          <div class="line"></div>
+          <p>gegenüber {{getMonthName(selectedMonth?.month)}} 1940 - 1970</p>
+        </ng-container>
+
+
+
+          <app-highest-ref-list></app-highest-ref-list>
 
 
 
     </div>
     
+
+
+
+
+
       <div class="map-box">
         <ng-container *ngIf="displayMode === 'current'">
           <app-map [mapDisplayData]="(currentTemperatureData$ | async) || []"></app-map>

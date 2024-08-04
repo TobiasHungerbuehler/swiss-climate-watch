@@ -8,14 +8,15 @@ import { DataDisplayService } from '../services/data-display.service';
 import { Observable, Subscription, of } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
 import { TableComponent } from '../table/table.component';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { DateNameService } from '../services/date-name.service';
 import { DateTimeService } from '../services/date-time.service';
+import { HighestRefListComponent } from '../shared/highest-ref-list/highest-ref-list.component';
 
 @Component({
   selector: 'app-map-display',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent],
+  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent],
   templateUrl: './map-display.component.html',
   styleUrls: ['./map-display.component.scss']
 })
@@ -32,6 +33,7 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   currentDate: string = '';
   previousDate: string = '';
   actualMonth: number =  0;
+  citys: any[] = [];
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -39,11 +41,17 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     private monthAverageService: MonthAverageService,
     private dataDisplayService: DataDisplayService,
     private dateNameService: DateNameService,
-    private dateTimeService: DateTimeService
+    private dateTimeService: DateTimeService,
+    //private highesRefList: HighestRefListComponent
+
   ) {
     this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$.pipe(
+      tap(data => console.log('Current Temperature Data:', data)),
       catchError(() => of([]))
     );
+    
+    
+
     this.dayAverageTemperatureData$ = this.dayAverageTemperatureService.dayAverageTemperature$.pipe(
       catchError(() => of([]))
     );
@@ -61,11 +69,11 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     );
 
     // Initialisiere die Monatsdurchschnittsdaten und aktualisiere die Karte, wenn der Modus 'monthAverage' ist
-    this.monthAverageService.createMonthAverageJson().then(() => {
-      if (this.displayMode === 'monthAverage') {
-        this.updateMonthAverageData();
-      }
-    });
+    // this.monthAverageService.createMonthAverageJson().then(() => {
+    //   if (this.displayMode === 'monthAverage') {
+    //     this.updateMonthAverageData();        
+    //   }
+    // });
 
     // Abonniere die ausgewählten Monat-Daten
     this.subscriptions.push(

@@ -19,6 +19,8 @@ section{
     }
 
 
+
+
     >.map-description{
         position: absolute;
         z-index: 3;
@@ -26,18 +28,9 @@ section{
         top: 0;
         color: white;
         //border: 1px solid purple;
-
-        background: rgba(255, 255, 255, 0.12);
-        border-radius: 8px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(250, 246, 246, 0.28);
-
-
-        
         
         >p{
+            margin: 0;
             padding-right: 8px;
         }
 
@@ -46,6 +39,23 @@ section{
             margin: 0;
             font-weight: 500;
 
+        }
+
+        .line{
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #FDDE00 0%, #D82C06 88%);
+        }
+
+        .date{
+            margin: 5px 0px;
+            font-size: 24px;
+        }
+
+        .time{
+            color: rgb(191, 255, 255);
+            margin-top: 5px;
+            font-size: 32px;
         }
 
         @media (max-width: 1000px) {
@@ -60,6 +70,10 @@ section{
             align-items: center;
 
         }
+    }
+
+    >.list{
+
     }
 
 

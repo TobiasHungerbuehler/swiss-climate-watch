@@ -1,0 +1,13 @@
+<div class="list">
+
+    @for (city of citys; track $index) {
+
+        <div class="single-element">
+            <p>{{ city.cityName }}</p>
+            <!-- <p>{{ city.highestRefTempDate |date: 'year%' }}</p>     -->
+            <p>{{ city.refTemp | number: '1.1-1' }}°</p>
+          </div>
+    }
+  </div>
+  
+  

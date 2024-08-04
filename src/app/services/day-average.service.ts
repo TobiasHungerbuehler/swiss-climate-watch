@@ -71,6 +71,8 @@ export class DayAverageTemperatureService {
           const ref = referenceData.find(r => r.city === station.city);
           if (ref) {
             station.refTemp = ref.referenceTemp.average;
+            station.highestRefTemp = ref.referenceTemp.highest;
+            station.highestRefTempDate = ref.referenceTemp.highest_date;
             //console.log(`Updated station ${station.city} with reference temperature: ${station.refTemp}`);
           } else {
             //console.warn(`Reference data for station ${station.city} not found`);
