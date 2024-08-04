@@ -8,14 +8,15 @@ import { DataDisplayService } from '../services/data-display.service';
 import { Observable, Subscription, of } from 'rxjs';
 import { MonthAverageService } from '../services/month-average.service';
 import { TableComponent } from '../table/table.component';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { DateNameService } from '../services/date-name.service';
 import { DateTimeService } from '../services/date-time.service';
+import { HighestRefListComponent } from '../shared/highest-ref-list/highest-ref-list.component';
 
 @Component({
   selector: 'app-map-display',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent],
+  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent],
   templateUrl: './map-display.component.html',
   styleUrls: ['./map-display.component.scss']
 })
@@ -31,6 +32,8 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   currentTime: string = '';
   currentDate: string = '';
   previousDate: string = '';
+  actualMonth: number =  0;
+  citys: any[] = [];
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -38,11 +41,17 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     private monthAverageService: MonthAverageService,
     private dataDisplayService: DataDisplayService,
     private dateNameService: DateNameService,
-    private dateTimeService: DateTimeService
+    private dateTimeService: DateTimeService,
+    //private highesRefList: HighestRefListComponent
+
   ) {
     this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$.pipe(
+      tap(data => console.log('Current Temperature Data:', data)),
       catchError(() => of([]))
     );
+    
+    
+
     this.dayAverageTemperatureData$ = this.dayAverageTemperatureService.dayAverageTemperature$.pipe(
       catchError(() => of([]))
     );
@@ -60,17 +69,19 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     );
 
     // Initialisiere die Monatsdurchschnittsdaten und aktualisiere die Karte, wenn der Modus 'monthAverage' ist
-    this.monthAverageService.createMonthAverageJson().then(() => {
-      if (this.displayMode === 'monthAverage') {
-        this.updateMonthAverageData();
-      }
-    });
+    // this.monthAverageService.createMonthAverageJson().then(() => {
+    //   if (this.displayMode === 'monthAverage') {
+    //     this.updateMonthAverageData();        
+    //   }
+    // });
 
     // Abonniere die ausgewählten Monat-Daten
     this.subscriptions.push(
       this.dataDisplayService.getMonthDataSelected().subscribe(date => {
         this.selectedMonth = date;
         if (date) {
+          console.log('abnoniere monatsdaten',date);
+          
           this.setMonthData(date.year, date.month);
         }
       })
@@ -81,6 +92,10 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
       this.dateTimeService.getCurrentDate().subscribe(date => this.currentDate = date),
       this.dateTimeService.getPreviousDate().subscribe(prevDate => this.previousDate = prevDate)
     );
+
+
+
+
   }
 
   // Setzt die Monat-Daten und aktualisiert die Kartendarstellung
@@ -102,4 +117,13 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+
+
+    // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
+    getMonth(): number {
+      const date = new Date();
+      return date.getMonth() + 1; // JavaScript gibt Monate von 0-11 zurück, daher +1
+    }
+
+
 }

@@ -19,9 +19,9 @@ export class DataDisplayService {
   }
 
   // Gibt den aktuellen Anzeigemodus-Wert zurück
-  getDisplayModeValue(): 'current' | 'dayAverage' | 'monthAverage' {
-    return this.displayModeSubject.getValue();
-  }
+  // getDisplayModeValue(): 'current' | 'dayAverage' | 'monthAverage' {
+  //   return this.displayModeSubject.getValue();
+  // }
 
   // Wählt die Monat-Daten aus
   selectMonthData(year: number, month: number): void {

@@ -1,10 +1,28 @@
-<section class="main-content">
+<section [ngClass]="{'bg-blue': displayMode === 'current' || 'dayAverage', 'bg-purple': displayMode === 'monthAverage'}"  class="main-content">
 
+    <!-- <app-start></app-start> -->
+    <app-data-toggle></app-data-toggle>
+    <app-dashboard-toggle></app-dashboard-toggle>
+    
+    <img  class="retro-bg" src="./assets/img/retro2.png" alt="">
     
     <div class="inner-content">
-        <app-data-toggle></app-data-toggle>
+        
+        <app-onboarding></app-onboarding>
 
-        <app-temp-displays></app-temp-displays>
+        @if (dashboardMode === 'map') {
+            <app-map-dashboard></app-map-dashboard>
+        }
+        @else if (dashboardMode === 'table') {
+            <app-table-dashboard></app-table-dashboard>
+        }
+
+
+
+
+
+
+        <!-- <app-temp-displays></app-temp-displays> -->
 
     </div>
     

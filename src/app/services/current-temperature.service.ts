@@ -77,9 +77,16 @@ export class CurrentTemperatureService {
           const ref = referenceData.find(r => r.city === station.city);
           if (ref) {
             station.refTemp = ref.referenceTemp.average;
+            station.month = ref.refAverageMonth;
+            station.highestRefTemp = ref.referenceTemp.highest;
+            station.highestRefTempDate = ref.referenceTemp.highest_date;
+
           }
         });
         this.currentTemperatureSubject.next(this.currentTempData);
+        console.log('im current service',this.currentTempData);
+
+        
       }),
       map(() => {}) // map to void
     );

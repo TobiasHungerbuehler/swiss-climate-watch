@@ -1,0 +1,21 @@
+.list{
+    margin-top: 20px;
+    width: 100%;
+    //background-color: rgba(0, 255, 255, 0.52);
+
+    >.single-element{
+        display: flex;
+        // justify-content: space-between;
+
+        >p{
+            margin: 0;
+            font-size: 12px;
+
+            &:first-child{
+                width: 60%;
+            }
+        }
+
+
+    }
+}
