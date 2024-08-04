@@ -13,11 +13,13 @@ import { DateNameService } from '../services/date-name.service';
 import { DateTimeService } from '../services/date-time.service';
 import { HighestRefListComponent } from '../shared/highest-ref-list/highest-ref-list.component';
 import { DashboardToggleServiceService } from '../services/dashboard-toggle-service.service';
+import { OnboardingComponent } from '../onboarding/onboarding.component';
+import { DateboxComponent } from './datebox/datebox.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent],
+  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
