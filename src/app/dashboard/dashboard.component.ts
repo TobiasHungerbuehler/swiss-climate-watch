@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MapComponent } from './map/map.component';
+import { MapComponent } from '../map-display/map/map.component';
 import { CurrentTemperatureService } from '../services/current-temperature.service';
 import { DayAverageTemperatureService } from '../services/day-average.service';
 import { StandardStationData } from '../services/standard-station-data.service';
@@ -12,15 +12,16 @@ import { catchError, tap } from 'rxjs/operators';
 import { DateNameService } from '../services/date-name.service';
 import { DateTimeService } from '../services/date-time.service';
 import { HighestRefListComponent } from '../shared/highest-ref-list/highest-ref-list.component';
+import { DashboardToggleServiceService } from '../services/dashboard-toggle-service.service';
 
 @Component({
-  selector: 'app-map-display',
+  selector: 'app-dashboard',
   standalone: true,
   imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent],
-  templateUrl: './map-display.component.html',
-  styleUrls: ['./map-display.component.scss']
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss']
 })
-export class MapDisplayComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   currentTemperatureData$: Observable<StandardStationData[]>;
   dayAverageTemperatureData$: Observable<StandardStationData[]>;
@@ -28,12 +29,13 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
   public displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
   private subscriptions: Subscription[] = [];
   public selectedMonth: { year: number, month: number } | null = null;
+  public dashboardMode: 'map' | 'table' = 'map';
 
   currentTime: string = '';
   currentDate: string = '';
   previousDate: string = '';
-  actualMonth: number =  0;
-  citys: any[] = [];
+  actualMonth: number = 0;
+  mapDisplayData: StandardStationData[] = [];
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -42,50 +44,47 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     private dataDisplayService: DataDisplayService,
     private dateNameService: DateNameService,
     private dateTimeService: DateTimeService,
-    //private highesRefList: HighestRefListComponent
-
+    private dashboardToggleService: DashboardToggleServiceService
   ) {
     this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$.pipe(
       //tap(data => console.log('Current Temperature Data:', data)),
       catchError(() => of([]))
     );
-    
-    
 
     this.dayAverageTemperatureData$ = this.dayAverageTemperatureService.dayAverageTemperature$.pipe(
+      //tap(data => console.log('Day Average Temperature Data:', data)),
       catchError(() => of([]))
     );
   }
 
   ngOnInit(): void {
-    // Abonniere den Anzeigemodus
     this.subscriptions.push(
       this.dataDisplayService.getDisplayMode().subscribe(mode => {
         this.displayMode = mode;
+        //console.log('Display Mode:', mode);
+        this.updateSelectedData();
         if (mode === 'monthAverage') {
           this.updateMonthAverageData();
         }
       })
     );
 
-    // Initialisiere die Monatsdurchschnittsdaten und aktualisiere die Karte, wenn der Modus 'monthAverage' ist
-    // this.monthAverageService.createMonthAverageJson().then(() => {
-    //   if (this.displayMode === 'monthAverage') {
-    //     this.updateMonthAverageData();        
-    //   }
-    // });
-
-    // Abonniere die ausgewählten Monat-Daten
     this.subscriptions.push(
       this.dataDisplayService.getMonthDataSelected().subscribe(date => {
         this.selectedMonth = date;
         if (date) {
-          //console.log('abnoniere monatsdaten',date);
-          
+          //console.log('Selected Month:', date);
           this.setMonthData(date.year, date.month);
         }
       })
     );
+
+      // Abonniere den Dashboardmodus
+      this.subscriptions.push(
+        this.dashboardToggleService.getDashboardMode().subscribe(mode => {
+          this.dashboardMode = mode;
+              })
+            );
 
     this.subscriptions.push(
       this.dateTimeService.getCurrentTime().subscribe(time => this.currentTime = time),
@@ -93,19 +92,35 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
       this.dateTimeService.getPreviousDate().subscribe(prevDate => this.previousDate = prevDate)
     );
 
-
-
-
+    this.updateSelectedData();
   }
 
-  // Setzt die Monat-Daten und aktualisiert die Kartendarstellung
+  updateSelectedData(): void {
+    console.log('Updating selected data for mode:', this.displayMode);
+    if (this.displayMode === 'current') {
+      this.currentTemperatureData$.subscribe(data => {
+        this.mapDisplayData = data;
+        //console.log('Selected Data (Current):', this.selectedData);
+      });
+    } else if (this.displayMode === 'dayAverage') {
+      this.dayAverageTemperatureData$.subscribe(data => {
+        this.mapDisplayData = data;
+        //console.log('Selected Data (Day Average):', this.selectedData);
+      });
+    } else if (this.displayMode === 'monthAverage') {
+      this.mapDisplayData = this.monthAverageTemperatureData;
+      //console.log('Selected Data (Month Average):', this.selectedData);
+    }
+  }
+
   setMonthData(year: number, month: number): void {
+    console.log('Setting month data:', year, month);
     this.monthAverageService.setMonthData(year, month);
     this.updateMonthAverageData();
   }
 
-  // Aktualisiert die Monatsdurchschnittsdaten
   private updateMonthAverageData(): void {
+    console.log('Updating month average data');
     this.monthAverageTemperatureData = this.monthAverageService.getMonthAverageData();
   }
 
@@ -113,17 +128,12 @@ export class MapDisplayComponent implements OnInit, OnDestroy {
     return this.dateNameService.getMonthName(month);
   }
 
-  // Aufräumen der Abonnements beim Zerstören der Komponente
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-
-    // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
-    getMonth(): number {
-      const date = new Date();
-      return date.getMonth() + 1; // JavaScript gibt Monate von 0-11 zurück, daher +1
-    }
-
-
+  getMonth(): number {
+    const date = new Date();
+    return date.getMonth() + 1;
+  }
 }

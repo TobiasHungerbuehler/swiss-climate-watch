@@ -1,0 +1,9 @@
+
+@if (dashboardMode === 'map') {
+    <app-map [mapDisplayData]="mapDisplayData"></app-map>
+    
+}
+@else if (dashboardMode === 'table') {
+    <app-table [mapDisplayData]="mapDisplayData"></app-table>
+}
+

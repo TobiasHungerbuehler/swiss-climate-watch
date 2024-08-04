@@ -42,7 +42,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     const resizeObserver = new ResizeObserver(() => {
       this.logMapContainerHeight();
     });
-
+    console.log('MAP', this.mapDisplayData);
+    
     resizeObserver.observe(this.mapContainer.nativeElement);
   }
 

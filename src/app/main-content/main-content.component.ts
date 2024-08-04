@@ -11,11 +11,12 @@ import { DashboardToggleComponent } from '../dashboard-toggle/dashboard-toggle.c
 import { DashboardToggleServiceService } from '../services/dashboard-toggle-service.service';
 import { StartComponent } from '../start/start.component';
 import { OnboardingComponent } from '../onboarding/onboarding.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-main-content',
   standalone: true,
-  imports: [CommonModule ,DataToggleComponent,MapComponent, TempDisplaysComponent, MapDashboardComponent, TableDashboardComponent, DashboardToggleComponent, StartComponent, OnboardingComponent], 
+  imports: [CommonModule ,DataToggleComponent,MapComponent, TempDisplaysComponent, MapDashboardComponent, TableDashboardComponent, DashboardToggleComponent, StartComponent, OnboardingComponent, DashboardComponent], 
   templateUrl: './main-content.component.html',
   styleUrls: ['./main-content.component.scss']
 })
