@@ -1,0 +1,39 @@
+section{
+    //position: relative;
+    margin-top: 70px;
+    width: 100%;
+    padding-right: 65px;
+    height: 92vh;
+    border: 1px solid brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 1000px) {
+        flex-direction: column;
+        height: auto;
+        padding-right: 0;
+
+        margin-bottom: 10%;
+    }
+    
+    >.mid-section{
+        //width: 30%;
+        //display: flex;
+        //justify-content: center;
+        //align-items: center;
+        border: 1px solid brown;
+    }
+    
+    >.side{
+        width: 35%;
+        height: 100%;
+        border: 1px solid rgb(109, 216, 42);
+
+        @media (max-width: 1000px) {
+            width: 100%;
+        }
+    }
+    
+
+}

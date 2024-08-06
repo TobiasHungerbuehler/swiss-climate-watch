@@ -1,14 +1,43 @@
 
-@if (dashboardMode === 'map') {
-    <app-map [mapDisplayData]="mapDisplayData"></app-map>
+<section>
+
     
-}
-@else if (dashboardMode === 'table') {
-    <app-table [mapDisplayData]="mapDisplayData"></app-table>
-}
+    <app-dashboard-toggle></app-dashboard-toggle>
 
-<app-onboarding></app-onboarding>
-<app-datebox></app-datebox>
+    <app-data-toggle></app-data-toggle>
 
-<app-dashboard-toggle></app-dashboard-toggle>
-<app-data-toggle></app-data-toggle>
+    <div class="side">
+
+        <app-onboarding></app-onboarding>
+    
+        <app-datebox></app-datebox>
+
+        <app-barchart></app-barchart>
+
+    </div>
+
+
+    <div class="mid">
+
+        @if (dashboardMode === 'map') {
+            <app-map [mapDisplayData]="mapDisplayData"></app-map>
+            
+        }
+        @else if (dashboardMode === 'table') {
+            <app-table [mapDisplayData]="mapDisplayData"></app-table>
+        }
+
+    </div>
+
+    <div class="side">
+
+        <!-- <app-highest-ref-list></app-highest-ref-list> -->
+
+        <app-year-temp-chart></app-year-temp-chart>
+    </div>
+
+
+
+
+
+</section>

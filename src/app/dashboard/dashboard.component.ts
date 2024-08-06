@@ -17,11 +17,13 @@ import { OnboardingComponent } from './onboarding/onboarding.component';
 import { DateboxComponent } from './datebox/datebox.component';
 import { DashboardToggleComponent } from './dashboard-toggle/dashboard-toggle.component';
 import { DataToggleComponent } from "./data-toggle/data-toggle.component";
+import { BarchartComponent } from './barchart/barchart.component';
+import { YearTempChartComponent } from '../shared/year-temp-chart/year-temp-chart.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent],
+  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent, BarchartComponent, YearTempChartComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

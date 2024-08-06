@@ -1,8 +1,8 @@
 .map-description{
-    position: absolute;
+    //position: absolute;
     z-index: 3;
     left: 0;
-    top: 0;
+    bottom: 0;
     color: white;
     //border: 1px solid purple;
     
@@ -35,16 +35,16 @@
         font-size: 32px;
     }
 
-    @media (max-width: 1000px) {
-        position: static;
-        left: auto;
-        color: white;
-        //border: 1px solid purple;
-        z-index: 3;
-        top: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    // @media (max-width: 1000px) {
+    //     position: static;
+    //     left: auto;
+    //     color: white;
+    //     //border: 1px solid purple;
+    //     z-index: 3;
+    //     top: auto;
+    //     display: flex;
+    //     justify-content: center;
+    //     align-items: center;
 
-    }
+    // }
 }
