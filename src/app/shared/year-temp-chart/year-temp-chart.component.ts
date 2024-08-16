@@ -58,7 +58,7 @@ export class YearTempChartComponent implements OnInit {
             backgroundColor: 'white',
             borderColor: 'black',
             borderWidth: 0,
-            barThickness: 14, // Feste Balkenbreite
+            barThickness: 14, // Feste Balkenbreite 
             maxBarThickness: 20, // Maximale Balkenbreite
             categoryPercentage: 0.8,
             barPercentage: 0.9,
@@ -85,7 +85,7 @@ export class YearTempChartComponent implements OnInit {
           x: {
             beginAtZero: true,
             ticks: {
-              maxRotation: 90, // Maximale Rotation der Labels
+              maxRotation: 90, // Maximale Rotation der Labels 2
               minRotation: 90, // Minimale Rotation der Labels
               color: 'white' // Textfarbe der X-Achsen-Ticks
             },
