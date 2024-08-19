@@ -106,16 +106,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     if (this.displayMode === 'current') {
       this.currentTemperatureData$.subscribe(data => {
         this.mapDisplayData = data;
-        //console.log('Selected Data (Current):', this.selectedData);
+        console.log('Selected Data (Current):', this.mapDisplayData);
       });
     } else if (this.displayMode === 'dayAverage') {
       this.dayAverageTemperatureData$.subscribe(data => {
         this.mapDisplayData = data;
-        //console.log('Selected Data (Day Average):', this.selectedData);
+        console.log('Selected Data (Day Average):', this.mapDisplayData);
       });
     } else if (this.displayMode === 'monthAverage') {
       this.mapDisplayData = this.monthAverageTemperatureData;
-      //console.log('Selected Data (Month Average):', this.selectedData);
+      console.log('Selected Data (Month Average):', this.mapDisplayData);
     }
   }
 
