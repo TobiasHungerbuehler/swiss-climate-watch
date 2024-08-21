@@ -9,31 +9,40 @@
     <div class="side">
 
         <app-onboarding></app-onboarding>
+        
+        
+        <!-- <app-barchart></app-barchart> -->
+        
+    </div>
     
+    
+    <div class="mid">
         <app-datebox></app-datebox>
 
-        <app-barchart></app-barchart>
-
-    </div>
-
-
-    <div class="mid">
-
         @if (dashboardMode === 'map') {
-            <app-map [mapDisplayData]="mapDisplayData"></app-map>
+
+            @if (displayMode === 'current') {
+                <app-map [mapDisplayData]="currentDisplayData"></app-map>
+            }
+            @if (displayMode === 'dayAverage') {
+                <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
+            }
+            @if (displayMode === 'monthAverage') {
+                <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
+            }
             
         }
         @else if (dashboardMode === 'table') {
-            <app-table [mapDisplayData]="mapDisplayData"></app-table>
+            <app-table [mapDisplayData]="currentDisplayData"></app-table>
         }
 
     </div>
 
     <div class="side">
 
-        <!-- <app-highest-ref-list></app-highest-ref-list> -->
+        <app-highest-ref-list></app-highest-ref-list>
 
-        <app-year-temp-chart></app-year-temp-chart>
+        <!-- <app-year-temp-chart></app-year-temp-chart> -->
     </div>
 
 
