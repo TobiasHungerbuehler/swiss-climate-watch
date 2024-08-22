@@ -8,25 +8,25 @@
        (mouseenter)="onMarkerMouseEnter($event, marker.city)"
        (mouseleave)="onMarkerMouseLeave()"
        (mousemove)="onMarkerMouseMove($event)">
-
+       
        <div class="label">
-         <p>{{ marker.cityName }}  </p>
          <p>{{marker.currentTemp | number: '1.1-1' }}°</p>
+         <p>{{ marker.cityName }}  </p>
 
       </div>
 
-      <div class="marker-img-box">
-
-        <div class="layer">
-          <img class="marker-img" src="./assets/img/map-marker10.png" alt="">
-          <div class="txt-box">
-            <P class="temp"><span>+</span>{{ marker.currentTemp- marker.refTemp | number: '1.1-1' }}°</P>
-            <!-- <span>+</span> -->
-          </div>
+      @if (showAnomalie === true) {
+        <div class="marker-img-box">
+          <div class="layer">
+            <img class="marker-img" src="./assets/img/map-marker10.png" alt="">
+            <div class="txt-box">
+              <P class="temp"><span>+</span>{{ marker.currentTemp- marker.refTemp | number: '1.1-1' }}°</P>
+            </div>
+          </div>       
         </div>
-        
 
-      </div>
+      }
+
 
        
       

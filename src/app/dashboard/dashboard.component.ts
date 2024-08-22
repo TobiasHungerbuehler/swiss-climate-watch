@@ -45,6 +45,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentDisplayData: StandardStationData [] = [];
   dayAverageDisplayData: StandardStationData [] = [];
 
+  //showAnomalie = false;
+
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
     private dayAverageTemperatureService: DayAverageTemperatureService,
