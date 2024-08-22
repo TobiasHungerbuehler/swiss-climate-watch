@@ -22,7 +22,7 @@
         @if (dashboardMode === 'map') {
 
             @if (displayMode === 'current') {
-                <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
+                <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="true"></app-map>
             }
             @if (displayMode === 'dayAverage') {
                 <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
