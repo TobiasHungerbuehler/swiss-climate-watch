@@ -84,7 +84,7 @@ export class CurrentTemperatureService {
           }
         });
         this.currentTemperatureSubject.next(this.currentTempData);
-        console.log('im current service',this.currentTempData);
+        //console.log('im current service',this.currentTempData);
 
         
       }),

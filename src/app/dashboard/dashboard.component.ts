@@ -29,8 +29,8 @@ import { YearTempChartComponent } from '../shared/year-temp-chart/year-temp-char
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  currentTemperatureData$: Observable<StandardStationData[]>;
-  dayAverageTemperatureData$: Observable<StandardStationData[]>;
+  //currentTemperature$: Observable<StandardStationData[]>;
+  //dayAverageTemperatureData$: Observable<StandardStationData[]>;
   monthAverageTemperatureData: StandardStationData[] = [];
   public displayMode: 'current' | 'dayAverage' | 'monthAverage' = 'current';
   private subscriptions: Subscription[] = [];
@@ -40,8 +40,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   currentTime: string = '';
   currentDate: string = '';
   previousDate: string = '';
-  actualMonth: number = 0;
-  mapDisplayData: StandardStationData[] = [];
+  //actualMonth: number = 0;
+  //mapDisplayData: StandardStationData[] = [];
+  currentDisplayData: StandardStationData [] = [];
+  dayAverageDisplayData: StandardStationData [] = [];
 
   constructor(
     private currentTemperatureService: CurrentTemperatureService,
@@ -51,35 +53,38 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private dateNameService: DateNameService,
     private dateTimeService: DateTimeService,
     private dashboardToggleService: DashboardToggleServiceService
-  ) {
-    this.currentTemperatureData$ = this.currentTemperatureService.currentTemperature$.pipe(
-      //tap(data => console.log('Current Temperature Data:', data)),
-      catchError(() => of([]))
-    );
-
-    this.dayAverageTemperatureData$ = this.dayAverageTemperatureService.dayAverageTemperature$.pipe(
-      //tap(data => console.log('Day Average Temperature Data:', data)),
-      catchError(() => of([]))
-    );
-  }
-
+  ){}
+  
   ngOnInit(): void {
+    
+    
+    // Abonniere currrent data 
     this.subscriptions.push(
-      this.dataDisplayService.getDisplayMode().subscribe(mode => {
-        this.displayMode = mode;
-        //console.log('Display Mode:', mode);
-        this.updateSelectedData();
-        if (mode === 'monthAverage') {
-          this.updateMonthAverageData();
-        }
+        this.currentTemperatureService.currentTemperature$.subscribe(data => {
+          this.currentDisplayData = [...data];
+        })
+      );
+
+          // Abonniere dayAverage data 
+    this.subscriptions.push(
+      this.dayAverageTemperatureService.dayAverageTemperature$.subscribe(data => {
+        this.dayAverageDisplayData = [...data];
       })
     );
 
+
+    //Aboniere Display mode
+    this.subscriptions.push(
+      this.dataDisplayService.getDisplayMode().subscribe(mode => {
+        this.displayMode = mode;
+      })
+    );
+
+    //Aboniere den gewählten monat
     this.subscriptions.push(
       this.dataDisplayService.getMonthDataSelected().subscribe(date => {
         this.selectedMonth = date;
         if (date) {
-          //console.log('Selected Month:', date);
           this.setMonthData(date.year, date.month);
         }
       })
@@ -98,35 +103,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.dateTimeService.getPreviousDate().subscribe(prevDate => this.previousDate = prevDate)
     );
 
-    this.updateSelectedData();
+
   }
 
-  updateSelectedData(): void {
-    console.log('Updating selected data for mode:', this.displayMode);
-    if (this.displayMode === 'current') {
-      this.currentTemperatureData$.subscribe(data => {
-        this.mapDisplayData = data;
-        console.log('Selected Data (Current):', this.mapDisplayData);
-      });
-    } else if (this.displayMode === 'dayAverage') {
-      this.dayAverageTemperatureData$.subscribe(data => {
-        this.mapDisplayData = data;
-        console.log('Selected Data (Day Average):', this.mapDisplayData);
-      });
-    } else if (this.displayMode === 'monthAverage') {
-      this.mapDisplayData = this.monthAverageTemperatureData;
-      console.log('Selected Data (Month Average):', this.mapDisplayData);
-    }
-  }
 
   setMonthData(year: number, month: number): void {
-    console.log('Setting month data:', year, month);
+    //console.log('Setting month data:', year, month);
     this.monthAverageService.setMonthData(year, month);
     this.updateMonthAverageData();
   }
 
   private updateMonthAverageData(): void {
-    console.log('Updating month average data');
+    //console.log('Updating month average data');
     this.monthAverageTemperatureData = this.monthAverageService.getMonthAverageData();
   }
 
