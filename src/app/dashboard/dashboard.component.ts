@@ -19,7 +19,7 @@ import { DashboardToggleComponent } from './dashboard-toggle/dashboard-toggle.co
 import { DataToggleComponent } from "./data-toggle/data-toggle.component";
 import { BarchartComponent } from './barchart/barchart.component';
 import { YearTempChartComponent } from '../shared/year-temp-chart/year-temp-chart.component';
-
+  
 @Component({
   selector: 'app-dashboard',
   standalone: true,

@@ -1,12 +1,15 @@
+
 .city-marker {
     position: absolute;
     transform: translate(-50%, -50%);
-    z-index: 9;
+    z-index: 5;
     height: clamp(4px, 2vw, 8px);
     width: clamp(6px, 2vw, 14px);
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.579);
     border: 1px solid rgba(255, 255, 255, 0.28);
+
+
 
     >.marker-img-box{
         position: absolute;
@@ -67,21 +70,25 @@
     .label {
         position: absolute;
         z-index: 7;
-        left: 10px;
-        height: auto;
+        //left: 10px;
+        height: 18px;
         min-width: 50px;
         white-space: nowrap;
         display: flex;
-        border-radius: 25px;
-        transform: translate( 8px, -60%);
-        background-color: #0f1750a5;
+        align-items: center;
+        transform: translate( -2%, -40%);
+        //background-color: #0f17508e;
+        background-color: #302cfcc1;
+        
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(1px);
         -webkit-backdrop-filter: blur(1px);
         border: 1px solid rgba(248, 248, 248, 0.549);
-        -webkit-box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
-        -moz-box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
-        box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
+        border-radius: 25px;
+
+        -webkit-box-shadow: -10px -6px 24px 2px #000000; 
+        box-shadow: -10px -6px 15px -2px #000000;
+
 
         @media (max-width: 600px) {
             width: auto;
@@ -91,14 +98,25 @@
 
         }
 
-        >p{
-            padding-left: 10px;
-            color: rgb(248, 246, 246);
+        .dot{
+            margin-right: 10px;
+            height: 12px;
+            width: 12px;
+            background-color: rgb(111, 128, 127);
+            border: 3.5px solid white;
+            border-radius: 25px;
+        }
 
+        >p{
+            padding-right: 10px;
+            color: rgb(231, 228, 231);
+            
             font-size: clamp(10px, 0.8vw, 12px);
-            font-weight: 400;
+            font-weight: 500;
             margin: 0;
         }
+        
+
     }
 }
   
