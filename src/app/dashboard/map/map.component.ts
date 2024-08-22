@@ -10,7 +10,7 @@ import { StandardStationData } from '../../services/standard-station-data.servic
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit, OnChanges {
+export class MapComponent implements AfterViewInit, OnChanges {
   @ViewChild('mapContainer') mapContainer!: ElementRef;
   @ViewChild('coldMap') coldMap!: ElementRef;
   @ViewChild('coolMap') coolMap!: ElementRef;
@@ -23,9 +23,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
   highestTemp: number = 0;
   isViewInit = false; // Flag to check if view is initialized
 
-  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes,'ngOnChanges');
     if (changes['mapDisplayData']) {
       this.calculateHighestTemp();
       if (this.isViewInit) {
@@ -33,39 +33,34 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
       }
     }
   }
-
+  
   ngAfterViewInit(): void {
     this.isViewInit = true;
     this.updateMapOpacity(this.highestTemp);
-    this.logMapContainerHeight();
-
-    const resizeObserver = new ResizeObserver(() => {
-      this.logMapContainerHeight();
-    });
-    console.log('MAP', this.mapDisplayData);
+    console.log('afterViewInit - higest temp =', this.highestTemp);
     
-    resizeObserver.observe(this.mapContainer.nativeElement);
   }
-
+  
   calculateHighestTemp(): void {
     if (this.mapDisplayData.length > 0) {
       this.highestTemp = Math.max(...this.mapDisplayData.map(station => station.currentTemp));
     } else {
       this.highestTemp = 0;
     }
+    console.log('calcualteHighestTemp', this.highestTemp);
   }
-
+  
   updateMapOpacity(temp: number): void {
     if (!this.isViewInit) {
       return;
     }
-
+    
     this.coldMap.nativeElement.style.opacity = '0';
     this.coolMap.nativeElement.style.opacity = '0';
     this.warmMap.nativeElement.style.opacity = '0';
     this.hotMap.nativeElement.style.opacity = '0';
     this.veryHotMap.nativeElement.style.opacity = '0';
-
+    
     if (temp <= 0) {
       this.coldMap.nativeElement.style.opacity = '1';
     } else if (temp > 0 && temp <= 10) {
@@ -77,10 +72,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnChanges {
     } else {
       this.veryHotMap.nativeElement.style.opacity = '1';
     }
+    console.log('updateMap', this.highestTemp);
   }
-
-  logMapContainerHeight(): void {
-    const height = this.mapContainer.nativeElement.offsetHeight;
-    //console.log('Map Container Height:', height);
-  }
+  
 }

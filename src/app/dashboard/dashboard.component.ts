@@ -61,14 +61,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     // Abonniere currrent data 
     this.subscriptions.push(
         this.currentTemperatureService.currentTemperature$.subscribe(data => {
-          this.currentDisplayData = data;
+          this.currentDisplayData = [...data];
         })
       );
 
           // Abonniere dayAverage data 
     this.subscriptions.push(
       this.dayAverageTemperatureService.dayAverageTemperature$.subscribe(data => {
-        this.dayAverageDisplayData = data;
+        this.dayAverageDisplayData = [...data];
       })
     );
 
@@ -108,13 +108,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
   setMonthData(year: number, month: number): void {
-    console.log('Setting month data:', year, month);
+    //console.log('Setting month data:', year, month);
     this.monthAverageService.setMonthData(year, month);
     this.updateMonthAverageData();
   }
 
   private updateMonthAverageData(): void {
-    console.log('Updating month average data');
+    //console.log('Updating month average data');
     this.monthAverageTemperatureData = this.monthAverageService.getMonthAverageData();
   }
 
