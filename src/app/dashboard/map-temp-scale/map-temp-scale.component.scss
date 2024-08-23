@@ -1,0 +1,55 @@
+.map-scale-box {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    //border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+
+    >.maps{
+        display: flex;
+        justify-content: space-between;
+
+        >.single-scale-item{
+
+            p{
+                width: 100%;
+                text-align: center;
+                margin: 0;
+                color: white;
+                font-size: 10px;
+            }
+
+            >.single-map {
+                position: relative; /* Dies stellt sicher, dass das top-layer-Bild korrekt über dem color-map-Bild positioniert wird */
+                width: auto;
+                height: 20px;
+                margin: 3%;
+
+                .color-map {
+                    height: 100%;
+                    width: auto;
+                }
+                
+                .top-layer {
+                    position: absolute; /* Das Bild wird absolut über dem color-map-Bild positioniert */
+                    top: 0; /* Stellt sicher, dass es am oberen Rand des Containers ausgerichtet ist */
+                    left: 0; /* Stellt sicher, dass es am linken Rand des Containers ausgerichtet ist */
+                    z-index: 3; /* Stellt sicher, dass das Bild über dem color-map-Bild liegt */
+                    height: 100%;
+                    width: auto;
+                }
+
+
+            }
+    
+            
+        }
+
+
+
+        }
+
+
+}
+

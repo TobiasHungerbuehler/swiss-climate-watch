@@ -19,11 +19,12 @@ import { DashboardToggleComponent } from './dashboard-toggle/dashboard-toggle.co
 import { DataToggleComponent } from "./data-toggle/data-toggle.component";
 import { BarchartComponent } from './barchart/barchart.component';
 import { YearTempChartComponent } from '../shared/year-temp-chart/year-temp-chart.component';
-  
+import { MapTempScaleComponent } from './map-temp-scale/map-temp-scale.component';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent, BarchartComponent, YearTempChartComponent],
+  imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent, BarchartComponent, YearTempChartComponent, MapTempScaleComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

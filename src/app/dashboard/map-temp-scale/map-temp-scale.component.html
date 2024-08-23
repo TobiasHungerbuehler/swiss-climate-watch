@@ -1,0 +1,20 @@
+<div class="map-scale-box">
+
+
+
+    <div class="maps">
+        @for (item of [['cold', '<0°'], ['cool', '-10°'],['warm','- 20°'], ['hot','- 30°'], ['veryhot','> 30°']]; track $index) {
+            <div class="single-scale-item">
+                <p>{{item[1]}}</p>
+                <div class="single-map">
+                    <img src="./assets/img/maps/swissmap_{{item[0]}}.png" class="color-map">
+                    <img src="./assets/img/maps/swissmap_topLayer.png" class="top-layer">
+                </div>
+            </div>
+    
+        }
+    </div>
+
+
+
+</div>
