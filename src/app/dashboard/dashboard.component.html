@@ -6,44 +6,57 @@
 
     <app-data-toggle></app-data-toggle>
 
-    <div class="side">
 
-        <app-onboarding></app-onboarding>
-        
-        
-        <!-- <app-barchart></app-barchart> -->
-        
+    <div class="header">
+        @if (displayMode === 'current'){
+            <p class="title">Messstationen mit den Temperaturen von jetzt</p>
+        } 
+
     </div>
-    
-    
-    <div class="mid">
-        <app-datebox></app-datebox>
 
-        @if (dashboardMode === 'map') {
 
-            @if (displayMode === 'current') {
-                <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="true"></app-map>
-            }
-            @if (displayMode === 'dayAverage') {
-                <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
-            }
-            @if (displayMode === 'monthAverage') {
-                <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
-            }
+
+    <div class="stage">
+        <div class="side">
+
+            <app-datebox></app-datebox>
             
-        }
-        @else if (dashboardMode === 'table') {
-            <app-table [mapDisplayData]="currentDisplayData"></app-table>
-        }
-
+            <app-onboarding></app-onboarding>
+            
+            <!-- <app-barchart></app-barchart> -->
+            
+        </div>
+        
+        
+        <div class="mid">
+    
+            @if (dashboardMode === 'map') {
+    
+                @if (displayMode === 'current') {
+                    <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
+                }
+                @if (displayMode === 'dayAverage') {
+                    <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
+                }
+                @if (displayMode === 'monthAverage') {
+                    <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
+                }
+                
+            }
+            @else if (dashboardMode === 'table') {
+                <app-table [mapDisplayData]="currentDisplayData"></app-table>
+            }
+    
+        </div>
+    
+        <div class="side">
+    
+            <app-highest-ref-list style="width: 100%;"></app-highest-ref-list>
+    
+            <!-- <app-year-temp-chart></app-year-temp-chart> -->
+        </div>
     </div>
 
-    <div class="side">
-
-        <!-- <app-highest-ref-list></app-highest-ref-list> -->
-
-        <!-- <app-year-temp-chart></app-year-temp-chart> -->
-    </div>
 
 
 
