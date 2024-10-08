@@ -11,6 +11,9 @@
         @if (displayMode === 'current'){
             <p class="title">Messstationen mit den Temperaturen von jetzt</p>
         } 
+        @if (displayMode === 'dayAverage'){
+            <p class="title">Anomalien der letzten 25 Stunden</p>
+        } 
 
     </div>
 
@@ -19,20 +22,18 @@
     <div class="stage">
         <div class="side">
 
-            <app-datebox></app-datebox>
             
-            <!-- <app-onboarding></app-onboarding> -->
+            <app-onboarding></app-onboarding>
             
             <!-- <app-barchart></app-barchart> -->
             
-            <app-map-temp-scale></app-map-temp-scale>
         </div>
         
         
         <div class="mid">
-    
+            
             @if (dashboardMode === 'map') {
-    
+                
                 @if (displayMode === 'current') {
                     <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
                 }
@@ -47,12 +48,14 @@
             @else if (dashboardMode === 'table') {
                 <app-table [mapDisplayData]="currentDisplayData"></app-table>
             }
-    
+            
         </div>
-    
+        
         <div class="side">
-    
+            <app-datebox></app-datebox>
             <app-highest-ref-list style="width: 100%;"></app-highest-ref-list>
+            <app-map-temp-scale></app-map-temp-scale>
+    
     
             <!-- <app-year-temp-chart></app-year-temp-chart> -->
 
