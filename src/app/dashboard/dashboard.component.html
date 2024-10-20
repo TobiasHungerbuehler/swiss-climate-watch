@@ -12,26 +12,36 @@
             <p class="title">Messstationen mit den Temperaturen von jetzt</p>
         } 
         @if (displayMode === 'dayAverage'){
-            <p class="title">Anomalien der letzten 25 Stunden</p>
-        } 
+            <p class="title">Anomalien der letzten 24 Stunden im Vergleich zu früher</p>
+        }
+        @if (displayMode === 'monthAverage') {
+            <p class="title">Durchschnittliche Anomalien im {{getMonthName(selectedMonth?.month)}} im Vergleich zu früher</p>
+        }
 
     </div>
 
-
-
+    
+    
     <div class="stage">
-        <div class="side">
+        <div class="side"> 
+            
+            <app-datebox></app-datebox>
+            
+            <!--             
+                <app-barchart></app-barchart> -->
+                
+            @if (displayMode === 'dayAverage' || displayMode === 'monthAverage') {
+                <app-highest-ref-list style="width: 100%;"></app-highest-ref-list>
+            }
 
-            
-            <app-onboarding></app-onboarding>
-            
-            <!-- <app-barchart></app-barchart> -->
-            
+                <app-map-temp-scale></app-map-temp-scale>
+
+
         </div>
-        
-        
-        <div class="mid">
             
+            
+            <div class="mid">
+                
             @if (dashboardMode === 'map') {
                 
                 @if (displayMode === 'current') {
@@ -43,7 +53,6 @@
                 @if (displayMode === 'monthAverage') {
                     <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
                 }
-                
             }
             @else if (dashboardMode === 'table') {
                 <app-table [mapDisplayData]="currentDisplayData"></app-table>
@@ -52,12 +61,10 @@
         </div>
         
         <div class="side">
-            <app-datebox></app-datebox>
-            <app-highest-ref-list style="width: 100%;"></app-highest-ref-list>
-            <app-map-temp-scale></app-map-temp-scale>
+            
+            <app-onboarding [displayMode]="displayMode" ></app-onboarding>
     
-    
-            <!-- <app-year-temp-chart></app-year-temp-chart> -->
+            <!-- <app-year-temp-chart></app-year-temp-chart> --> 
 
         </div>
     </div>
