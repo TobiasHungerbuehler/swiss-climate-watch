@@ -1,22 +1,27 @@
 section{
 
     >div{
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 80px;
 
-        background: rgba(255, 255, 255, 0.17);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5px);
-        -webkit-backdrop-filter: blur(5px);
+
+        // background: rgba(255, 255, 255, 0.17);
+        // box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        // backdrop-filter: blur(5px);
+        // -webkit-backdrop-filter: blur(5px);
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        padding-top: 15%;
+        justify-content: center;
+        // flex-direction: column;
+        // padding-top: 15%;
         
         @media (max-width: 1000px) {
+
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80px;
+
             width: 100%;
             height: 80px;
             padding-top: 0%;
@@ -26,8 +31,8 @@ section{
 
 
         >button, .menu{
-            width: 100%;
-            height: 10%;
+            width: 20%;
+            height: 50px;
 
             background: rgba(255, 255, 255, 0.17);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -39,6 +44,7 @@ section{
             margin-bottom: 32px;
 
             @media (max-width: 1000px){
+                width: 100%;
                 height: 100%;
             }
 
@@ -51,20 +57,14 @@ section{
 
             background-color: #ffcb2a;
             background-color: #fff700;
-
-
-
-
             color: #00283D;
         }
 
 
-        
         .menu{
             display: flex;
             justify-content: center;
             flex-direction: column;
-
         }
 
         #yearSelect{

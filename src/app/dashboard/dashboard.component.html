@@ -4,10 +4,10 @@
     
     <app-dashboard-toggle></app-dashboard-toggle>
 
-    <app-data-toggle></app-data-toggle>
-
-
+    
+    
     <div class="header">
+        <app-data-toggle></app-data-toggle>
         @if (displayMode === 'current'){
             <p class="title">Messstationen mit den Temperaturen von jetzt</p>
         } 
@@ -17,6 +17,7 @@
         @if (displayMode === 'monthAverage') {
             <p class="title">Durchschnittliche Anomalien im {{getMonthName(selectedMonth?.month)}} im Vergleich zu früher</p>
         }
+        
 
     </div>
 
