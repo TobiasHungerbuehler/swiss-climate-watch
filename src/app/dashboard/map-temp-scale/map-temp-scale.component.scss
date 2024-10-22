@@ -1,18 +1,21 @@
 .map-scale-box {
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    //border: 1px solid white;
-    display: flex;
-    flex-direction: column;
+    // margin-top: 20px;
+    // width: auto;
+    // display: flex;
+    // flex-direction: column;
 
-    >.maps{
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    @media (max-width: 1000px) {
+    }
+
+    > .maps {
         display: flex;
         justify-content: space-between;
 
-        >.single-scale-item{
-
-            p{
+        > .single-scale-item {
+            p {
                 width: 100%;
                 text-align: center;
                 margin: 0;
@@ -20,7 +23,7 @@
                 font-size: 10px;
             }
 
-            >.single-map {
+            > .single-map {
                 position: relative; /* Dies stellt sicher, dass das top-layer-Bild korrekt über dem color-map-Bild positioniert wird */
                 width: auto;
                 height: 20px;
@@ -30,7 +33,7 @@
                     height: 100%;
                     width: auto;
                 }
-                
+
                 .top-layer {
                     position: absolute; /* Das Bild wird absolut über dem color-map-Bild positioniert */
                     top: 0; /* Stellt sicher, dass es am oberen Rand des Containers ausgerichtet ist */
@@ -39,17 +42,7 @@
                     height: 100%;
                     width: auto;
                 }
-
-
             }
-    
-            
         }
-
-
-
-        }
-
-
+    }
 }
-

@@ -1,51 +1,41 @@
-.map-description{
-    //position: absolute;
+.map-date {
     z-index: 3;
     left: 0;
     bottom: 0;
     color: white;
-    //border: 1px solid purple;
-    >p{
-        text-align: center;
-        margin: 0;
-        padding-right: 8px;
-    }
-    
-    .title{
-        font-size: clamp(18px, 2.5vw, 62px);
-        font-weight: 250;
-        margin: 0;
-        text-align: center;
-        
+
+    @media (max-width: 1000px) {
+        margin-top: 12px;
     }
 
-    .line{
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(180deg, #FDDE00 0%, #D82C06 50%);
-    }
-
-    .date{
-        margin: 5px 0px;
+    > .frame {
+        text-align: center;
         font-size: 24px;
+        font-size: clamp(12px, 2.5vw, 24px);
+
+        @media (max-width: 1000px) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        > p {
+            text-align: center;
+            margin: 0;
+            padding-right: 8px;
+        }
     }
 
-    .time{
+    .date {
+        margin: 5px 0px;
+    }
+
+    .time {
         color: rgb(191, 255, 255);
         margin-top: 5px;
-        font-size: 32px;
+
+        @media (max-width: 1000px) {
+            margin: 0;
+            margin-left: 5px;
+        }
     }
-
-    // @media (max-width: 1000px) {
-    //     position: static;
-    //     left: auto;
-    //     color: white;
-    //     //border: 1px solid purple;
-    //     z-index: 3;
-    //     top: auto;
-    //     display: flex;
-    //     justify-content: center;
-    //     align-items: center;
-
-    // }
 }

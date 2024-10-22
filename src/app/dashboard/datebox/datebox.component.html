@@ -1,32 +1,24 @@
-<div class="map-description">
+<div class="map-date">
     <ng-container *ngIf="displayMode === 'current'">
-      <!-- <p class="title">Messstationen mit den Temperaturen von jetzt</p> -->
-      <!-- <div class="line"></div> -->
-      <p class="date">{{currentDate}}</p>
-      <p class="time">{{currentTime}} Uhr</p>
-      <!-- <p>gegenüber {{getMonthName(getMonth())}} 1940 - 1970</p> -->
-
-    </ng-container>
-    
-    <ng-container *ngIf="displayMode === 'dayAverage'">
-      <!-- <p class="title">Anomalie letzte 24h</p> -->
-      <!-- <div class="line"></div> -->
-      <p class="date">{{currentDate}}</p>
-      <p class="time">{{currentTime}} Uhr - 24h</p>
-
-    <p>gegenüber {{getMonthName(getMonth())}} 1940 - 1970</p>
-
-    </ng-container>
-    
-    <ng-container *ngIf="displayMode === 'monthAverage'">
-      <div class="line"></div>
-      <p>gegenüber {{getMonthName(selectedMonth?.month)}} 1940 - 1970</p>
+        <div class="frame">
+            <p class="date">{{ currentDate }}</p>
+            <p class="time">{{ currentTime }} Uhr</p>
+        </div>
     </ng-container>
 
+    <ng-container class="frame" *ngIf="displayMode === 'dayAverage'">
+        <div class="frame">
+            <p class="date">{{ currentDate }}</p>
+            <p class="time">{{ currentTime }} Uhr - 24h</p>
+        </div>
+    </ng-container>
 
-
-      <!-- <app-highest-ref-list></app-highest-ref-list> -->
-
-
-
+    <ng-container class="frame" *ngIf="displayMode === 'monthAverage'">
+        <div class="frame">
+            <p class="date">
+                {{ getMonthName(selectedMonth?.month) }}
+                {{ selectedMonth?.year }}
+            </p>
+        </div>
+    </ng-container>
 </div>
