@@ -1,18 +1,11 @@
-div{
-    position: absolute;
-    z-index: 12;
-    left: 50;
-    right: 50;
-    transform: translate(-50%);
-    bottom: 0;
-    margin-bottom: 32px;
+div {
+    width: 100%;
 
-    @media (max-width: 1000px){
-    margin-bottom: 132px;
-
+    @media (max-width: 1000px) {
+        margin-bottom: 32px;
     }
-    
-    >button{
+
+    > button {
         background-color: transparent;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(5px);
@@ -23,11 +16,9 @@ div{
         font-size: clamp(8px, 0.8vw, 18px);
         padding: 8px 20px 8px 20px;
         font-size: 12px;
-        
-        &:hover{
+
+        &:hover {
             background-color: #ffcb2a;
         }
-
-
     }
 }

@@ -1,8 +1,8 @@
 <section>
   <div>
     <button [ngClass]="{'btn-on': displayMode === 'current'}" (click)="setMode('current')">Aktuelle Temperaturen</button>
-    <button [ngClass]="{'btn-on': displayMode === 'dayAverage'}" (click)="setMode('dayAverage')">letzte 24h Schnitt</button>
-    <button [ngClass]="{'btn-on': displayMode === 'monthAverage'}" (click)="setInitMonthData()">Monats Durschnitt</button>
+    <button [ngClass]="{'btn-on': displayMode === 'dayAverage'}" (click)="setMode('dayAverage')">Anomalie 24h</button>
+    <button [ngClass]="{'btn-on': displayMode === 'monthAverage'}" (click)="setInitMonthData()">Anomalie Monat</button>
 
     @if(displayMode === 'monthAverage'){
       <div [ngClass]="{'btn-on': displayMode === 'monthAverage'}" class="menu">

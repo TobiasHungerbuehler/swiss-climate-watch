@@ -1,52 +1,48 @@
-
 <section>
+    <div class="dashboard-header">
+        <app-data-toggle></app-data-toggle>
 
-    
-    <app-dashboard-toggle></app-dashboard-toggle>
+        <p class="title" [ngSwitch]="displayMode">
+            <span *ngSwitchCase="'current'">Messstationen mit den Temperaturen von jetzt</span>
+            <span *ngSwitchCase="'dayAverage'"
+                >Regionale Anomalien von jetzt <br />
+                <p>Letzte 24h Ø im Vergleich zu {{ getMonthName(getMonth()) }} 1940 - 1970</p></span
+            >
+            <span *ngSwitchCase="'monthAverage'">
+                Regionale Anomalien im Monat {{ getMonthName(selectedMonth?.month) }} <br />
+                <p>Vergleich zu {{ getMonthName(selectedMonth?.month) }} 1940 - 1970</p>
+            </span>
+        </p>
 
-    <app-data-toggle></app-data-toggle>
-
-    <div class="side">
-
-        <app-onboarding></app-onboarding>
-        
-        
-        <!-- <app-barchart></app-barchart> -->
-        
+        <app-datebox class="datebox-in-header"></app-datebox>
     </div>
-    
-    
-    <div class="mid">
-        <app-datebox></app-datebox>
 
-        @if (dashboardMode === 'map') {
+    <div class="stage">
+        <div class="side">
+            <app-datebox class="datebox-in-side"></app-datebox>
+            <!-- <app-barchart></app-barchart>           -->
+            @if (displayMode === 'dayAverage' || displayMode === 'monthAverage') {
+            <app-highest-ref-list style="width: 100%"></app-highest-ref-list>
+            }
+        </div>
 
-            @if (displayMode === 'current') {
-                <app-map [mapDisplayData]="currentDisplayData"></app-map>
-            }
-            @if (displayMode === 'dayAverage') {
-                <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
-            }
-            @if (displayMode === 'monthAverage') {
-                <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
-            }
-            
-        }
-        @else if (dashboardMode === 'table') {
+        <div class="mid">
+            @if (dashboardMode === 'map') { @if (displayMode === 'current') {
+            <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
+            } @if (displayMode === 'dayAverage') {
+            <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
+            } @if (displayMode === 'monthAverage') {
+            <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
+            } } @else if (dashboardMode === 'table') {
             <app-table [mapDisplayData]="currentDisplayData"></app-table>
-        }
+            }
+            <app-dashboard-toggle></app-dashboard-toggle>
+            <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
+        </div>
 
+        <div class="side">
+            <app-onboarding [displayMode]="displayMode"></app-onboarding>
+            <!-- <app-year-temp-chart></app-year-temp-chart> -->
+        </div>
     </div>
-
-    <div class="side">
-
-        <!-- <app-highest-ref-list></app-highest-ref-list> -->
-
-        <!-- <app-year-temp-chart></app-year-temp-chart> -->
-    </div>
-
-
-
-
-
 </section>

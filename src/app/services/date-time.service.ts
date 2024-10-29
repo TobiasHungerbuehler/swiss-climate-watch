@@ -52,7 +52,8 @@ export class DateTimeService {
     const day = date.getDate();
     const monthName = months[date.getMonth()];
     const year = date.getFullYear();
-    return `${dayName}, ${day}. ${monthName} ${year}`;
+    // return `${dayName}, ${day}. ${monthName} ${year}`;
+    return `${day}. ${monthName} ${year}`;
   }
 
 

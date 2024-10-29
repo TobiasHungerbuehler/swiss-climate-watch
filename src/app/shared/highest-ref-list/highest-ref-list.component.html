@@ -1,13 +1,39 @@
 <div class="list">
+    <div class="title">
+        <ng-container *ngIf="displayMode === 'current'">
+            <p>
+                Referenztemperaturen <br />
+                {{ getMonthName(getMonth()) }} 1940 - 1970
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="displayMode === 'dayAverage'">
+            <p>
+                Referenztemperaturen <br />
+                {{ getMonthName(getMonth()) }} 1940 - 1970
+            </p>
+        </ng-container>
+
+        <ng-container *ngIf="displayMode === 'monthAverage'">
+            <p>
+                Referenztemperaturen <br />
+                {{ getMonthName(selectedMonth?.month) }} 1940 - 1970
+            </p>
+        </ng-container>
+    </div>
+    <div class="single-element">
+        <p class="description">Ort</p>
+        <p class="description">Höchste</p>
+        <p class="description">Ø</p>
+    </div>
 
     @for (city of citys; track $index) {
 
-        <div class="single-element">
-            <p>{{ city.cityName }}</p>
-            <!-- <p>{{ city.highestRefTempDate |date: 'year%' }}</p>     -->
-            <p>{{ city.refTemp | number: '1.1-1' }}°</p>
-          </div>
+    <div class="single-element">
+        <p>{{ city.cityName }}</p>
+        <!-- <p>{{ city.highestRefTempDate |date: 'year%' }}</p>     -->
+        <p>{{ city.highestRefTemp | number : "1.1-1" }}°</p>
+        <p>{{ city.refTemp | number : "1.1-1" }}°</p>
+    </div>
     }
-  </div>
-  
-  
+</div>

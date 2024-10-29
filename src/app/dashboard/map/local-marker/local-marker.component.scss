@@ -1,23 +1,23 @@
 .city-marker {
     position: absolute;
     transform: translate(-50%, -50%);
-    z-index: 9;
+    z-index: 5;
     height: clamp(4px, 2vw, 8px);
     width: clamp(6px, 2vw, 14px);
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.579);
     border: 1px solid rgba(255, 255, 255, 0.28);
 
-    >.marker-img-box{
+    > .marker-img-box {
         position: absolute;
         z-index: 8;
- 
-        >.layer {
+
+        > .layer {
             position: relative;
-            height: clamp(30px, 7vw, 50px);
-            width: clamp(40px, 7vw, 50px);
-            transform: translate(-40%, -100%) ;
-            
+            height: clamp(30px, 7vw, 40px);
+            width: clamp(40px, 7vw, 42px);
+            transform: translate(-40%, -95%);
+
             .marker-img {
                 position: absolute;
                 bottom: 0;
@@ -29,7 +29,7 @@
                 width: 92%;
             }
 
-            .txt-box{
+            .txt-box {
                 position: absolute;
                 height: 80%;
                 left: 5%;
@@ -39,70 +39,78 @@
                 justify-content: center;
                 align-items: center;
 
-                
-                >.temp{
+                > .temp {
                     margin: 0;
                     color: rgb(76, 77, 76);
-                    font-size: clamp(10px, 2vw, 13px);
+                    font-size: clamp(10px, 2vw, 12px);
 
-                    >span{
-
+                    > span {
                         font-size: clamp(9px, 0.8vw, 12px);
                         color: rgb(230, 114, 13);
-    
                     }
-                
                 }
-
-
             }
-
-
-            
-
         }
-    
     }
-    
+
     .label {
         position: absolute;
         z-index: 7;
-        left: 10px;
-        height: auto;
+        height: 18px;
         min-width: 50px;
         white-space: nowrap;
         display: flex;
-        border-radius: 25px;
-        transform: translate( 8px, -60%);
-        background-color: #0f1750a5;
+        align-items: center;
+        transform: translate(-2%, -40%);
+        background-color: #302cfcc1;
+
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         backdrop-filter: blur(1px);
         -webkit-backdrop-filter: blur(1px);
         border: 1px solid rgba(248, 248, 248, 0.549);
-        -webkit-box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
-        -moz-box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
-        box-shadow: 1px 9px 24px 0px rgba(66, 68, 90, 1);
+        border-radius: 25px;
+
+        -webkit-box-shadow: -10px -6px 24px 2px #000000;
+        box-shadow: -10px -6px 15px -2px #000000;
 
         @media (max-width: 600px) {
             width: auto;
             min-width: 10px;
-
-            display: none;
-
+            height: 14px;
         }
 
-        >p{
-            padding-left: 10px;
-            color: rgb(248, 246, 246);
+        .dot {
+            margin-right: 10px;
+            height: 12px;
+            width: 12px;
+            background-color: rgb(111, 128, 127);
+            border: 3.5px solid white;
+            border-radius: 25px;
 
-            font-size: clamp(10px, 0.8vw, 12px);
-            font-weight: 400;
+            @media (max-width: 600px) {
+                border: 3px solid white;
+                margin-right: 4px;
+                height: 10px;
+                width: 10px;
+            }
+        }
+
+        > p {
+            padding-right: 10px;
+            color: rgb(231, 228, 231);
+
+            font-size: clamp(8px, 1vw, 12px);
+            font-weight: 500;
             margin: 0;
+
+            @media (max-width: 600px) {
+                padding-right: 4px;
+            }
         }
     }
 }
-  
-  .tooltip {
+
+.tooltip {
     position: absolute;
     padding: 5px 10px;
     background: rgba(0, 0, 0, 0.7);
@@ -111,5 +119,4 @@
     display: none;
     pointer-events: none;
     z-index: 10;
-  }
-  
+}

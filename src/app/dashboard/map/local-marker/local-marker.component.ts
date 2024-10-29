@@ -16,6 +16,7 @@ export class LocalMarkerComponent implements OnInit, OnChanges {
   @Input() mapDisplayData: StandardStationData[] = [];
 
   tooltipContent = '';
+  @Input() showAnomalie: boolean = true;
 
   constructor(private cdr: ChangeDetectorRef) { }
 

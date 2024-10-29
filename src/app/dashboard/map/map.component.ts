@@ -19,9 +19,11 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @ViewChild('veryHotMap') veryHotMap!: ElementRef;
 
   @Input() mapDisplayData: StandardStationData[] = [];
+  @Input() showAnomalie: boolean = true;
 
   highestTemp: number = 0;
   isViewInit = false; // Flag to check if view is initialized
+  //showAnomalie = true;
 
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,0 +1,32 @@
+<div class="map-scale-box">
+    <div class="maps">
+        @for (item of [['cold', '<0°'], ['cool', '-10°'],['warm','- 20°'], ['hot','- 30°'], ['veryhot','> 30°']]; track $index) {
+        <div class="single-scale-item">
+            <p>{{ item[1] }}</p>
+            <div class="single-map">
+                <img src="./assets/img/maps/swissmap_{{ item[0] }}.png" class="color-map" />
+                <img src="./assets/img/maps/swissmap_topLayer.png" class="top-layer" />
+            </div>
+        </div>
+
+        }
+    </div>
+    <div class="label">
+        <div class="dot"></div>
+        <!-- <p>Ortstemperatur aktuell</p> -->
+        <p [ngSwitch]="displayMode">
+            <span *ngSwitchCase="'current'">Temperatur aktuell</span>
+            <span *ngSwitchCase="'dayAverage'">Temperatur Ø 24h </span>
+            <span *ngSwitchCase="'monthAverage'">Temperatur Ø Monat</span>
+        </p>
+    </div>
+    <div class="marker-img-box">
+        <div class="layer">
+            <img class="marker-img" src="./assets/img/map-marker10.png" alt="" />
+            <div class="txt-box">
+                <P class="temp"><span>+</span>C°</P>
+            </div>
+        </div>
+        <P class="temp">Anomalie</P>
+    </div>
+</div>
