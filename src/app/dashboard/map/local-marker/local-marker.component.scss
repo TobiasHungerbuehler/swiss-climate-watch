@@ -56,14 +56,12 @@
     .label {
         position: absolute;
         z-index: 7;
-        //left: 10px;
         height: 18px;
         min-width: 50px;
         white-space: nowrap;
         display: flex;
         align-items: center;
         transform: translate(-2%, -40%);
-        //background-color: #0f17508e;
         background-color: #302cfcc1;
 
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -78,8 +76,7 @@
         @media (max-width: 600px) {
             width: auto;
             min-width: 10px;
-
-            display: none;
+            height: 14px;
         }
 
         .dot {
@@ -89,15 +86,26 @@
             background-color: rgb(111, 128, 127);
             border: 3.5px solid white;
             border-radius: 25px;
+
+            @media (max-width: 600px) {
+                border: 3px solid white;
+                margin-right: 4px;
+                height: 10px;
+                width: 10px;
+            }
         }
 
         > p {
             padding-right: 10px;
             color: rgb(231, 228, 231);
 
-            font-size: clamp(10px, 0.8vw, 12px);
+            font-size: clamp(8px, 1vw, 12px);
             font-weight: 500;
             margin: 0;
+
+            @media (max-width: 600px) {
+                padding-right: 4px;
+            }
         }
     }
 }

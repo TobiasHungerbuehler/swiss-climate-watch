@@ -23,11 +23,18 @@ section {
         margin-top: 2%;
 
         .title {
-            font-size: clamp(18px, 4.2vw, 52px);
+            font-size: clamp(18px, 4.2vw, 46px);
             font-weight: 250;
             margin: 0;
             text-align: center;
             color: white;
+
+            > span {
+                > p {
+                    margin: 0;
+                    font-size: 18px;
+                }
+            }
         }
     }
 
@@ -55,7 +62,7 @@ section {
             border: 1px solid rgba(165, 42, 42, 0.36);
 
             @media (max-width: 1000px) {
-                width: 95%;
+                width: 100%;
             }
         }
 

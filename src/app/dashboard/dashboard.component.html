@@ -2,18 +2,17 @@
     <div class="dashboard-header">
         <app-data-toggle></app-data-toggle>
 
-        @if (displayMode === 'current'){
-        <p class="title">Messstationen mit den Temperaturen von jetzt</p>
-        } @if (displayMode === 'dayAverage'){
-        <p class="title">
-            Anomalien der letzten 24 Stunden im Vergleich zu früher
+        <p class="title" [ngSwitch]="displayMode">
+            <span *ngSwitchCase="'current'">Messstationen mit den Temperaturen von jetzt</span>
+            <span *ngSwitchCase="'dayAverage'"
+                >Regionale Anomalien von jetzt <br />
+                <p>Letzte 24h Ø im Vergleich zu {{ getMonthName(getMonth()) }} 1940 - 1970</p></span
+            >
+            <span *ngSwitchCase="'monthAverage'">
+                Regionale Anomalien im Monat {{ getMonthName(selectedMonth?.month) }} <br />
+                <p>Vergleich zu {{ getMonthName(selectedMonth?.month) }} 1940 - 1970</p>
+            </span>
         </p>
-        } @if (displayMode === 'monthAverage') {
-        <p class="title">
-            Durchschnittliche Anomalien im
-            {{ getMonthName(selectedMonth?.month) }} im Vergleich zu früher
-        </p>
-        }
 
         <app-datebox class="datebox-in-header"></app-datebox>
     </div>
@@ -21,21 +20,15 @@
     <div class="stage">
         <div class="side">
             <app-datebox class="datebox-in-side"></app-datebox>
-
             <!-- <app-barchart></app-barchart>           -->
-
-            @if (displayMode === 'dayAverage' || displayMode === 'monthAverage')
-            {
+            @if (displayMode === 'dayAverage' || displayMode === 'monthAverage') {
             <app-highest-ref-list style="width: 100%"></app-highest-ref-list>
             }
         </div>
 
         <div class="mid">
             @if (dashboardMode === 'map') { @if (displayMode === 'current') {
-            <app-map
-                [mapDisplayData]="currentDisplayData"
-                [showAnomalie]="false"
-            ></app-map>
+            <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
             } @if (displayMode === 'dayAverage') {
             <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
             } @if (displayMode === 'monthAverage') {
@@ -44,12 +37,11 @@
             <app-table [mapDisplayData]="currentDisplayData"></app-table>
             }
             <app-dashboard-toggle></app-dashboard-toggle>
-            <app-map-temp-scale></app-map-temp-scale>
+            <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
         </div>
 
         <div class="side">
             <app-onboarding [displayMode]="displayMode"></app-onboarding>
-
             <!-- <app-year-temp-chart></app-year-temp-chart> -->
         </div>
     </div>

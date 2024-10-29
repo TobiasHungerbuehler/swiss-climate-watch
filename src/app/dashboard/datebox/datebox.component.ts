@@ -55,15 +55,9 @@ export class DateboxComponent {
         );
 
         this.subscriptions.push(
-            this.dateTimeService
-                .getCurrentTime()
-                .subscribe((time) => (this.currentTime = time)),
-            this.dateTimeService
-                .getCurrentDate()
-                .subscribe((date) => (this.currentDate = date)),
-            this.dateTimeService
-                .getPreviousDate()
-                .subscribe((prevDate) => (this.previousDate = prevDate))
+            this.dateTimeService.getCurrentTime().subscribe((time) => (this.currentTime = time)),
+            this.dateTimeService.getCurrentDate().subscribe((date) => (this.currentDate = date)),
+            this.dateTimeService.getPreviousDate().subscribe((prevDate) => (this.previousDate = prevDate))
         );
     }
 
@@ -84,8 +78,7 @@ export class DateboxComponent {
 
     // Aktualisiert die Monatsdurchschnittsdaten
     private updateMonthAverageData(): void {
-        this.monthAverageTemperatureData =
-            this.monthAverageService.getMonthAverageData();
+        this.monthAverageTemperatureData = this.monthAverageService.getMonthAverageData();
     }
 
     // Funktion zum Abrufen des aktuellen Monats als Zahl (1-12)
