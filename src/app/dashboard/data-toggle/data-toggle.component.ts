@@ -5,11 +5,14 @@ import { MonthAverageService } from "../../services/month-average.service";
 import { Subscription } from "rxjs";
 import { DateTimeService } from "../../services/date-time.service";
 import { DateNameService } from "../../services/date-name.service";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule, NgModel, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
     selector: "app-data-toggle",
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, MatSelectModule, MatFormFieldModule, FormsModule, ReactiveFormsModule],
     templateUrl: "./data-toggle.component.html",
     styleUrls: ["./data-toggle.component.scss"],
 })

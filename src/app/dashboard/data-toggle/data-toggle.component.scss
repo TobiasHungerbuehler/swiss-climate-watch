@@ -97,28 +97,54 @@ section {
             }
         }
 
-        option {
-            background-color: #0cadf8;
-            color: rgb(255, 255, 255);
-            text-align: center;
-        }
-
         .btn-on {
             color: rgba(10, 10, 55, 0.95) !important;
             background-color: #fff700 !important;
         }
     }
 
+    /* Material Dropdown Styling */
     .custom-select {
         background: none;
         border: none;
         padding: 2px 20px 2px 0;
-        font-size: clamp(12px, 0.8vw, 18px);
+        font-size: clamp(12px, 0.8vw, 16px);
         outline: none;
         width: 30%;
 
         @media (max-width: 1000px) {
             margin-top: 14px;
+        }
+
+        /* Styling für Material-Design Form Field */
+        .mat-form-field {
+            width: 100%;
+        }
+
+        .mat-form-field-underline {
+            background-color: pink; /* Unterlinie in pink */
+        }
+
+        .mat-form-field-label {
+            color: pink; /* Label in pink */
+        }
+
+        .mat-select-arrow {
+            color: pink; /* Pfeil in pink */
+        }
+
+        .mat-select {
+            color: white; /* Textfarbe in der Auswahl */
+        }
+
+        .mat-option {
+            background-color: rgba(255, 255, 255, 0.9); /* Hintergrund der Optionsliste */
+            color: black; /* Textfarbe der Optionen */
+
+            &:hover {
+                background-color: pink; /* Hintergrundfarbe bei Hover */
+                color: white; /* Textfarbe bei Hover */
+            }
         }
     }
 }

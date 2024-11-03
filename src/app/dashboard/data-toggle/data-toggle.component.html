@@ -5,33 +5,25 @@
         <button [ngClass]="{ 'btn-on': displayMode === 'dayAverage' }" (click)="setMode('dayAverage')">Anomalie 24h</button>
         <button (click)="setInitMonthData()" [ngClass]="{ 'btn-on': displayMode === 'monthAverage' }">Anomalie Monat</button>
 
-        <!-- Gemeinsames Dropdown-Menü -->
-        <div *ngIf="displayMode === 'monthAverage'" [ngClass]="{ 'month-select-container': true, 'mobile-overlay-large': overlayLarge === true }">
-            <select
-                id="yearSelect"
-                (focus)="largeOverlay(true)"
-                (blur)="largeOverlay(false)"
-                (change)="onYearChange($event)"
-                [value]="selectedYear"
-                class="custom-select"
-            >
-                <option value="">Jahr</option>
-                <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
-            </select>
+        <!-- Dropdown-Menüs für Jahr und Monat in Angular Material -->
+        <div *ngIf="displayMode === 'monthAverage'" class="month-select-container">
+            <!-- Jahr Dropdown -->
+            <mat-form-field appearance="fill" class="custom-select">
+                <mat-label>Jahr</mat-label>
+                <mat-select [(ngModel)]="selectedYear" (selectionChange)="onYearChange($event.value)">
+                    <mat-option value="">Jahr auswählen</mat-option>
+                    <mat-option *ngFor="let year of availableYears" [value]="year">{{ year }}</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-            <select
-                id="monthSelect"
-                (focus)="largeOverlay(true)"
-                (blur)="largeOverlay(false)"
-                (change)="onMonthChange($event)"
-                [disabled]="!selectedYear"
-                [value]="selectedMonth"
-                class="custom-select"
-            >
-                <img src="assets/img/arrow-down.png" alt="" />
-                <option value="">Monat</option>
-                <option *ngFor="let month of availableMonths" [value]="month">{{ getMonthName(month) }}</option>
-            </select>
+            <!-- Monat Dropdown -->
+            <mat-form-field appearance="fill" class="custom-select">
+                <mat-label>Monat</mat-label>
+                <mat-select [(ngModel)]="selectedMonth" [disabled]="!selectedYear" (selectionChange)="onMonthChange($event.value)">
+                    <mat-option value="">Monat auswählen</mat-option>
+                    <mat-option *ngFor="let month of availableMonths" [value]="month">{{ getMonthName(month) }}</mat-option>
+                </mat-select>
+            </mat-form-field>
         </div>
     </div>
 </section>
