@@ -5,25 +5,23 @@ section {
         justify-content: center;
 
         @media (max-width: 1000px) {
-            position: fixed;
+            position: fixed; // Fixiert das Menü in der mobilen Ansicht
             z-index: 10;
-            top: 0;
-            right: 0;
             bottom: 0;
-            width: 80px;
-
-            width: 100%;
+            left: 0;
+            right: 0;
             height: 60px;
-            padding-top: 0%;
             flex-direction: row;
-            top: auto;
+            background-color: #00293df2;
+            box-shadow: -1px -2px 5px 0px rgba(0, 0, 0, 0.41);
+            -webkit-box-shadow: -1px -2px 5px 0px rgba(0, 0, 0, 0.41);
+            -moz-box-shadow: -1px -2px 5px 0px rgba(0, 0, 0, 0.41);
         }
 
         > button,
-        .menu {
+        .month-menu {
             width: 20%;
             height: 24px;
-
             background: rgba(255, 255, 255, 0.17);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(5px);
@@ -36,29 +34,124 @@ section {
             @media (max-width: 1000px) {
                 width: 100%;
                 height: 100%;
+                margin-bottom: 0; // Entfernt den unteren Abstand in der mobilen Ansicht
             }
 
             &:hover {
                 background: rgba(255, 255, 255, 0.25);
+                color: #fff700;
             }
         }
 
-        .btn-on {
-            background-color: #fff700;
+        > button:nth-child(1) {
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+            @media (max-width: 1000px) {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
         }
 
-        .menu {
+        .month-btn {
+            @media (max-width: 1000px) {
+                display: none;
+            }
+        }
+
+        > button:last-child {
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+            @media (max-width: 1000px) {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        .month-menu {
             display: flex;
             justify-content: space-around;
             align-items: center;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
+            background-color: #fff700;
+            &:hover {
+                background-color: #fff700;
+            }
+
+            @media (max-width: 1000px) {
+                position: relative;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+                width: 100%; // Stellt sicher, dass das Menü die gesamte Breite abdeckt
+                display: none;
+            }
         }
 
-        #yearSelect {
-            width: auto;
+        option {
+            background-color: #0cadf8;
+            color: rgb(255, 255, 255);
+            text-align: center;
         }
 
-        #monthSelect {
-            width: auto;
+        .btn-on {
+            color: rgba(10, 10, 55, 0.95) !important;
+            background-color: #fff700 !important;
+        }
+    }
+
+    .mobile-overlay {
+        display: none;
+
+        @media (max-width: 1000px) {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            height: 45px;
+            background-color: #00293df2;
+            background-color: #fff700;
+            //border-top: 1px solid #00293df2;
+            box-shadow: -1px -2px 5px 0px rgba(0, 0, 0, 0.41);
+            -webkit-box-shadow: -1px -2px 5px 0px rgba(0, 0, 0, 0.41);
+            -moz-box-shadow: -1px -2px 5px 0px rgba(0, 0, 0, 0.41);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            transition: height 0.3s ease; // Übergangsanimation für eine sanfte Höhenanpassung
+            color: pink;
+        }
+    }
+
+    // Definiere `.mobile-overlay-large` separat
+    .mobile-overlay-large {
+        @media (max-width: 1000px) {
+            height: 400px; // Setze die größere Höhe
+        }
+    }
+
+    .mobile-overlay-off {
+        display: none;
+    }
+
+    /* Grundlegendes Styling für das select-Element */
+    .custom-select {
+        appearance: none; /* Entfernt das native Styling */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: none;
+        border: none;
+        padding: 2px 20px 2px 0; /* Abstand für den Pfeil rechts */
+        font-size: clamp(12px, 0.8vw, 18px);
+        outline: none; /* Entfernt den Rahmen bei Fokus */
+        width: 30%;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='pink'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+        background-position: right center; /* Positioniert den Pfeil rechts */
+        background-repeat: no-repeat;
+        background-color: transparent;
+
+        @media (max-width: 1000px) {
+            margin-top: 14px;
         }
     }
 }

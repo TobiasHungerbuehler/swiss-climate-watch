@@ -1,20 +1,15 @@
 section {
-    //position: relative;
     margin-top: 70px;
     width: 100%;
-    //padding-right: 65px;
     height: 92vh;
-    // border: 1px solid brown;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 
     @media (max-width: 1000px) {
-        //flex-direction: column;
         height: auto;
         padding-right: 0;
-
         margin-bottom: 10%;
     }
 
@@ -41,7 +36,7 @@ section {
     > .stage {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         height: 100%;
         margin-top: 4%;
         // border: 1px solid rgb(242, 255, 2);
@@ -54,6 +49,7 @@ section {
             position: relative;
             height: 100%;
             width: 55%;
+            max-width: 110vh;
             display: flex;
             justify-content: flex-start;
             align-items: center;
