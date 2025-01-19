@@ -1,33 +1,37 @@
 <section>
-  <div>
-    <button [ngClass]="{'btn-on': displayMode === 'current'}" (click)="setMode('current')">Aktuelle Temperaturen</button>
-    <button [ngClass]="{'btn-on': displayMode === 'dayAverage'}" (click)="setMode('dayAverage')">Anomalie 24h</button>
-    <button [ngClass]="{'btn-on': displayMode === 'monthAverage'}" (click)="setInitMonthData()">Anomalie Monat</button>
+    <div>
+        <!-- Buttons für den Wechsel des Anzeigemodus -->
+        <button [ngClass]="{ 'btn-on': displayMode === 'current' }" (click)="setMode('current')">Aktuelle Temperaturen</button>
+        <button [ngClass]="{ 'btn-on': displayMode === 'dayAverage' }" (click)="setMode('dayAverage')">Anomalie 24h</button>
+        <button (click)="setInitMonthData()" [ngClass]="{ 'btn-on': displayMode === 'monthAverage' }">Anomalie Monat</button>
 
-    @if(displayMode === 'monthAverage'){
-      <div [ngClass]="{'btn-on': displayMode === 'monthAverage'}" class="menu">
-        <div>
-  
-          <select id="yearSelect" (change)="onYearChange($event)" [value]="selectedYear">
-            <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
-          </select>
+        <!-- Gemeinsames Dropdown-Menü -->
+        <div *ngIf="displayMode === 'monthAverage'" [ngClass]="{ 'month-select-container': true, 'mobile-overlay-large': overlayLarge === true }">
+            <select
+                id="yearSelect"
+                (focus)="largeOverlay(true)"
+                (blur)="largeOverlay(false)"
+                (change)="onYearChange($event)"
+                [value]="selectedYear"
+                class="custom-select"
+            >
+                <option value="">Jahr</option>
+                <option *ngFor="let year of availableYears" [value]="year">{{ year }}</option>
+            </select>
+
+            <select
+                id="monthSelect"
+                (focus)="largeOverlay(true)"
+                (blur)="largeOverlay(false)"
+                (change)="onMonthChange($event)"
+                [disabled]="!selectedYear"
+                [value]="selectedMonth"
+                class="custom-select"
+            >
+                <img src="assets/img/arrow-down.png" alt="" />
+                <option value="">Monat</option>
+                <option *ngFor="let month of availableMonths" [value]="month">{{ getMonthName(month) }}</option>
+            </select>
         </div>
-      
-        <div>
-  
-          <select id="monthSelect" (change)="onMonthChange($event)" [disabled]="!selectedYear" [value]="selectedMonth">
-            <option *ngFor="let month of availableMonths" [value]="month">{{ getMonthName(month) }}</option>
-          </select>
-        </div>
-  
-  
-      </div>
-    }
-
-  </div>  
-
-
+    </div>
 </section>
-
-
-
