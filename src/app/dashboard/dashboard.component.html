@@ -9,7 +9,7 @@
                 <p>Letzte 24h Ø im Vergleich zu {{ getMonthName(getMonth()) }} 1940 - 1970</p></span
             >
             <span *ngSwitchCase="'monthAverage'">
-                Regionale Anomalien im Monat {{ getMonthName(selectedMonth?.month) }} <br />
+                Regionale Anomalien im {{ getMonthName(selectedMonth?.month) }} {{ selectedMonth?.year }} <br />
                 <p>Vergleich zu {{ getMonthName(selectedMonth?.month) }} 1940 - 1970</p>
             </span>
         </p>
