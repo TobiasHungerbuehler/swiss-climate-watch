@@ -1,4 +1,4 @@
-section{
+section {
     position: absolute;
     z-index: 10;
     top: 0;
@@ -12,19 +12,18 @@ section{
         height: 50px;
     }
 
-    img{
+    img {
         margin-left: 3%;
         margin-top: 10px;
-        height: 70px;
+        height: 50px;
         width: auto;
-    };
+    }
 
-
-    >p{
+    > p {
         margin: 12px;
         margin-left: 10px;
         color: white;
-        font-size: clamp(16px, 2vw, 32px);
+        font-size: clamp(16px, 2vw, 24px);
         font-weight: 400;
     }
 }

@@ -1,6 +1,6 @@
 <section>
     <div class="dashboard-header">
-        <app-data-toggle></app-data-toggle>
+        <app-data-toggle #dataToggle></app-data-toggle>
 
         <p class="title" [ngSwitch]="displayMode">
             <span *ngSwitchCase="'current'">Messstationen mit den Temperaturen von jetzt</span>
@@ -41,7 +41,8 @@
         </div>
 
         <div class="side">
-            <app-onboarding [displayMode]="displayMode"></app-onboarding>
+            <app-onboarding [displayMode]="displayMode" (modeChange)="dataToggle.setMode($event)" (initMonth)="dataToggle.setInitMonthData()"></app-onboarding>
+
             <!-- <app-year-temp-chart></app-year-temp-chart> -->
         </div>
     </div>
