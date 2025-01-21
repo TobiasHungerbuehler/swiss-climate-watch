@@ -1,38 +1,24 @@
 <div #mapContainer class="map-container">
-  
-  @for (marker of mapDisplayData; track $index) {
-    <div      
-        class="city-marker" 
-        [style.top]="marker.top" 
-        [style.left]="marker.left" 
-        [attr.data]="marker.city" 
-        (mouseenter)="onMarkerMouseEnter($event, marker.city)"
-        (mouseleave)="onMarkerMouseLeave()"
-        (mousemove)="onMarkerMouseMove($event)">
-
-        
+    @for (marker of mapDisplayData; track $index) {
+    <div class="city-marker" [style.top]="marker.top" [style.left]="marker.left" [attr.data]="marker.city" (mouseenter)="onMarkerMouseEnter($event, marker.city)" (mouseleave)="onMarkerMouseLeave()" (mousemove)="onMarkerMouseMove($event)">
         <div class="label">
-          <div class="dot"></div>
-          <p>{{ marker.cityName }}  </p>
-          <p>{{marker.currentTemp | number: '1.1-1' }}°</p>
+            <div class="dot"></div>
+            <p>{{ marker.cityName }}</p>
+            <p>{{ marker.currentTemp | number : "1.1-1" }}°</p>
         </div>
 
         @if (showAnomalie === true) {
-          <div class="marker-img-box">
+        <div class="marker-img-box">
             <div class="layer">
-              <img class="marker-img" src="./assets/img/map-marker10.png" alt="">
-              <div class="txt-box">
-                <P class="temp"><span>+</span>{{ marker.currentTemp- marker.refTemp | number: '1.1-1' }}°</P>
-              </div>
-            </div>       
-          </div>
+                <img class="marker-img" src="./assets/img/map-marker10.png" alt="" />
+                <div class="txt-box">
+                    <P class="temp"><span>+</span>{{ marker.currentTemp - marker.refTemp | number : "1.1-1" }}°</P>
+                </div>
+            </div>
+        </div>
         }
     </div>
-  }
+    }
 
-
-
-
-  <div id="tooltip" class="tooltip" #tooltip>{{ tooltipContent }}</div>
+    <div id="tooltip" class="tooltip" #tooltip>{{ tooltipContent }}</div>
 </div>
-

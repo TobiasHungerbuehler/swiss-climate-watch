@@ -13,11 +13,18 @@ div:nth-child(1) {
         letter-spacing: 0.1rem;
         padding: 10px 14px;
         color: rgb(10, 10, 55, 0.95);
-        font-size: 11px;
+        color: rgba(10, 10, 163, 0.95);
+        font-size: 12px;
         text-align: center;
+
+        &:nth-child(2) {
+            font-size: 10px;
+            text-align: left;
+            font-weight: 400;
+        }
     }
 
-    > div:nth-child(2) {
+    > div:nth-child(3) {
         width: 100%;
         height: auto;
         display: flex;
