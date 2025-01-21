@@ -28,6 +28,7 @@ section {
             color: white;
             font-size: clamp(12px, 0.8vw, 18px);
             margin-bottom: 32px;
+            cursor: pointer;
 
             @media (max-width: 1000px) {
                 width: 100%;
