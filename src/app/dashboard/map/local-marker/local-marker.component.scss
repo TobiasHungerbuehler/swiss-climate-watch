@@ -56,17 +56,14 @@
     .label {
         position: absolute;
         z-index: 7;
-        height: 18px;
+        height: 20px;
         min-width: 50px;
         white-space: nowrap;
         display: flex;
         align-items: center;
         transform: translate(-2%, -40%);
         background-color: #302cfcc1;
-
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        // backdrop-filter: blur(1px);
-        // -webkit-backdrop-filter: blur(1px);
         border: 1px solid rgba(248, 248, 248, 0.549);
         border-radius: 25px;
 
@@ -99,12 +96,13 @@
             padding-right: 10px;
             color: rgb(231, 228, 231);
 
-            font-size: clamp(8px, 1vw, 12px);
+            font-size: clamp(11px, 1vw, 13px);
             font-weight: 500;
             margin: 0;
 
             @media (max-width: 600px) {
                 padding-right: 4px;
+                font-size: 10px;
             }
         }
     }
