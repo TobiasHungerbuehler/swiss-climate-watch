@@ -8,7 +8,6 @@ import { DataDisplayService } from "../services/data-display.service";
 import { Observable, Subscription, of } from "rxjs";
 import { MonthAverageService } from "../services/month-average.service";
 import { TableComponent } from "./table/table.component";
-import { catchError, tap } from "rxjs/operators";
 import { DateNameService } from "../services/date-name.service";
 import { DateTimeService } from "../services/date-time.service";
 import { HighestRefListComponent } from "../shared/highest-ref-list/highest-ref-list.component";
@@ -19,11 +18,12 @@ import { DashboardToggleComponent } from "./dashboard-toggle/dashboard-toggle.co
 import { DataToggleComponent } from "./data-toggle/data-toggle.component";
 import { YearTempChartComponent } from "../shared/year-temp-chart/year-temp-chart.component";
 import { MapTempScaleComponent } from "./map-temp-scale/map-temp-scale.component";
+import { TitelsComponent } from "./titels/titels.component";
 
 @Component({
     selector: "app-dashboard",
     standalone: true,
-    imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent, YearTempChartComponent, MapTempScaleComponent],
+    imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent, YearTempChartComponent, MapTempScaleComponent, TitelsComponent],
     templateUrl: "./dashboard.component.html",
     styleUrls: ["./dashboard.component.scss"],
 })

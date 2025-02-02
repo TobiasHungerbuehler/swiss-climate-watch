@@ -17,21 +17,21 @@ section {
         width: 100%;
         margin-top: 2%;
 
-        .title {
-            font-size: clamp(20px, 4.2vw, 46px);
-            font-weight: 250;
-            margin: 0;
-            text-align: center;
-            color: white;
+        // .title {
+        //     font-size: clamp(20px, 4.2vw, 46px);
+        //     font-weight: 250;
+        //     margin: 0;
+        //     text-align: center;
+        //     color: white;
 
-            > span {
-                > p {
-                    margin: 0;
-                    font-size: 18px;
-                    font-size: clamp(14px, 2vw, 18px);
-                }
-            }
-        }
+        //     > span {
+        //         > p {
+        //             margin: 0;
+        //             font-size: 18px;
+        //             font-size: clamp(14px, 2vw, 18px);
+        //         }
+        //     }
+        //}
     }
 
     > .stage {
