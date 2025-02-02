@@ -20,24 +20,31 @@
     <div class="stage">
         <div class="side">
             <app-datebox class="datebox-in-side"></app-datebox>
-            <!-- <app-barchart></app-barchart>           -->
             @if (displayMode === 'dayAverage' || displayMode === 'monthAverage') {
             <app-highest-ref-list style="width: 100%"></app-highest-ref-list>
             }
         </div>
 
         <div class="mid">
-            @if (dashboardMode === 'map') { @if (displayMode === 'current') {
+            @if (dashboardMode === 'map') {
+            <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
+            @if (displayMode === 'current') {
             <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
             } @if (displayMode === 'dayAverage') {
             <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
             } @if (displayMode === 'monthAverage') {
             <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
-            } } @else if (dashboardMode === 'table') {
+            } } @else if (dashboardMode === 'table') { @if (displayMode === 'current') {
+
             <app-table [mapDisplayData]="currentDisplayData"></app-table>
-            }
+            } @if (displayMode === 'dayAverage') {
+
+            <app-table [mapDisplayData]="dayAverageDisplayData"></app-table>
+            } @if (displayMode === 'monthAverage') {
+
+            <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
+            }}
             <app-dashboard-toggle></app-dashboard-toggle>
-            <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
         </div>
 
         <div class="side">

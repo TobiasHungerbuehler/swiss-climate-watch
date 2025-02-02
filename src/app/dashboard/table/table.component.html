@@ -1,31 +1,23 @@
 <section id="table">
-    
-    <div class="table-header" >
-        <p>{{'Station'}}</p>
-        <p>{{'Temperatur'}}</p>
-        <p>{{'Anomalie'}}</p>
-        <p>{{'Höhe'}}</p>
+    <div class="table-header">
+        <p>{{ "Station" }}</p>
+        <p>{{ "Temperatur" }}</p>
+        <p>{{ "Anomalie" }}</p>
+        <p>{{ "Höhe" }}</p>
     </div>
 
     <div class="table">
-        @for (city of citys; track $index) {
+        @for (city of citys; track $index) { @if ($index < 21 ) {
 
-
-            @if ($index < 21 ) {
-    
-                <div id="single-city-element">
-                    <p>{{ city.cityName }}</p>
-                    <p>{{ city.refTemp | number: '1.1-1' }}°</p>
-                    <p>
-                        <span *ngIf="city.currentTemp - city.refTemp > 0">+</span>
-                        {{ city.currentTemp - city.refTemp | number: '1.1-1' }}°
-                    </p>
-                    <p>{{ city.als }} m.ü.M. </p>
-                      
-                </div>
-            }
-    
-        }
+        <div id="single-city-element">
+            <p>{{ city.cityName }}</p>
+            <p>{{ city.refTemp | number : "1.1-1" }}°</p>
+            <p>
+                <span *ngIf="city.currentTemp - city.refTemp > 0">+</span>
+                {{ city.currentTemp - city.refTemp | number : "1.1-1" }}°
+            </p>
+            <p>{{ city.als }} m.ü.M.</p>
+        </div>
+        } }
     </div>
-
 </section>
