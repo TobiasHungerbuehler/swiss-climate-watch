@@ -36,9 +36,16 @@ export class DayAverageTemperatureService {
         timer(0, 600000) // Start immediately, then every 10 minutes (600000ms)
             .pipe(
                 switchMap(() => this.fetchAndStoreDayAverageTemperatureData()),
-                catchError((error) => {
+                catchError((error: any) => {
                     console.error("Error fetching day average temperature data", error);
-                    // Return an observable that emits void, so the timer stream continues
+                    // Log additional error details
+                    if (error.status !== undefined) {
+                        console.error("-----------Status:", error.status);
+                        console.error("-----------Status text:", error.statusText);
+                        console.error("-----------URL:", error.url);
+                    }
+
+                    // Return an observable that emits void so the timer stream continues
                     return of(void 0);
                 })
             )
