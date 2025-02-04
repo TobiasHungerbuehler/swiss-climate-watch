@@ -17,6 +17,7 @@
         height: 100%;
         object-fit: cover;
         z-index: 1;
+        //opacity: 0.2;
 
         @media (max-width: 1000px) {
             height: 50%;
@@ -25,25 +26,17 @@
     }
 
     .inner-content {
-        //position: relative;
         width: 94vw;
         z-index: 2;
     }
-
-
-
-
 }
 
-.bg-blue{
+.bg-blue {
     background: #84d6e3;
-    background: linear-gradient(165deg, #84d6e3 0%, rgba(61,120,137,1) 24%, rgba(45,100,118,1) 34%, #00283d 67%);
+    background: linear-gradient(165deg, #84d6e3 0%, rgba(61, 120, 137, 1) 24%, rgba(45, 100, 118, 1) 34%, #00283d 67%);
 }
 
-.bg-purple{
-    background: rgb(77,117,165);
+.bg-purple {
+    background: rgb(77, 117, 165);
     background: linear-gradient(90deg, #4d75a5 0%, #5f4183 88%);
-
 }
-
-

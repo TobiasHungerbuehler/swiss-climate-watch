@@ -1,48 +1,46 @@
 <section>
     <div class="dashboard-header">
-        <app-data-toggle></app-data-toggle>
-
-        <p class="title" [ngSwitch]="displayMode">
-            <span *ngSwitchCase="'current'">Messstationen mit den Temperaturen von jetzt</span>
-            <span *ngSwitchCase="'dayAverage'"
-                >Regionale Anomalien von jetzt <br />
-                <p>Letzte 24h Ø im Vergleich zu {{ getMonthName(getMonth()) }} 1940 - 1970</p></span
-            >
-            <span *ngSwitchCase="'monthAverage'">
-                Regionale Anomalien im {{ getMonthName(selectedMonth?.month) }} {{ selectedMonth?.year }} <br />
-                <p>Vergleich zu {{ getMonthName(selectedMonth?.month) }} 1940 - 1970</p>
-            </span>
-        </p>
-
+        <app-data-toggle #dataToggle></app-data-toggle>
+        <app-titels></app-titels>
         <app-datebox class="datebox-in-header"></app-datebox>
     </div>
 
     <div class="stage">
         <div class="side">
             <app-datebox class="datebox-in-side"></app-datebox>
-            <!-- <app-barchart></app-barchart>           -->
             @if (displayMode === 'dayAverage' || displayMode === 'monthAverage') {
             <app-highest-ref-list style="width: 100%"></app-highest-ref-list>
             }
         </div>
 
         <div class="mid">
-            @if (dashboardMode === 'map') { @if (displayMode === 'current') {
-            <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
-            } @if (displayMode === 'dayAverage') {
-            <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
-            } @if (displayMode === 'monthAverage') {
-            <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
-            } } @else if (dashboardMode === 'table') {
-            <app-table [mapDisplayData]="currentDisplayData"></app-table>
-            }
+            <ng-container [ngSwitch]="dashboardMode">
+                <!-- Map Mode -->
+                <ng-container *ngSwitchCase="'map'">
+                    <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
+                    <ng-container [ngSwitch]="displayMode">
+                        <app-map *ngSwitchCase="'current'" [mapDisplayData]="currentDisplayData" [showAnomalie]="false"> </app-map>
+                        <app-map *ngSwitchCase="'dayAverage'" [mapDisplayData]="dayAverageDisplayData"> </app-map>
+                        <app-map *ngSwitchCase="'monthAverage'" [mapDisplayData]="monthAverageTemperatureData"> </app-map>
+                    </ng-container>
+                </ng-container>
+
+                <!-- Table Mode -->
+                <ng-container *ngSwitchCase="'table'">
+                    <ng-container [ngSwitch]="displayMode">
+                        <app-table *ngSwitchCase="'current'" [mapDisplayData]="currentDisplayData"> </app-table>
+                        <app-table *ngSwitchCase="'dayAverage'" [mapDisplayData]="dayAverageDisplayData"> </app-table>
+                        <app-table *ngSwitchCase="'monthAverage'" [mapDisplayData]="monthAverageTemperatureData"> </app-table>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+
+            <!-- Dashboard Toggle is always displayed -->
             <app-dashboard-toggle></app-dashboard-toggle>
-            <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
         </div>
 
         <div class="side">
-            <app-onboarding [displayMode]="displayMode"></app-onboarding>
-            <!-- <app-year-temp-chart></app-year-temp-chart> -->
+            <app-onboarding [displayMode]="displayMode" (modeChange)="dataToggle.setMode($event)" (initMonth)="dataToggle.setInitMonthData()"></app-onboarding>
         </div>
     </div>
 </section>

@@ -1,6 +1,20 @@
 <div>
-    <p>{{ onboardingText[displayMode]["text"] }}</p>
+    <p>{{ onboardingText[displayMode].text }}</p>
+    <p>{{ onboardingText[displayMode].textB }}</p>
     <div>
-        <button>{{ onboardingText[displayMode]["buttontext"] }}</button>
+        @if (displayMode === 'current') {
+        <button (click)="onButtonClick('dayAverage')">
+            {{ onboardingText[displayMode].buttontext }}
+        </button>
+
+        } @if (displayMode === 'dayAverage') {
+        <button (click)="onInitMonthClick()">
+            {{ onboardingText[displayMode].buttontext }}
+        </button>
+        } @if (displayMode === 'monthAverage') {
+        <button (click)="onButtonClick('current')">
+            {{ onboardingText[displayMode].buttontext }}
+        </button>
+        }
     </div>
 </div>

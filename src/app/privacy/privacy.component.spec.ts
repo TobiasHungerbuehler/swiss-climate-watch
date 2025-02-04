@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YearTempChartComponent } from './year-temp-chart.component';
+import { PrivacyComponent } from './privacy.component';
 
-describe('YearTempChartComponent', () => {
-  let component: YearTempChartComponent;
-  let fixture: ComponentFixture<YearTempChartComponent>;
+describe('PrivacyComponent', () => {
+  let component: PrivacyComponent;
+  let fixture: ComponentFixture<PrivacyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [YearTempChartComponent]
+      imports: [PrivacyComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(YearTempChartComponent);
+    fixture = TestBed.createComponent(PrivacyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

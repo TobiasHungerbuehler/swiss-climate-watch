@@ -1,9 +1,7 @@
 div {
     width: 100%;
-
-    @media (max-width: 1000px) {
-        margin-bottom: 32px;
-    }
+    margin-top: 22px;
+    margin-bottom: 22px;
 
     > button {
         background-color: transparent;

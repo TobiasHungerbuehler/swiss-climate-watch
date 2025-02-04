@@ -1,13 +1,8 @@
-<section [ngClass]="{'bg-blue': displayMode === 'current' || 'dayAverage', 'bg-purple': displayMode === 'monthAverage'}"  class="main-content">
-
-    <img  class="retro-bg" src="./assets/img/retro2.png" alt="">
-    
+<section [ngClass]="{ 'bg-blue': displayMode === 'current' || 'dayAverage', 'bg-purple': displayMode === 'monthAverage' }" class="main-content">
+    <!-- App Background   -->
+    <img class="retro-bg" src="./assets/img/retro3.png" alt="" />
+    <!-- App Content -->
     <div class="inner-content">
-        
         <app-dashboard></app-dashboard>
-
     </div>
-    
-
 </section>
-

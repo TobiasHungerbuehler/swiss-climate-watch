@@ -1,43 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  //font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: #02465F;
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  width: 100vw;
-  max-width: 100%;
-  min-height: 100vh; // Ensures the background covers the entire viewport height
-  overflow-x: hidden; // Prevent horizontal scrollbars
+    background-color: #02465f;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    width: 100vw;
+    max-width: 100%;
+    min-height: 100vh; // Ensures the background covers the entire viewport height
+    overflow-x: hidden; // Prevent horizontal scrollbars
 
-  font-family: "Inter Tight", sans-serif;
-
+    font-family: "Inter Tight", sans-serif;
 }
 
 /* Hide scrollbars in WebKit browsers (Safari, Chrome) */
 *::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 /* Hide scrollbars in Firefox */
 * {
-  scrollbar-width: none; /* Firefox */
+    scrollbar-width: none; /* Firefox */
 }
 
 /* Optionally hide scrollbars in Edge, IE */
 * {
-  -ms-overflow-style: none; /* IE and Edge */
+    -ms-overflow-style: none; /* IE and Edge */
 }
 
-
-.inter-tight{
-  font-family: "Inter Tight", sans-serif;
-  font-optical-sizing: auto;
-  // font-weight: <weight>;
-  // font-style: normal;
+.inter-tight {
+    font-family: "Inter Tight", sans-serif;
+    font-optical-sizing: auto;
 }

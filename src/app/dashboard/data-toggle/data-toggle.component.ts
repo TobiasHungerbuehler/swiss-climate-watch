@@ -23,12 +23,7 @@ export class DataToggleComponent implements OnInit, OnDestroy {
     public displayMode: "current" | "dayAverage" | "monthAverage" = "current";
     overlayLarge: boolean = false;
 
-    constructor(
-        private dataDisplayService: DataDisplayService,
-        private monthAverageService: MonthAverageService,
-        private dateTimeService: DateTimeService,
-        private dateNameService: DateNameService
-    ) {}
+    constructor(private dataDisplayService: DataDisplayService, private monthAverageService: MonthAverageService, private dateTimeService: DateTimeService, private dateNameService: DateNameService) {}
 
     ngOnInit(): void {
         // Abonniere die verfügbaren Daten aus dem MonthAverageService
@@ -89,7 +84,7 @@ export class DataToggleComponent implements OnInit, OnDestroy {
             const { year, month } = this.availableDateList[0];
             this.dataDisplayService.setDisplayMode("monthAverage"); // Setzt den Modus auf 'monthAverage'
             this.dataDisplayService.selectMonthData(year, month);
-            console.log(`Emitted month data: ${year}-${month}`);
+            //console.log(`Emitted month data: ${year}-${month}`);
         } else {
             console.warn("No available dates to set");
         }

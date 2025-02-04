@@ -3,7 +3,6 @@
     top: 0px;
     left: 0;
     width: 100%;
-    //background-color: red;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -27,10 +26,18 @@
             }
 
             > .single-map {
-                position: relative; /* Dies stellt sicher, dass das top-layer-Bild korrekt über dem color-map-Bild positioniert wird */
+                position: relative;
                 width: auto;
-                height: 20px;
+                height: 28px;
                 margin: 3%;
+
+                @media (max-width: 800px) {
+                    height: 22px;
+                }
+
+                @media (max-width: 500px) {
+                    height: 18px;
+                }
 
                 .color-map {
                     height: 100%;

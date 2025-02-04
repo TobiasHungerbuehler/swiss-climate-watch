@@ -1,64 +1,58 @@
-section{
-    width: 100%;
-
+section {
+    width: 50vw;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     flex-direction: column;
 
     @media (max-width: 1000px) {
-        margin-top: 60px;
-        margin-bottom: 150px;
+        margin-bottom: 20px;
+        width: 90vw;
     }
 
-
-    >.table-header {
+    > .table-header {
         display: flex;
         width: 100%;
 
-        >p{
+        > p {
+            margin-top: 0;
             color: yellow;
             font-size: clamp(10px, 1vw, 25px);
         }
 
-        >p:nth-child(1){
+        > p:nth-child(1) {
             margin-left: 2%;
             width: 40%;
-
         }
 
-        >p:nth-child(2){
+        > p:nth-child(2) {
             width: 25%;
         }
 
-        >p:nth-child(3){
+        > p:nth-child(3) {
             width: 25%;
         }
 
-        >p:nth-child(4){
+        > p:nth-child(4) {
             margin-right: 2%;
             width: 14%;
             text-align: right;
         }
-
-
-
     }
 
-    >.table{
+    > .table {
         width: 100%;
-        height: 30vw;
-        max-height: 60vh;
+        height: auto;
+        max-height: 55vh;
         overflow: scroll;
 
-        @media (max-width: 1000px){
+        @media (max-width: 1000px) {
             height: 50vh;
         }
 
-        >#single-city-element{
+        > #single-city-element {
             display: flex;
             align-items: center;
-    
             width: 100%;
             background: rgba(255, 255, 255, 0.32);
             border-radius: 8px;
@@ -67,36 +61,31 @@ section{
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.28);
             margin-bottom: 8px;
-            >p{
-                margin: 8px 0 8px ;
+            > p {
+                margin: 8px 0 8px;
                 color: white;
-                font-size: clamp(14px, 1.4vw, 15px);
+                font-size: clamp(12px, 1.4vw, 15px);
             }
-    
-            >p:nth-child(1){
+
+            > p:nth-child(1) {
                 margin-left: 2%;
                 width: 40%;
-    
             }
-    
-            >p:nth-child(2){
+
+            > p:nth-child(2) {
                 width: 25%;
             }
-    
-            >p:nth-child(3){
+
+            > p:nth-child(3) {
                 width: 25%;
             }
-            >p:nth-child(4){
+            > p:nth-child(4) {
                 margin-right: 2%;
                 width: 14%;
                 text-align: right;
                 font-size: clamp(8px, 0.8vw, 14px);
                 color: rgb(75, 13, 247, 0.5);
-    
             }
         }
-    
     }
-
-    
 }
