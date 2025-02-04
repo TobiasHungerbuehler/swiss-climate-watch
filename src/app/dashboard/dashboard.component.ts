@@ -16,20 +16,17 @@ import { OnboardingComponent } from "./onboarding/onboarding.component";
 import { DateboxComponent } from "./datebox/datebox.component";
 import { DashboardToggleComponent } from "./dashboard-toggle/dashboard-toggle.component";
 import { DataToggleComponent } from "./data-toggle/data-toggle.component";
-import { YearTempChartComponent } from "../shared/year-temp-chart/year-temp-chart.component";
 import { MapTempScaleComponent } from "./map-temp-scale/map-temp-scale.component";
 import { TitelsComponent } from "./titels/titels.component";
 
 @Component({
     selector: "app-dashboard",
     standalone: true,
-    imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent, YearTempChartComponent, MapTempScaleComponent, TitelsComponent],
+    imports: [CommonModule, MapComponent, TableComponent, HighestRefListComponent, OnboardingComponent, DateboxComponent, DashboardToggleComponent, DataToggleComponent, MapTempScaleComponent, TitelsComponent],
     templateUrl: "./dashboard.component.html",
     styleUrls: ["./dashboard.component.scss"],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-    //currentTemperature$: Observable<StandardStationData[]>;
-    //dayAverageTemperatureData$: Observable<StandardStationData[]>;
     monthAverageTemperatureData: StandardStationData[] = [];
     public displayMode: "current" | "dayAverage" | "monthAverage" = "current";
     public dashboardMode: "map" | "table" = "map";
@@ -42,8 +39,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     currentDisplayData: StandardStationData[] = [];
     dayAverageDisplayData: StandardStationData[] = [];
-
-    //showAnomalie = false;
 
     constructor(private currentTemperatureService: CurrentTemperatureService, private dayAverageTemperatureService: DayAverageTemperatureService, private monthAverageService: MonthAverageService, private dataDisplayService: DataDisplayService, private dateNameService: DateNameService, private dateTimeService: DateTimeService, private dashboardToggleService: DashboardToggleServiceService) {}
 

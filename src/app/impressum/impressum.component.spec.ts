@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { YearTempChartComponent } from './year-temp-chart.component';
+import { ImpressumComponent } from './impressum.component';
 
-describe('YearTempChartComponent', () => {
-  let component: YearTempChartComponent;
-  let fixture: ComponentFixture<YearTempChartComponent>;
+describe('ImpressumComponent', () => {
+  let component: ImpressumComponent;
+  let fixture: ComponentFixture<ImpressumComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [YearTempChartComponent]
+      imports: [ImpressumComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(YearTempChartComponent);
+    fixture = TestBed.createComponent(ImpressumComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

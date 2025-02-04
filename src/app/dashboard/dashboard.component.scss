@@ -1,7 +1,6 @@
 section {
     margin-top: 70px;
     width: 100%;
-    height: 92vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,28 +9,12 @@ section {
     @media (max-width: 1000px) {
         height: auto;
         padding-right: 0;
-        margin-bottom: 80px;
+        margin-bottom: 150px;
     }
 
     > .dashboard-header {
         width: 100%;
         margin-top: 2%;
-
-        // .title {
-        //     font-size: clamp(20px, 4.2vw, 46px);
-        //     font-weight: 250;
-        //     margin: 0;
-        //     text-align: center;
-        //     color: white;
-
-        //     > span {
-        //         > p {
-        //             margin: 0;
-        //             font-size: 18px;
-        //             font-size: clamp(14px, 2vw, 18px);
-        //         }
-        //     }
-        //}
     }
 
     > .stage {
@@ -56,7 +39,7 @@ section {
             align-items: center;
             flex-direction: column;
 
-            border: 1px solid rgba(165, 42, 42, 0.36);
+            //border: 1px solid rgba(165, 42, 42, 0.36);
 
             @media (max-width: 1000px) {
                 width: 100%;
@@ -67,7 +50,7 @@ section {
             //margin-top: 20%;
             width: 20%;
             height: 100%;
-            border: 1px solid rgb(109, 216, 42, 0.1);
+            //border: 1px solid rgb(109, 216, 42, 0.1);
 
             display: flex;
             justify-content: flex-start;

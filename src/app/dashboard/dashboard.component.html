@@ -14,24 +14,28 @@
         </div>
 
         <div class="mid">
-            @if (dashboardMode === 'map') {
-            <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
-            @if (displayMode === 'current') {
-            <app-map [mapDisplayData]="currentDisplayData" [showAnomalie]="false"></app-map>
-            } @if (displayMode === 'dayAverage') {
-            <app-map [mapDisplayData]="dayAverageDisplayData"></app-map>
-            } @if (displayMode === 'monthAverage') {
-            <app-map [mapDisplayData]="monthAverageTemperatureData"></app-map>
-            } } @else if (dashboardMode === 'table') { @if (displayMode === 'current') {
+            <ng-container [ngSwitch]="dashboardMode">
+                <!-- Map Mode -->
+                <ng-container *ngSwitchCase="'map'">
+                    <app-map-temp-scale [displayMode]="displayMode" [dashboardMode]="dashboardMode"></app-map-temp-scale>
+                    <ng-container [ngSwitch]="displayMode">
+                        <app-map *ngSwitchCase="'current'" [mapDisplayData]="currentDisplayData" [showAnomalie]="false"> </app-map>
+                        <app-map *ngSwitchCase="'dayAverage'" [mapDisplayData]="dayAverageDisplayData"> </app-map>
+                        <app-map *ngSwitchCase="'monthAverage'" [mapDisplayData]="monthAverageTemperatureData"> </app-map>
+                    </ng-container>
+                </ng-container>
 
-            <app-table [mapDisplayData]="currentDisplayData"></app-table>
-            } @if (displayMode === 'dayAverage') {
+                <!-- Table Mode -->
+                <ng-container *ngSwitchCase="'table'">
+                    <ng-container [ngSwitch]="displayMode">
+                        <app-table *ngSwitchCase="'current'" [mapDisplayData]="currentDisplayData"> </app-table>
+                        <app-table *ngSwitchCase="'dayAverage'" [mapDisplayData]="dayAverageDisplayData"> </app-table>
+                        <app-table *ngSwitchCase="'monthAverage'" [mapDisplayData]="monthAverageTemperatureData"> </app-table>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
 
-            <app-table [mapDisplayData]="dayAverageDisplayData"></app-table>
-            } @if (displayMode === 'monthAverage') {
-
-            <app-table [mapDisplayData]="monthAverageTemperatureData"></app-table>
-            }}
+            <!-- Dashboard Toggle is always displayed -->
             <app-dashboard-toggle></app-dashboard-toggle>
         </div>
 

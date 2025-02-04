@@ -5,25 +5,56 @@ section {
     left: 0;
     right: 0;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    //background-color: #03E7FE;
 
     @media (max-width: 1200px) {
         height: 50px;
     }
 
-    img {
-        margin-left: 3%;
-        margin-top: 10px;
-        height: 50px;
-        width: auto;
+    > a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        cursor: pointer;
+
+        > .logo {
+            display: flex;
+            align-items: center;
+            width: auto;
+
+            img {
+                margin-left: 3vw;
+                margin-top: 10px;
+                height: 50px;
+                width: auto;
+            }
+
+            p {
+                margin: 12px;
+                margin-left: 5px;
+                color: white;
+                font-size: clamp(16px, 2vw, 24px);
+                font-weight: 400;
+            }
+        }
     }
 
-    > p {
-        margin: 12px;
-        margin-left: 10px;
-        color: white;
-        font-size: clamp(16px, 2vw, 24px);
-        font-weight: 400;
+    > .link-box {
+        margin-right: 3vw;
+        display: flex;
+        justify-content: space-between;
+
+        > a {
+            text-decoration: none;
+            color: white;
+            font-size: 11px;
+            font-weight: 200;
+            cursor: pointer;
+
+            &:first-child {
+                margin-right: 5px;
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ import { Component, Input, EventEmitter, Output } from "@angular/core";
 })
 export class OnboardingComponent {
     @Input() displayMode: "current" | "dayAverage" | "monthAverage" = "current";
+    @Input() overlayLarge: boolean = false;
     @Output() modeChange = new EventEmitter<"current" | "dayAverage">();
     @Output() initMonth = new EventEmitter<void>();
 
